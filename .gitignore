@@ -1,0 +1,12 @@
+# Build
+node_modules
+.npm
+
+# local config
+.env
+
+# IDE
+.idea
+
+# Static pages
+dist
