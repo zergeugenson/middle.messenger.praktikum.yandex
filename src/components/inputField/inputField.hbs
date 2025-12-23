@@ -2,9 +2,9 @@
 	<label class="input-field__body">
 		<input id="{{id}}" type="{{type}}" placeholder="{{placeholder}}" value="{{value}}" class="input-element" autocomplete="off">
 	</label>
-	<div class="input-field__error">
-		<div class="error-message {{error}}">
-			Ошибка
+	<div class="input-field__error{{#if error}} error{{/if}}">
+		<div class="error-message">
+			{{#if error}}{{error}}{{/if}} &nbsp;
 		</div>
 	</div>
 </div>

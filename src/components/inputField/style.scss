@@ -10,7 +10,7 @@
     display: flex;
     flex-flow: row nowrap;
     overflow: hidden;
-    padding: 11px;
+    padding: 12px;
     width: 100%;
     .input-element{
       border: none;
@@ -27,12 +27,16 @@
     }
   }
   &__error {
-    .error-message.error {
-      margin-top: 8px;
-      color: var(--danger-color);
-      text-align: left;
-      overflow: hidden;
-      position: relative;
+    //display: none;
+    &.error {
+      //display: block;
+      .error-message {
+        margin-top: 8px;
+        color: var(--danger-color);
+        text-align: left;
+        overflow: hidden;
+        position: relative;
+      }
     }
   }
 }

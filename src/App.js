@@ -2,7 +2,10 @@ import Handlebars from 'handlebars';
 import * as Pages from './pages';
 
 import { inputField }  from './components/inputField';
+import { submitButton } from './components/submitButton';
+
 Handlebars.registerPartial('inputField', inputField );
+Handlebars.registerPartial('submitButton', submitButton);
 
 export default class App {
 	constructor() {

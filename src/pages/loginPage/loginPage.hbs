@@ -2,7 +2,13 @@
 	<div class="login-window">
 		<h2>Вход</h2>
 		<div class="login-window__input-container">
-			{{> inputField id="login-page-input" type="text" placeholder="Введите логин" error="error"}}
+			{{> inputField id="input-login" type="text" placeholder="Введите логин" error="Нет такого логина"}}
+		</div>
+		<div class="login-window__input-container">
+			{{> inputField id="input-password" type="text" placeholder="Введите пароль" error=""}}
+		</div>
+		<div class="login-window__input-container">
+			{{> submitButton id="signup-button" text="Войти"}}
 		</div>
 	</div>
 </div>

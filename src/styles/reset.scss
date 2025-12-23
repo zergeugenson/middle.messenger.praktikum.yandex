@@ -21,6 +21,7 @@ time, mark, audio, video {
   border: 0;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
 
 article, aside, details, figcaption, figure,
@@ -52,8 +53,4 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-
-div, label {
-  box-sizing: border-box;
 }
