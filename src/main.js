@@ -1,4 +1,3 @@
-// import './styles/global.scss';
 import App from './App.js';
 
 document.addEventListener('DOMContentLoaded', () => {

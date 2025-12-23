@@ -1,6 +1,9 @@
 import Handlebars from 'handlebars';
 import * as Pages from './pages';
 
+import { inputField }  from './components/inputField';
+Handlebars.registerPartial('inputField', inputField );
+
 export default class App {
 	constructor() {
 		this.state = {
