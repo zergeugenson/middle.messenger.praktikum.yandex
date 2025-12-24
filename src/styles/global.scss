@@ -1,8 +1,8 @@
 @use './reset.scss' as *;
 
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2c3e50;
+  --primary-color: #363ef8;
+  --disabled-color: #86888f;
   --background-color: #efefef;
   --text-color: #242424;
   --error-color: #e74c3c;
@@ -34,6 +34,10 @@ h2 {
 h3 {
   font-size: 28px;
   font-weight: 400;
+}
+
+a {
+  color: var(--primary-color)
 }
 
 /* Layout */

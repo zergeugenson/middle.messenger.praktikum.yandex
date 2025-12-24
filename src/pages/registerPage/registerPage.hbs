@@ -1,19 +1,16 @@
 <div class="login-container centeres-container">
 	<div class="login-window">
-		<h2>Вход</h2>
-		<form id="login-form" action="">
+		<h2>Регистрация</h2>
+		<form id="register-form" action="">
 			<div class="login-window__input-container">
 				{{> inputField id="input-login" type="text" placeholder="Введите логин" error="Нет такого логина"}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="input-password" type="text" placeholder="Введите пароль" error=""}}
-			</div>
-			<div class="login-window__input-container">
-				{{> submitButton id="signup-button" text="Войти"}}
+				{{> submitButton id="signup-button" text="Зарегистрироваться"}}
 			</div>
 		</form>
 		<div class="login-window__input-container register-link">
-			{{> iLink href="#" data-page="registerPage" text="Зарегистрироваться" }}
+			{{> iLink href="#" data-page="loginPage" text="Войти" }}
 		</div>
 	</div>
 </div>
