@@ -12,7 +12,8 @@ Handlebars.registerPartial('iLink', iLink);
 export default class App {
 	constructor() {
 		this.state = {
-			currentPage: 'loginPage',
+			currentPage: 'registerPage',
+			creditionals: {},
 		};
 		this.appElement = document.getElementById('app');
 	}
@@ -22,8 +23,7 @@ export default class App {
 		if(!Pages || !Pages[this.state.currentPage]) return;
 		template = Handlebars.compile(Pages[this.state.currentPage]);
 		this.appElement.innerHTML = template({
-//			questions: this.state.questions,
-//			createButtonEnabled: this.state.questions.length == 0
+			creditionals: this.state.creditionals,
 		});
 		this.attachEventListeners();
 	}

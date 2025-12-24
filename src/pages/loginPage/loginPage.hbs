@@ -3,17 +3,17 @@
 		<h2>Вход</h2>
 		<form id="login-form" action="">
 			<div class="login-window__input-container">
-				{{> inputField id="input-login" type="text" placeholder="Введите логин" error="Нет такого логина"}}
+				{{> inputField id="log-login" name="login" type="text" placeholder="Введите логин" error="Нет такого логина"}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="input-password" type="text" placeholder="Введите пароль" error=""}}
+				{{> inputField id="log-password" name="password" type="password" placeholder="Введите пароль" error=""}}
 			</div>
 			<div class="login-window__input-container">
 				{{> submitButton id="signup-button" text="Войти"}}
 			</div>
 		</form>
 		<div class="login-window__input-container register-link">
-			{{> iLink href="#" data-page="registerPage" text="Зарегистрироваться" }}
+			{{> iLink href="#" data-page="registerPage" disabled="true" text="Зарегистрироваться" }}
 		</div>
 	</div>
 </div>

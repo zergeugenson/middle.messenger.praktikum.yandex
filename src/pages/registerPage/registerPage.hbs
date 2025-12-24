@@ -3,10 +3,28 @@
 		<h2>Регистрация</h2>
 		<form id="register-form" action="">
 			<div class="login-window__input-container">
-				{{> inputField id="input-login" type="text" placeholder="Введите логин" error="Нет такого логина"}}
+				{{> inputField id="reg-email" name="email" type="mail" placeholder="Электронная почта"}}
 			</div>
 			<div class="login-window__input-container">
-				{{> submitButton id="signup-button" text="Зарегистрироваться"}}
+				{{> inputField id="reg-display_name" name="display_name" type="text" placeholder="Желаемый логин"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-first_name" name="first_name" type="text" placeholder="Имя"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-second_name" name="second_name" type="text" placeholder="Фамилия"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-phone" name="phone" type="phone" placeholder="Телефон"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-password" name="phone" type="password" placeholder="Пароль"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-password_repeat" name="phone" type="password" placeholder="Повторите пароль"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> submitButton id="signup-button" disabled="true" text="Зарегистрироваться"}}
 			</div>
 		</form>
 		<div class="login-window__input-container register-link">
