@@ -1,5 +1,7 @@
 <main class="chat-page">
 	<div class="chat-page__left-column">
+		<div class="profile-link">{{> iLink href="#" data-page="profilePage" text="Профиль >" }}</div>
+		{{> inputField id="message-field" name="search" type="text" placeholder="Поиск контактов" error=""}}
 		{{> chatContact }}
 	</div>
 	<div class="chat-page__right-column">
@@ -9,7 +11,7 @@
 		<div class="typing-field">
 			<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>
 			<div>{{> inputField id="message-field" name="message" type="text" placeholder="Сообщение" error=""}}</div>
-			<p><button type="button" class="message-send" disabled>&#9658;</button></p>
+			<p>{{> roundButton id="message-send" disabled="true" }}</p>
 		</div>
 	</div>
 </main>

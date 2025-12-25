@@ -1,0 +1,15 @@
+.round-button {
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &.rotate {
+    transform: rotate(180deg);
+  }
+}

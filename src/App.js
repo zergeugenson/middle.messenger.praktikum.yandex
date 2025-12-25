@@ -4,17 +4,20 @@ import * as Pages from './pages';
 import { inputField }  from './components/inputField';
 import { submitButton } from './components/submitButton';
 import { iLink } from './components/iLink';
+import { roundButton } from './components/roundButton';
 
 Handlebars.registerPartial('inputField', inputField );
 Handlebars.registerPartial('submitButton', submitButton);
 Handlebars.registerPartial('iLink', iLink);
+Handlebars.registerPartial('roundButton', roundButton);
+
 // 2DO убрать во втором спринте
 import { Menu } from './components/Menu';
 
 export default class App {
 	constructor() {
 		this.state = {
-			currentPage: 'chatPage',
+			currentPage: 'profilePage',
 			creditionals: {name: 'Zerg Eugenson'},
 			errorCode: 502,
 		}

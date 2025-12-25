@@ -10,6 +10,14 @@
     min-width: 300px;
     border-right: 1px solid var(--border-color);
     padding: 15px;
+    .profile-link {
+      text-align: right;
+      margin-bottom: 8px;
+      a{
+        color: var(--text-color);
+        text-decoration: none;
+      }
+    }
   }
   &__right-column {
     width: 75%;
@@ -30,18 +38,6 @@
       justify-content: center;
       &>div {
         flex-grow: 1;
-      }
-      .message-send {
-        background-color: var(--primary-color);
-        border: none;
-        border-radius: 15px;
-        width: 30px;
-        height: 30px;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
       }
       .input-field__error {
         display: none;
