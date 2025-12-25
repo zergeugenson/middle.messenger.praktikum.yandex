@@ -12,7 +12,7 @@ Handlebars.registerPartial('iLink', iLink);
 export default class App {
 	constructor() {
 		this.state = {
-			currentPage: 'page5xx',
+			currentPage: 'chatPage',
 			creditionals: {name: 'Zerg Eugenson'},
 			errorCode: 502,
 		}
