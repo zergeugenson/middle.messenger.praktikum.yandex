@@ -8,6 +8,8 @@ import { iLink } from './components/iLink';
 Handlebars.registerPartial('inputField', inputField );
 Handlebars.registerPartial('submitButton', submitButton);
 Handlebars.registerPartial('iLink', iLink);
+// 2DO убрать во втором спринте
+import { Menu } from './components/Menu';
 
 export default class App {
 	constructor() {
@@ -18,6 +20,7 @@ export default class App {
 		}
 		;
 		this.appElement = document.getElementById('app');
+		this.menuElement = document.getElementById('menu');
 	}
 
 	render() {
@@ -28,6 +31,10 @@ export default class App {
 			creditionals: this.state.creditionals,
 			errorCode: this.state.currentPage==='page5xx' ? this.state.errorCode : 0,
 		});
+// 2DO убрать во втором спринте
+		const menuTemplate = Handlebars.compile(Menu);
+		this.menuElement.innerHTML = menuTemplate({});
+
 		this.attachEventListeners();
 	}
 
