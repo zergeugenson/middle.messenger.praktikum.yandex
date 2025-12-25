@@ -12,9 +12,11 @@ Handlebars.registerPartial('iLink', iLink);
 export default class App {
 	constructor() {
 		this.state = {
-			currentPage: 'registerPage',
-			creditionals: {},
-		};
+			currentPage: 'page5xx',
+			creditionals: {name: 'Zerg Eugenson'},
+			errorCode: 502,
+		}
+		;
 		this.appElement = document.getElementById('app');
 	}
 
@@ -24,6 +26,7 @@ export default class App {
 		template = Handlebars.compile(Pages[this.state.currentPage]);
 		this.appElement.innerHTML = template({
 			creditionals: this.state.creditionals,
+			errorCode: this.state.currentPage==='page5xx' ? this.state.errorCode : 0,
 		});
 		this.attachEventListeners();
 	}
@@ -42,5 +45,4 @@ export default class App {
 		this.state.currentPage = page;
 		this.render();
 	}
-
 }
