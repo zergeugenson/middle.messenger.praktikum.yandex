@@ -18,6 +18,60 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;justify-content: center;
+    gap: 60px;
+    .profile__avatar-container {
+      text-align: center;
+      .avatar{
+        border-radius: 65px;
+        background-color: var(--background-color);
+        width: 130px;
+        height: 130px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      span {
+        font-weight: 500;
+      }
+    }
+    ul.profile__userdata-container {
+      width: 510px;
+      li.userdata__item {
+        display: flex;
+        font-size: 16px;
+        padding: 8px 0 8px;
+        border-bottom: 1px solid var(--border-color);
+        &:last-child {
+          border: none;
+        }
+        .userdata__item-field {
+          display: flex;
+          flex-grow: 1;
+          justify-content: flex-end;
+          .input-field {
+            width: 300px;
+            .input-element {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+    ul.profile__actions-container {
+      width: 510px;
+      li.actions__item {
+        padding: 8px 0 8px;
+        border-bottom: 1px solid var(--border-color);
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+  }
+  .input-field__error {
+    display: none;
   }
 }
 

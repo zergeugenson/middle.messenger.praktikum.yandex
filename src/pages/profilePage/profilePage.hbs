@@ -2,7 +2,24 @@
 	<div class="profile-page__left-column">
 		{{> roundButton id="button-back-to-chat" data-page="chatPage" class="i-link rotate"}}
 	</div>
-	<div class="chat-page__right-column">
-
+	<div class="profile-page__right-column">
+		<div class="profile__avatar-container">
+			<div class="avatar"><img src="/images/default-avatar.png" alt="Аватар по умолчанию" /></div>
+			<span>{{ creditionals.display_name }}</span>
+		</div>
+		<ul class="profile__userdata-container">
+			{{#each creditionals}}
+				<li class="userdata__item">
+					<div class="userdata__item-label">{{ fieldLabel @key}}</div>
+					<div class="userdata__item-field">{{> inputField value=this name=@key skin="inline" placeholder="" }}</div>
+				</li>
+			{{/each}}
+		</ul>
+		<ul class="profile__actions-container">
+			<li class="actions__item">{{> iLink href="#" text="Изменить данные" }}</li>
+			<li class="actions__item">{{> iLink href="#" text="Изменить пароль" }}</li>
+			<li class="actions__item">{{> iLink href="#" text="Выйти" }}</li>
+			<li class="actions__item">{{> iLink href="#" text="Удалить профиль" class="danger" }}</li>
+		</ul>
 	</div>
 </main>

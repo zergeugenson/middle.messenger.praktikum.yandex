@@ -1,4 +1,4 @@
-.input-field{
+.input-field {
   font-size: 12px;
   &__body{
     align-items: stretch;
@@ -36,6 +36,12 @@
         overflow: hidden;
         position: relative;
       }
+    }
+  }
+  &.inline {
+    .input-field__body {
+      padding: 0;
+      border: none;
     }
   }
 }

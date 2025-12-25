@@ -9,7 +9,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transform: rotate(180deg);
   &.rotate {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
   }
 }
