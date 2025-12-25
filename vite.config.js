@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import path from 'path';
 
 export default defineConfig({
 	build: {
@@ -12,6 +13,12 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			scss: {},
+		},
+	},
+	publicDir: 'public',
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, './src'),
 		},
 	},
 });

@@ -1,1 +1,52 @@
+.chat-page {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  gap: 0;
+  &__left-column {
+    width: 25%;
+    min-width: 300px;
+    border-right: 1px solid var(--border-color);
+    padding: 15px;
+  }
+  &__right-column {
+    width: 75%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    .messages-field {
+      flex-grow: 1;
+      padding: 15px 15px 0 15px;
+    }
+    .typing-field {
+      border-top: 1px solid var(--border-color);
+      height: 75px;
+      padding: 15px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      &>div {
+        flex-grow: 1;
+      }
+      .message-send {
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .input-field__error {
+        display: none;
+      }
+    }
+  }
+}
 
