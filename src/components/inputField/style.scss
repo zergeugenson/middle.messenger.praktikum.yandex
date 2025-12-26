@@ -1,0 +1,47 @@
+.input-field {
+  font-size: 12px;
+  &__body{
+    align-items: stretch;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    cursor: text;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    padding: 12px;
+    width: 100%;
+    .input-element{
+      border: none;
+      flex: 1 1 auto;
+      width: 100%;
+      color: var(--text-color);
+      outline: none;
+      box-shadow: none;
+      caret-color: var(--text-color);
+      padding: 0;
+      font-size: 16px;
+      line-height: inherit;
+      background-color: transparent;
+    }
+  }
+  &__error {
+    //display: none;
+    &.error {
+      //display: block;
+      .error-message {
+        margin-top: 8px;
+        color: var(--danger-color);
+        text-align: left;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+  }
+  &.inline {
+    .input-field__body {
+      padding: 0;
+      border: none;
+    }
+  }
+}

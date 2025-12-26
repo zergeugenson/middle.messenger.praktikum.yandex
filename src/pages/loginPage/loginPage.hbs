@@ -1,0 +1,19 @@
+<main class="login-container centeres-container">
+	<div class="login-window">
+		<h2>Вход</h2>
+		<form id="login-form" action="">
+			<div class="login-window__input-container">
+				{{> inputField id="log-login" name="login" type="text" placeholder="Введите логин" error="Неверный логин"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="log-password" name="password" type="password" placeholder="Введите пароль" error=""}}
+			</div>
+			<div class="login-window__input-container">
+				{{> submitButton id="signup-button" text="Войти" disabled="true"}}
+			</div>
+		</form>
+		<div class="login-window__input-container register-link">
+			{{> iLink href="#" data-page="registerPage" text="Зарегистрироваться" }}
+		</div>
+	</div>
+</main>

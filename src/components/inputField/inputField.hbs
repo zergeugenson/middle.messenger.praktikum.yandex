@@ -1,0 +1,32 @@
+<div class="input-field{{#if skin}} {{skin}}{{/if}}{{#if class}} {{class}}{{/if}}">
+	<label class="input-field__body">
+		<input
+				id="{{id}}"
+				name={{name}}
+				type="{{type}}"
+				placeholder="{{placeholder}}"
+				value="{{value}}"
+				class="input-element"
+				autocomplete="off"
+		>
+	</label>
+	<div class="input-field__error{{#if error}} error{{/if}}">
+		<div class="error-message">
+			{{#if error}}{{error}}{{/if}} &nbsp;
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

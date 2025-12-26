@@ -1,0 +1,34 @@
+<main class="login-container centeres-container">
+	<div class="login-window">
+		<h2>Регистрация</h2>
+		<form id="register-form" action="">
+			<div class="login-window__input-container">
+				{{> inputField id="reg-email" name="email" type="mail" placeholder="Электронная почта"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-login" name="login" type="text" placeholder="Желаемый логин"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-first_name" name="first_name" type="text" placeholder="Имя"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-second_name" name="second_name" type="text" placeholder="Фамилия"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-phone" name="phone" type="phone" placeholder="Телефон"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-password" name="password" type="password" placeholder="Пароль"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> inputField id="reg-password_repeat" name="password_repeat" type="password" placeholder="Повторите пароль"}}
+			</div>
+			<div class="login-window__input-container">
+				{{> submitButton id="signup-button" disabled="true" text="Зарегистрироваться"}}
+			</div>
+		</form>
+		<div class="login-window__input-container register-link">
+			{{> iLink href="#" data-page="loginPage" text="Войти" }}
+		</div>
+	</div>
+</main>

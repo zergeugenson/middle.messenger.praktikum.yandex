@@ -1,0 +1,62 @@
+@use './reset.scss' as *;
+
+:root {
+  --primary-color: #363ef8;
+  --disabled-color: #86888f;
+  --background-color: #efefef;
+  --text-color: #242424;
+  --border-color: #cdcdcd;
+  --danger-color: #cc0000;
+  --light-blue-color: #E4EDFD;
+  --light-gray-color: #F8F8F8;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+}
+h2 {
+  font-size: 28px;
+  font-weight: 500;
+}
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+a {
+  color: var(--primary-color)
+}
+
+/* Layout */
+
+.centeres-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Common classes */
+
+.danger {
+  color: var(--danger-color)
+}
+
+.hidden {
+  display: none;
+}
