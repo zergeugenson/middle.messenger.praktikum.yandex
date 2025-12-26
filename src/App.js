@@ -14,7 +14,7 @@ Handlebars.registerPartial('roundButton', roundButton);
 
 import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
 // 2DO убрать во втором спринте
-import { Menu } from './components/Menu';
+import { revieverMenu } from './components/revieverMenu';
 
 // 2DO убрать отладочные данные
 import { mockCreditionals } from './mock/mockData.js';
@@ -29,7 +29,7 @@ export default class App {
 		}
 		;
 		this.appElement = document.getElementById('app');
-		this.menuElement = document.getElementById('menu');
+		this.menuElement = document.getElementById('revieverMenu');
 	}
 
 	render() {
@@ -42,7 +42,7 @@ export default class App {
 			errorCode: this.state.currentPage==='page5xx' ? this.state.errorCode : 0,
 		});
 // 2DO убрать во втором спринте
-		const menuTemplate = Handlebars.compile(Menu);
+		const menuTemplate = Handlebars.compile(revieverMenu);
 		this.menuElement.innerHTML = menuTemplate({});
 
 		this.attachEventListeners();
