@@ -1,11 +1,23 @@
 <main class="chat-page">
 	<div class="chat-page__left-column">
-		<div class="profile-link">{{> iLink href="#" data-page="profilePage" text="Профиль >" }}</div>
+		<div class="profile-link">{{> iLink href="#" data-page="profilePage" text="Профиль" }}</div>
 		{{> inputField id="message-field" name="search" type="text" placeholder="Поиск контактов" error=""}}
 		{{> chatContact }}
 	</div>
 	<div class="chat-page__right-column">
+		<div class="header-field">
+			<div class="header-field__avatar"></div>
+			<div class="header-field__name">Андрей</div>
+			<div class="header-field__actions">
+				<div class="actions-button"><img src="/images/three-dots.png" alt="Открыть меню" /></div>
+			</div>
+		</div>
 		<div class="messages-field">
+			{{> chatMessage }}
+			{{> chatMessage }}
+			{{> chatMessage }}
+			{{> chatMessage }}
+			{{> chatMessage }}
 			{{> chatMessage }}
 		</div>
 		<div class="typing-field">
