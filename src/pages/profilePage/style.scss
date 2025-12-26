@@ -17,11 +17,15 @@
   &__right-column {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;justify-content: center;
-    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: auto;
     .profile__avatar-container {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 15px;
       .avatar{
         border-radius: 65px;
         background-color: var(--background-color);
@@ -36,36 +40,38 @@
         font-weight: 500;
       }
     }
-    ul.profile__userdata-container {
+    #change-profile-form {
       width: 510px;
-      li.userdata__item {
-        display: flex;
-        font-size: 16px;
-        padding: 8px 0 8px;
-        border-bottom: 1px solid var(--border-color);
-        &:last-child {
-          border: none;
-        }
-        .userdata__item-field {
+      ul.profile__userdata-container {
+        margin-bottom: 30px;
+        li.userdata__item {
           display: flex;
-          flex-grow: 1;
-          justify-content: flex-end;
-          .input-field {
-            width: 300px;
-            .input-element {
-              text-align: right;
+          font-size: 16px;
+          padding: 8px 0 8px;
+          border-bottom: 1px solid var(--border-color);
+          &:last-child {
+            border: none;
+          }
+          .userdata__item-field {
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end;
+            .input-field {
+              width: 300px;
+              .input-element {
+                text-align: right;
+              }
             }
           }
         }
       }
-    }
-    ul.profile__actions-container {
-      width: 510px;
-      li.actions__item {
-        padding: 8px 0 8px;
-        border-bottom: 1px solid var(--border-color);
-        &:last-child {
-          border: none;
+      ul.profile__actions-container {
+        li.actions__item {
+          padding: 8px 0 8px;
+          border-bottom: 1px solid var(--border-color);
+          &:last-child {
+            border: none;
+          }
         }
       }
     }
