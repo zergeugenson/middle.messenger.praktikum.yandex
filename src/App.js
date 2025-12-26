@@ -22,7 +22,7 @@ import { mockCreditionals } from './mock/mockData.js';
 export default class App {
 	constructor() {
 		this.state = {
-			currentPage: 'profilePage',
+			currentPage: 'loginPage',
 			creditionals: mockCreditionals,
 			creditionalsFieldLabels: creditionalsFieldLabels,
 			errorCode: 502,

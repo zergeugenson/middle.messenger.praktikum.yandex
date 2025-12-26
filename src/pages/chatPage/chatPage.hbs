@@ -1,6 +1,7 @@
 <main class="chat-page">
 	<div class="chat-page__left-column">
 		<div class="profile-link">{{> iLink href="#" data-page="profilePage" text="Профиль >>" }}</div>
+		<!-- Не вижу пока смысла оборачивать это поле в form, т.к. возможно, поиск будет на клиенте -->
 		{{> inputField id="message-field" name="search" type="text" placeholder="Поиск контактов" error=""}}
 		{{> chatContact }}
 	</div>
@@ -13,6 +14,7 @@
 			</div>
 		</div>
 		<div class="messages-field">
+			<!-- не хочу сейчас городить запуск chatMessage в цикле, я просто хотел показать скролл окна, когда много контента -->
 			{{> chatMessage }}
 			{{> chatMessage }}
 			{{> chatMessage }}
@@ -22,7 +24,7 @@
 		</div>
 		<div class="typing-field">
 			<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>
-			<div>{{> inputField id="message-field" name="message" type="text" placeholder="Сообщение" error=""}}</div>
+			<form action="#" id="send-message-from">{{> inputField id="message-field" name="message" type="text" placeholder="Сообщение" error=""}}</form>
 			<p>{{> roundButton id="message-send" disabled="true" }}</p>
 		</div>
 	</div>
