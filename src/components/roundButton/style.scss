@@ -1,19 +1,20 @@
 .round-button {
-  background-color: var(--primary-color);
-  border: none;
-  border-radius: 15px;
-  width: 30px;
-  height: 30px;
-  color: white;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  background-color: var(--primary-color);
   background-image: url('/images/arrow.png');
   background-position: center center;
-  background-size: 40%;
   background-repeat: no-repeat;
+  background-size: 40%;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  justify-content: center;
   transform: rotate(180deg);
+  width: 30px;
+
   &.rotate {
     transform: rotate(0deg);
   }

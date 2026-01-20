@@ -1,63 +1,75 @@
 .profile-page {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
   background-color: white;
   display: flex;
   gap: 0;
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+
   &__left-column {
-    width: 64px;
-    border-right: 1px solid var(--border-color);
-    padding: 15px;
+    align-items: center;
     background-color: var(--light-gray-color);
+    border-right: 1px solid var(--border-color);
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding: 15px;
+    width: 64px;
   }
+
   &__right-column {
-    flex-grow: 1;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-grow: 1;
     height: 100vh;
+    justify-content: center;
     overflow: auto;
+
     .profile__avatar-container {
+      align-items: center;
       display: flex;
       flex-direction: column;
-      align-items: center;
       margin-bottom: 15px;
+
       .avatar{
-        border-radius: 65px;
-        background-color: var(--background-color);
-        width: 130px;
-        height: 130px;
-        margin-bottom: 15px;
-        display: flex;
         align-items: center;
+        background-color: var(--background-color);
+        border-radius: 65px;
+        display: flex;
+        height: 130px;
         justify-content: center;
+        margin-bottom: 15px;
+        width: 130px;
       }
+
       span {
         font-weight: 500;
       }
     }
+
     #change-profile-form {
       width: 510px;
+
       ul.profile__userdata-container {
         margin-bottom: 30px;
+
         li.userdata__item {
+          border-bottom: 1px solid var(--border-color);
           display: flex;
           font-size: 16px;
-          padding: 8px 0 8px;
-          border-bottom: 1px solid var(--border-color);
+          padding: 8px 0;
+
           &:last-child {
             border: none;
           }
+
           .userdata__item-field {
             display: flex;
             flex-grow: 1;
             justify-content: flex-end;
+
             .input-field {
               width: 300px;
+
               .input-element {
                 text-align: right;
               }
@@ -65,10 +77,12 @@
           }
         }
       }
+
       ul.profile__actions-container {
         li.actions__item {
-          padding: 8px 0 8px;
           border-bottom: 1px solid var(--border-color);
+          padding: 8px 0;
+
           &:last-child {
             border: none;
           }
@@ -76,6 +90,7 @@
       }
     }
   }
+
   .input-field__error {
     display: none;
   }
