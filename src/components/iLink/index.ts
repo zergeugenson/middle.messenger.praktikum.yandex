@@ -1,2 +1,29 @@
+import Block from '../../framework/Block';
 import './style.scss';
-export { default as iLink } from './iLink.hbs?raw';
+import iLink from './iLink.hbs?raw';
+
+export class Link extends Block {
+    constructor(props: any) {
+        super({
+            ...props,
+            events: {
+                click: (e: Event) => {
+                    this.changeStyles();
+                    props.onClick(e);
+                },
+            },
+            attr: {
+                class: [`i-link ${props.class?' '+props.class:''}`],
+            },
+        });
+    }
+    override render() {
+        return this.compile(iLink);
+    }
+
+    changeStyles() {
+        this.setProps({ attr: {
+                class: '',
+            } });
+    }
+}

@@ -4,7 +4,7 @@ import './helpers/handlebarsHelpers.js';
 
 import { inputField }  from './components/inputField';
 import { submitButton } from '@/components/submitButton';
-import { iLink } from '@/components/iLink';
+import { iLink } from '@/components/iLink/deleteme';
 import { roundButton } from '@/components/roundButton';
 
 Handlebars.registerPartial('inputField', inputField );
@@ -17,10 +17,12 @@ import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels
 // 2DO убрать отладочные данные
 import { mockCreditionals } from './mock/mockData.js';
 
+import { page404 } from '@/pages/page404/index.ts';
+
 export default class App {
   constructor() {
     this.state = {
-      currentPage: 'loginPage',
+      currentPage: 'page404',
       creditionals: mockCreditionals,
       creditionalsFieldLabels: creditionalsFieldLabels,
       errorCode: 502,
@@ -30,6 +32,14 @@ export default class App {
   }
 
   render() {
+    if (this.state.currentPage === 'page404') {
+      const displayPage = new page404();
+      console.log(displayPage.getContent());
+      if (this.appElement) {
+        this.appElement.appendChild(displayPage.getContent());
+      }
+    }
+    return '';
     if (!Pages || !Pages[this.state.currentPage]) return;
     const template = Handlebars.compile(Pages[this.state.currentPage]);
     this.appElement.innerHTML = template({

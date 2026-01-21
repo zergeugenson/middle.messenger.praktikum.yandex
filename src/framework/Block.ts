@@ -1,5 +1,6 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
+import iLink from "*?raw";
 
 interface BlockProps {
   [key: string]: any;
@@ -236,5 +237,15 @@ export default class Block {
     if (content) {
       content.style.display = 'none';
     }
+  }
+
+  public compile(templateHB: string):string {
+    console.log("->", templateHB, this.props)
+    const template = Handlebars.compile(templateHB);
+    const q = template({
+      ...this.props
+    });
+    console.log("->", template, this.props, 'q=', q)
+    return q;
   }
 }
