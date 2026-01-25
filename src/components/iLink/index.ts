@@ -9,12 +9,12 @@ export class Link extends Block {
             ...props,
             events: {
                 click: (e: Event) => {
-                    //this.changeStyles();
                     props.onClick(e);
                 },
             },
             attr: {
                 class: [`i-link ${props.class?' '+props.class:''}`],
+                'data-page': props.datapage,
             },
         });
     }

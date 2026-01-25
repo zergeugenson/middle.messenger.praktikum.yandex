@@ -6,12 +6,13 @@ export class page404 extends Block {
     constructor() {
         super({
             template: page,
-            LinkCreate: new Link({
+            LinkBack: new Link({
                 href: '#',
-                datapage: 'createQuestionnaire',
-                text: 'Create Questionnaire',
+                datapage: 'loginPage',
+                text: 'Назад на главную',
                 onClick: (event: Event) => {
-                    console.log('CLICK');
+                    const el = event.target as HTMLElement;
+                    console.log('CLICK', el?.getAttribute('data-page'));
                     event.preventDefault();
                     event.stopPropagation();
                 },
