@@ -17,9 +17,12 @@ import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels
 // 2DO убрать отладочные данные
 import { mockCreditionals } from './mock/mockData.js';
 
-import { page404 } from '@/pages/page404/index.ts';
+import { page404 } from '@/pages';
 
 export default class App {
+  public state: Record<string, any>;
+  public appElement: HTMLElement | null;
+
   constructor() {
     this.state = {
       currentPage: 'page404',
@@ -31,7 +34,7 @@ export default class App {
     this.appElement = document.getElementById('app');
   }
 
-  render() {
+  renderPage() {
     if (this.state.currentPage === 'page404') {
       const displayPage = new page404();
       console.log(displayPage.getContent());
@@ -68,6 +71,6 @@ export default class App {
 
   changePage(page: unknown) {
     this.state.currentPage = page;
-    this.render();
+    this.renderPage();
   }
 }

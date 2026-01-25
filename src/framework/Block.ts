@@ -20,8 +20,10 @@ export interface Children {
   [key: string]: Block;
 }
 
-export default class Block<T extends BlockProps = BlockProps> {
+export default class Block{
+
   [key: string]: unknown;
+
   static EVENTS = {
     ONINIT: 'init',
     ONMOUNT: 'flow:component-did-mount',
@@ -32,7 +34,6 @@ export default class Block<T extends BlockProps = BlockProps> {
 
   private _isMounted: boolean = false;
   protected _element: HTMLElement | null = null;
-  protected _id: string = newUuid();
   protected props: BlockProps;
   protected children: Record<string, Block>;
   protected lists: Record<string, any[]>;
@@ -78,8 +79,7 @@ export default class Block<T extends BlockProps = BlockProps> {
   }
 
   private _makePropsProxy(props: any): BlockProps {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this as Block<T>;
+    const self = this as Block;
 
     return new Proxy(props, {
       get(target: { [key: string]: object }, prop: string) {
@@ -220,7 +220,7 @@ export default class Block<T extends BlockProps = BlockProps> {
       if (stub) {
         const elements = childList
             .map((children) =>
-                Object.values(children).map((child) => {console.log("->", child);child.getContent()}),
+                Object.values(children).map((child) => child.getContent()),
             )
             .flat();
 
@@ -267,17 +267,7 @@ export default class Block<T extends BlockProps = BlockProps> {
 
 
 
-  private _createDocumentElement(tagName: string): HTMLTemplateElement {
+  _createDocumentElement(tagName: string): HTMLTemplateElement {
     return document.createElement(tagName) as HTMLTemplateElement;
   }
-
-  public compile(templateHB: string):string {
-    const template = Handlebars.compile(templateHB);
-    const q = template({
-      ...this.props
-    });
-    console.log("COMPILE, templateHB=", templateHB, "template=", template, "props=", this.props, 'result=', q)
-    return q;
-  }
-
 }
