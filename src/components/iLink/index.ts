@@ -5,10 +5,11 @@ import iLink from './iLink.hbs?raw';
 export class Link extends Block {
     constructor(props: any) {
         super({
+            template: iLink,
             ...props,
             events: {
                 click: (e: Event) => {
-                    this.changeStyles();
+                    //this.changeStyles();
                     props.onClick(e);
                 },
             },
@@ -17,13 +18,5 @@ export class Link extends Block {
             },
         });
     }
-    override render() {
-        return this.compile(iLink);
-    }
 
-    changeStyles() {
-        this.setProps({ attr: {
-                class: '',
-            } });
-    }
 }

@@ -7,6 +7,7 @@ import * as Pages from "@/pages";
 export class page404 extends Block {
     constructor() {
         super({
+            template: page,
             LinkCreate: new Link({
                 href: '#',
                 datapage: 'createQuestionnaire',
@@ -18,27 +19,5 @@ export class page404 extends Block {
                 },
             }),
         });
-    }
-
-    override render(): string {
-
-        // console.log("THIS", this.children.LinkCreate)
-        //
-        // const source = page;
-        // const t = Handlebars.compile(source);
-        // const context = {
-        //     LinkCreate:this.children.LinkCreate
-        // }
-        //
-        // const html = t(context);
-        // console.log("html:", html);
-        // return html;
-        const template = Handlebars.compile(page);
-
-        const q = template({
-            LinkCreate: this.children.LinkCreate,
-        });
-        // console.log("temp:", template, "q:", q);
-        return this.compile(q)
     }
 }
