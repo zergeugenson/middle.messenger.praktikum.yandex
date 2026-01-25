@@ -1,8 +1,6 @@
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import page from './page404.hbs?raw';
-import Handlebars from "handlebars";
-import * as Pages from "@/pages";
 
 export class page404 extends Block {
     constructor() {

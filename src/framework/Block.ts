@@ -220,7 +220,7 @@ export default class Block<T extends BlockProps = BlockProps> {
       if (stub) {
         const elements = childList
             .map((children) =>
-                Object.values(children).map((child) => child.getContent()),
+                Object.values(children).map((child) => {console.log("->", child);child.getContent()}),
             )
             .flat();
 
