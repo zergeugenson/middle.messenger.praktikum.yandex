@@ -1,5 +1,8 @@
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
+import page from './page404.hbs?raw';
+import Handlebars from "handlebars";
+import * as Pages from "@/pages";
 
 export class page404 extends Block {
     constructor() {
@@ -18,9 +21,24 @@ export class page404 extends Block {
     }
 
     override render(): string {
-        return `<div class="page404">
-404
-{{{ LinkCreate }}}
-    </div>`;
+
+        // console.log("THIS", this.children.LinkCreate)
+        //
+        // const source = page;
+        // const t = Handlebars.compile(source);
+        // const context = {
+        //     LinkCreate:this.children.LinkCreate
+        // }
+        //
+        // const html = t(context);
+        // console.log("html:", html);
+        // return html;
+        const template = Handlebars.compile(page);
+
+        const q = template({
+            LinkCreate: this.children.LinkCreate,
+        });
+        // console.log("temp:", template, "q:", q);
+        return this.compile(q)
     }
 }

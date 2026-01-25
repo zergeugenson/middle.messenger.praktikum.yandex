@@ -1,9 +1,23 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
-import iLink from "*?raw";
+import { v4 as newUuid } from "uuid";
+
+interface EventMap {
+  [key: string]: EventListener | EventListenerObject;
+}
+
+interface Attributes {
+  [key: string]: string;
+}
 
 interface BlockProps {
-  [key: string]: any;
+  events?: EventMap;
+  attr?: Attributes | false;
+  template?: string;
+}
+
+export interface Children {
+  [key: string]: Block;
 }
 
 export default class Block {
@@ -14,22 +28,19 @@ export default class Block {
     FLOW_RENDER: 'flow:render',
   };
 
+  private _isMounted: boolean = false;
   protected _element: HTMLElement | null = null;
-
-  protected _id: number = Math.floor(100000 + Math.random() * 900000);
-
+  protected _id: string = newUuid();
   protected props: BlockProps;
-
   protected children: Record<string, Block>;
-
   protected lists: Record<string, any[]>;
-
+  protected template: string | undefined;
   protected eventBus: () => EventBus;
 
-  constructor(propsWithChildren: BlockProps = {}) {
+  constructor(propsWithChildren: BlockProps) {
     const eventBus = new EventBus();
-    const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
-    this.props = this._makePropsProxy({ ...props });
+    const { props, children, lists } = this._getChildrenAndProps(propsWithChildren);
+    this.props = this._makePropsProxy(props);
     this.children = children;
     this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
@@ -39,10 +50,8 @@ export default class Block {
 
   private _addEvents(): void {
     const { events = {} } = this.props;
-    Object.keys(events).forEach(eventName => {
-      if (this._element) {
-        this._element.addEventListener(eventName, events[eventName]);
-      }
+    Object.keys(events).forEach((eventName) => {
+      this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
@@ -58,11 +67,26 @@ export default class Block {
   }
 
   private _componentDidMount(): void {
-    this.componentDidMount();
-    Object.values(this.children).forEach(child => {child.dispatchComponentDidMount();});
+    if (!this._isMounted) {
+      this._isMounted = true;
+      // this.componentDidMount();
+
+      Object.values(this.children).forEach(child => {
+        child.dispatchComponentDidMount();
+      });
+
+      Object.values(this.lists).forEach((childList) => {
+        Object.values(childList).forEach((children) =>
+            Object.values(children).forEach((child:any) => {
+              child.dispatchComponentDidMount();
+            }),
+        );
+      });
+    }
   }
 
-  protected componentDidMount(): void {}
+
+  // protected componentDidMount(): void {}
 
   public dispatchComponentDidMount(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -76,28 +100,29 @@ export default class Block {
     this._render();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    console.log(oldProps, newProps);
+    console.log("CDU, old=", oldProps, "new=", newProps);
     return true;
   }
 
-  private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
+  private _getChildrenAndProps(propsAndChildren: BlockProps): {
     children: Record<string, Block>,
     props: BlockProps,
     lists: Record<string, any[]>
   } {
-    const children: Record<string, Block> = {};
-    const props: BlockProps = {};
-    const lists: Record<string, any[]> = {};
+    const children: Children = {};
+    const props: { [key: string]: unknown } = {};
+    const lists: { [key: string]: Children[] } = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
-      } else if (Array.isArray(value)) {
+      } else if (
+          Array.isArray(value) &&
+          value.some((item) => Object.values(item)[0] instanceof Block)
+      ) {
         lists[key] = value;
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         props[key] = value;
       }
     });
@@ -144,9 +169,10 @@ export default class Block {
   }
 
   private _render(): void {
-    console.log('Render');
-    const propsAndStubs = { ...this.props };
-    const tmpId =  Math.floor(100000 + Math.random() * 900000);
+    console.log('Render Starts');
+    const propsAndStubs: Record<string, unknown> = { ...this.props };
+    const tmpId =  "tmp-" + newUuid();
+
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
@@ -189,8 +215,8 @@ export default class Block {
     this.addAttributes();
   }
 
-  protected render(): string {
-    return '';
+  render(): string {
+    return this.template || '<div>Нет шаблона</div>';
   }
 
   public getContent(): HTMLElement {
@@ -202,14 +228,14 @@ export default class Block {
 
   private _makePropsProxy(props: any): any {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this;
+    const self = this as Block;
 
     return new Proxy(props, {
-      get(target: any, prop: string) {
+      get(target: { [key: string]: object }, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: any, prop: string, value: any) {
+      set(target: { [key: string]: object }, prop: string, value: object) {
         const oldTarget = { ...target };
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
@@ -225,27 +251,13 @@ export default class Block {
     return document.createElement(tagName) as HTMLTemplateElement;
   }
 
-  public show(): void {
-    const content = this.getContent();
-    if (content) {
-      content.style.display = 'block';
-    }
-  }
-
-  public hide(): void {
-    const content = this.getContent();
-    if (content) {
-      content.style.display = 'none';
-    }
-  }
-
   public compile(templateHB: string):string {
-    console.log("->", templateHB, this.props)
     const template = Handlebars.compile(templateHB);
     const q = template({
       ...this.props
     });
-    console.log("->", template, this.props, 'q=', q)
+    console.log("COMPILE, templateHB=", templateHB, "template=", template, "props=", this.props, 'result=', q)
     return q;
   }
+
 }
