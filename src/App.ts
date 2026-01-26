@@ -2,13 +2,13 @@ import Handlebars from 'handlebars';
 import * as Pages from '@/pages';
 import './helpers/handlebarsHelpers.js';
 
-import { inputField }  from './components/inputField';
+// import { inputField }  from './components/inputField';
 // import { submitButton } from '@/components/submitButton';
 import { iLink } from '@/components/iLink/deleteme';
 import { roundButton } from '@/components/roundButton';
 import Block from '@/framework/Block';
 
-Handlebars.registerPartial('inputField', inputField );
+// Handlebars.registerPartial('inputField', inputField );
 // Handlebars.registerPartial('submitButton', submitButton);
 Handlebars.registerPartial('iLink', iLink);
 Handlebars.registerPartial('roundButton', roundButton);

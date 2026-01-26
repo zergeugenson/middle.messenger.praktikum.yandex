@@ -1,12 +1,12 @@
 import Block from '@/framework/Block';
 import './style.scss';
-import submit from './submitButton.hbs?raw';
+import template from './submitButton.hbs?raw';
 
 export class submitButton extends Block {
     constructor(props: any) {
         super({
-            template: submit,
             ...props,
+            template,
             events: {
                 click: (e: Event) => {
                     console.log('clc')

@@ -2,7 +2,8 @@ import './style.scss';
 import Block from "@/framework/Block";
 import { Link } from "@/components/iLink";
 import { submitButton } from "@/components/submitButton";
-import page from './loginPage.hbs?raw';
+import { inputField } from "@/components/inputField";
+import template from './loginPage.hbs?raw';
 
 export class loginPage extends Block {
     init() {
@@ -14,6 +15,24 @@ export class loginPage extends Block {
         };
 
         this.children = {
+            loginField: new inputField({
+                id: 'log-login',
+                name: 'login',
+                type: 'text',
+                disabled: false,
+                placeholder: "Введите логин",
+                title: '',
+                onBlur: () => {}
+            }),
+            passwordField: new inputField({
+                id: 'log-password',
+                name: 'password',
+                type: 'password',
+                disabled: false,
+                placeholder: "Введите пароль",
+                title: '',
+                onBlur: () => {}
+            }),
             submitButton: new submitButton({
                 id: 'signup-button',
                 text: 'Войти',
@@ -59,6 +78,6 @@ export class loginPage extends Block {
     }
 
     render(): string {
-        return page;
+        return template;
     }
 }
