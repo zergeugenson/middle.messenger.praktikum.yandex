@@ -33,7 +33,7 @@ export default class Block {
 
   protected children: Record<string, Block>;
 
-  protected lists: Record<string, any[]>;
+  protected lists: Record<string, BlockProps[]>;
 
   protected template: string | undefined;
 
@@ -180,6 +180,9 @@ export default class Block {
   }
 
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
+    // 2do разобраться с этим.
+    const isEqual = oldProps === newProps;
+    console.log("isEqual", isEqual)
     return true;
   }
 
@@ -245,9 +248,7 @@ export default class Block {
   }
 
   render(): string {
-    // 2DO: убрать
-    if (!this.template) return '<div>Шаблон потерян</div>';
-    return this.template;
+    return this.template ? this.template : '<div>Нет шаблона</div>';
   }
 
   getContent() {
