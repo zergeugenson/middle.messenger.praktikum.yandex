@@ -3,32 +3,32 @@
 		<h2>Регистрация</h2>
 		<form id="register-form" action="">
 			<div class="login-window__input-container">
-				{{> inputField id="reg-email" name="email" type="mail" placeholder="Электронная почта"}}
+				{{{ emailField }}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="reg-login" name="login" type="text" placeholder="Желаемый логин"}}
+				{{{ loginField }}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="reg-first_name" name="first_name" type="text" placeholder="Имя"}}
+				{{{ firstNameField }}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="reg-second_name" name="second_name" type="text" placeholder="Фамилия"}}
+				{{{ secondNameField }}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="reg-phone" name="phone" type="phone" placeholder="Телефон"}}
+				{{{ phoneField }}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="reg-password" name="password" type="password" placeholder="Пароль"}}
+				{{{ passwordField }}}
 			</div>
 			<div class="login-window__input-container">
-				{{> inputField id="reg-password_repeat" name="password_repeat" type="password" placeholder="Повторите пароль"}}
+				{{{ passwordRepeatField }}}
 			</div>
 			<div class="login-window__input-container">
-				#{> submitButton id="signup-button" disabled="true" text="Зарегистрироваться"}}
+				{{{ submitButton }}}
 			</div>
 		</form>
 		<div class="login-window__input-container register-link">
-			{{> iLink href="#" data-page="loginPage" text="Войти" }}
+			{{{ LinkBack }}}
 		</div>
 	</div>
 </main>

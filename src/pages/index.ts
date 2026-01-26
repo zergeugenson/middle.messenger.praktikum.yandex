@@ -1,5 +1,5 @@
-export { loginPage } from './loginPage';
-export { registerPage } from './registerPage';
+export { LoginPage } from './loginPage';
+export { RegisterPage } from './registerPage';
 export { Page404 } from './page404';
 export { page5xx } from './page5xx';
 export { chatPage } from './chatPage';

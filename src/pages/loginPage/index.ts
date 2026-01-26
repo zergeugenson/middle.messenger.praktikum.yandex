@@ -5,7 +5,7 @@ import { submitButton } from '@/components/submitButton';
 import { inputField } from '@/components/inputField';
 import template from './loginPage.hbs?raw';
 
-export class loginPage extends Block {
+export class LoginPage extends Block {
   init() {
     this.props = {
       ...this.props,
@@ -35,16 +35,15 @@ export class loginPage extends Block {
         value: this.props.value,
       }),
       submitButton: new submitButton({
-        id: 'signup-button',
+        id: 'signin-button',
         text: 'Войти',
-        datapage: 'loginPage',
-        type: 'button',
+        type: 'submit',
         disabled: false,
         onClick: this.onSubmitClick.bind(this),
       }),
       LinkBack: new Link({
-        datapage: 'loginPage',
-        text: 'Назад на главную',
+        datapage: 'RegisterPage',
+        text: 'Регистрация',
         onClick: (event: Event) => {
           const el = event.target as HTMLElement;
           console.log('CLICK', el?.getAttribute('data-page'));
@@ -120,6 +119,6 @@ export class loginPage extends Block {
     return template;
   }
 
-  onSubmit(){}
+  onSubmit(){ console.log("кликнули кнопку сабмит")}
 
 }

@@ -1,17 +1,20 @@
 import Handlebars from 'handlebars';
 import * as Pages from '@/pages';
 import './helpers/handlebarsHelpers.js';
+import Block from '@/framework/Block';
+
+
 
 // import { inputField }  from './components/inputField';
 // import { submitButton } from '@/components/submitButton';
-import { iLink } from '@/components/iLink/deleteme';
-import { roundButton } from '@/components/roundButton';
-import Block from '@/framework/Block';
-
+// import { iLink } from '@/components/iLink/deleteme';
+// import { roundButton } from '@/components/roundButton';
 // Handlebars.registerPartial('inputField', inputField );
 // Handlebars.registerPartial('submitButton', submitButton);
-Handlebars.registerPartial('iLink', iLink);
-Handlebars.registerPartial('roundButton', roundButton);
+// Handlebars.registerPartial('iLink', iLink);
+// Handlebars.registerPartial('roundButton', roundButton);
+
+
 
 import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
 
@@ -19,7 +22,8 @@ import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels
 import { mockCreditionals } from './mock/mockData.js';
 
 import { Page404 } from '@/pages/page404';
-import { loginPage } from '@/pages/loginPage';
+import { LoginPage } from '@/pages/loginPage';
+import { RegisterPage } from '@/pages/registerPage';
 
 export default class App extends Block {
   public state: Record<string, any>;
@@ -30,7 +34,7 @@ export default class App extends Block {
   constructor() {
     super({});
     this.state = {
-      currentPage: 'loginPage',
+      currentPage: 'RegisterPage',
       creditionals: mockCreditionals,
       creditionalsFieldLabels: creditionalsFieldLabels,
       errorCode: 502,
@@ -40,8 +44,8 @@ export default class App extends Block {
   }
 
   renderPage() {
-    // if (this.state.currentPage === 'loginPage') {
-    const displayPage = new loginPage(this.props);
+    // if (this.state.currentPage === 'RegisterPage') {
+    const displayPage = new RegisterPage(this.props);
     console.log(displayPage.getContent());
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
