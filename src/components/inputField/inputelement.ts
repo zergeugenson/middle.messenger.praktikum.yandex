@@ -1,5 +1,5 @@
-import Block from "@/framework/Block";
-import type {BlockProps} from '@/types';
+import Block from '@/framework/Block';
+import type { BlockProps } from '@/types';
 
 export default class Input extends Block {
   constructor(props: BlockProps) {

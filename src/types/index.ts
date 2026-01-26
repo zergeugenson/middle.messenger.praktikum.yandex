@@ -10,9 +10,9 @@
 
 // 2DO разобраться с типами пропсов
 export interface BlockProps {
-    // events?: EventMap;
-    // attr?: Attributes | false;
-    // template?: string;
-    [key:string]: any;
+  // events?: EventMap;
+  // attr?: Attributes | false;
+  // template?: string;
+  [key:string]: any;
 }
 

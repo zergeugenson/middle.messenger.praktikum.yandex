@@ -1,10 +1,10 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
-import { v4 as newUuid } from "uuid";
-import type {BlockProps} from '@/types';
+import { v4 as newUuid } from 'uuid';
+import type { BlockProps } from '@/types';
 
 // import * as Pages from '@/pages';
-// import { page404 } from '@/pages';
+// import { Page404 } from '@/pages';
 
 export interface Children {
   [key: string]: Block;
@@ -12,7 +12,7 @@ export interface Children {
 
 
 
-export default class Block{
+export default class Block {
 
   [key: string]: unknown;
 
@@ -26,11 +26,17 @@ export default class Block{
   };
 
   private _isMounted: boolean = false;
+
   protected _element: HTMLElement | null = null;
+
   protected props: BlockProps;
+
   protected children: Record<string, Block>;
+
   protected lists: Record<string, any[]>;
+
   protected template: string | undefined;
+
   protected eventBus: () => EventBus;
   // public al: HTMLElement | null;
 
@@ -59,7 +65,7 @@ export default class Block{
       if (value instanceof Block) {
         children[key] = value;
       } else if (
-          Array.isArray(value) &&
+        Array.isArray(value) &&
           value.some((item) => Object.values(item)[0] instanceof Block)
       ) {
         lists[key] = value;
@@ -82,7 +88,6 @@ export default class Block{
       set(target: { [key: string]: object }, prop: string, value: object) {
         const oldTarget = { ...target };
         target[prop] = value;
-        console.log("Updated ", target);
         self.eventBus().emit(Block.EVENTS.ONUPDATE, oldTarget, target);
         return true;
       },
@@ -110,18 +115,18 @@ export default class Block{
     eventBus.on(Block.EVENTS.ONINIT, this.init.bind(this) as EventCallback);
     eventBus.on(Block.EVENTS.ONMOUNT, this._componentDidMount.bind(this) as EventCallback);
     eventBus.on(Block.EVENTS.ONUPDATE, this._componentDidUpdate.bind(this) as EventCallback);
-    eventBus.on(Block.EVENTS.ONUNMOUNT, this._componentWillUnmount.bind(this),);
+    eventBus.on(Block.EVENTS.ONUNMOUNT, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.ONRENDER, this._render.bind(this) as EventCallback);
     // eventBus.on(Block.EVENTS.pageChange, this.pageChange.bind(this) as EventCallback);
   }
 
   protected init(): void {
-    console.log("ONINIT:", this.props)
+    // console.log('ONINIT:', this.props);
     this.eventBus().emit(Block.EVENTS.ONRENDER);
   }
 
   private _componentDidMount(): void {
-    console.log("ONMOUNT:", this.props)
+    // console.log('ONMOUNT:', this.props);
     if (!this._isMounted) {
       this._isMounted = true;
 
@@ -131,25 +136,25 @@ export default class Block{
 
       Object.values(this.lists).forEach((childList) => {
         Object.values(childList).forEach((children) =>
-            Object.values(children).forEach((child:any) => {
-              child.dispatchComponentDidMount();
-            }),
+          Object.values(children).forEach((child:any) => {
+            child.dispatchComponentDidMount();
+          }),
         );
       });
     }
   }
 
   private _componentWillUnmount() {
-    console.log("ONUNMOUNT:", this.props)
+    // console.log('ONUNMOUNT:', this.props);
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidUnMount();
     });
 
     Object.values(this.lists).forEach((childList) => {
       Object.values(childList).forEach((children) =>
-          Object.values(children).forEach((child) => {
-            child.dispatchComponentDidUnMount();
-          }),
+        Object.values(children).forEach((child) => {
+          child.dispatchComponentDidUnMount();
+        }),
       );
     });
 
@@ -166,7 +171,7 @@ export default class Block{
   }
 
   private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): void {
-    console.log("ONUPDATE:", this.props)
+    console.log('ONUPDATE, old=', oldProps, 'new=', newProps);
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -175,7 +180,6 @@ export default class Block{
   }
 
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    console.log("CDU, old=", oldProps, "new=", newProps);
     return true;
   }
 
@@ -184,7 +188,7 @@ export default class Block{
   }
 
   private _render(): void {
-    console.log("ONRENDER:", this.props)
+    // console.log('ONRENDER:', this.props);
     const propsAndStubs: Record<string, unknown> = { ...this.props };
     const tmpId =  newUuid();
 
@@ -201,24 +205,24 @@ export default class Block{
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(
-          `[data-id="${child.id}"]`,
+        `[data-id="${child.id}"]`,
       ) as HTMLElement;
       if (stub) {
-        stub.replaceWith(child.getContent()!);
+        stub.replaceWith(child.getContent());
       }
     });
 
 
     Object.values(this.lists).forEach((childList) => {
       const stub = fragment.content.querySelector(
-          `[data-id="${tmpId}"]`,
+        `[data-id="${tmpId}"]`,
       ) as HTMLElement;
       if (stub) {
         const elements = childList
-            .map((children) =>
-                Object.values(children).map((child) => child.getContent()),
-            )
-            .flat();
+          .map((children) =>
+            Object.values(children).map((child) => child.getContent()),
+          )
+          .flat();
 
         stub.replaceWith(...elements);
       }
@@ -234,7 +238,7 @@ export default class Block{
       });
     }
     if (this._element) {
-      this._element.replaceWith(newElement!);
+      this._element.replaceWith(newElement);
     }
     this._element = newElement;
     this._addEvents();
@@ -242,7 +246,7 @@ export default class Block{
 
   render(): string {
     // 2DO: убрать
-    if(!this.template) return '<div>Шаблон потерян</div>'
+    if (!this.template) return '<div>Шаблон потерян</div>';
     return this.template;
   }
 
@@ -250,7 +254,7 @@ export default class Block{
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
         if (
-            this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
         ) {
           this.dispatchComponentDidMount();
         }
@@ -276,7 +280,7 @@ export default class Block{
   // pageChange(a:string): void {
   //   const ppp : { [key: string]: any } = Pages
   //   console.log('change in Block', a, ppp, ppp[a])
-  //   const displayPage = new page404();
+  //   const displayPage = new Page404();
   //   this.al = document.getElementById('app');
   //   this.al?.appendChild(displayPage.getContent());
   // }
