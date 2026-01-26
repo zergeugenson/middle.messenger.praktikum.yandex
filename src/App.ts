@@ -28,7 +28,7 @@ export default class App extends Block {
   constructor() {
     super({});
     this.state = {
-      currentPage: 'page404',
+      currentPage: 'loginPage',
       creditionals: mockCreditionals,
       creditionalsFieldLabels: creditionalsFieldLabels,
       errorCode: 502,
@@ -38,7 +38,7 @@ export default class App extends Block {
   }
 
   renderPage() {
-    if (this.state.currentPage === 'page404') {
+    if (this.state.currentPage === 'loginPage') {
       const displayPage = new page404();
       console.log(displayPage.getContent());
       if (this.appElement) {
