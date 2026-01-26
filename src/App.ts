@@ -3,13 +3,13 @@ import * as Pages from '@/pages';
 import './helpers/handlebarsHelpers.js';
 
 import { inputField }  from './components/inputField';
-import { submitButton } from '@/components/submitButton';
+// import { submitButton } from '@/components/submitButton';
 import { iLink } from '@/components/iLink/deleteme';
 import { roundButton } from '@/components/roundButton';
 import Block from '@/framework/Block';
 
 Handlebars.registerPartial('inputField', inputField );
-Handlebars.registerPartial('submitButton', submitButton);
+// Handlebars.registerPartial('submitButton', submitButton);
 Handlebars.registerPartial('iLink', iLink);
 Handlebars.registerPartial('roundButton', roundButton);
 
@@ -39,13 +39,13 @@ export default class App extends Block {
   }
 
   renderPage() {
-    if (this.state.currentPage === 'loginPage') {
-      const displayPage = new page404(this.props);
+    // if (this.state.currentPage === 'loginPage') {
+      const displayPage = new loginPage(this.props);
       console.log(displayPage.getContent());
       if (this.appElement) {
         this.appElement.appendChild(displayPage.getContent());
       }
-    }
+    // }
     return '';
     if (!Pages || !Pages[this.state.currentPage]) return;
     const template = Handlebars.compile(Pages[this.state.currentPage]);

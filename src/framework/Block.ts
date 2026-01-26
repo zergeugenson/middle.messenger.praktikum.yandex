@@ -82,6 +82,7 @@ export default class Block{
       set(target: { [key: string]: object }, prop: string, value: object) {
         const oldTarget = { ...target };
         target[prop] = value;
+        console.log("Updated ", target);
         self.eventBus().emit(Block.EVENTS.ONUPDATE, oldTarget, target);
         return true;
       },
