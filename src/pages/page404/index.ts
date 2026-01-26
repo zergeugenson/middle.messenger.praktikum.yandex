@@ -1,11 +1,12 @@
-import Block from '@/framework/Block';
-import { Link } from '@/components/iLink';
+import Block from "@/framework/Block";
+import { Link } from "@/components/iLink";
+import type { BlockProps } from '@/types';
 import page from './page404.hbs?raw';
 
 export class page404 extends Block {
-    constructor() {
+    constructor(props: BlockProps) {
         super({
-            template: page,
+            ...props,
             LinkBack: new Link({
                 href: '#',
                 datapage: 'loginPage',
@@ -15,10 +16,12 @@ export class page404 extends Block {
                     console.log('CLICK', el?.getAttribute('data-page'));
                     event.preventDefault();
                     event.stopPropagation();
-                    eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
+                    // eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
                 },
-            }),
+            })
         });
-        const eventBus = this.eventBus();
+    }
+    render(): string {
+        return page;
     }
 }

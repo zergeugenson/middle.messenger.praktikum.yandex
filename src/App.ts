@@ -18,7 +18,8 @@ import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels
 // 2DO убрать отладочные данные
 import { mockCreditionals } from './mock/mockData.js';
 
-import { page404 } from '@/pages';
+import { page404 } from '@/pages/page404';
+import { loginPage } from '@/pages/loginPage';
 
 export default class App extends Block {
   public state: Record<string, any>;
@@ -39,7 +40,7 @@ export default class App extends Block {
 
   renderPage() {
     if (this.state.currentPage === 'loginPage') {
-      const displayPage = new page404();
+      const displayPage = new page404(this.props);
       console.log(displayPage.getContent());
       if (this.appElement) {
         this.appElement.appendChild(displayPage.getContent());

@@ -1,27 +1,16 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
 import { v4 as newUuid } from "uuid";
+import type {BlockProps} from '@/types';
 
 // import * as Pages from '@/pages';
 // import { page404 } from '@/pages';
 
-interface EventMap {
-  [key: string]: EventListener | EventListenerObject;
-}
-
-interface Attributes {
-  [key: string]: string;
-}
-
-interface BlockProps {
-  events?: EventMap;
-  attr?: Attributes | false;
-  template?: string;
-}
-
 export interface Children {
   [key: string]: Block;
 }
+
+
 
 export default class Block{
 
@@ -218,6 +207,7 @@ export default class Block{
       }
     });
 
+
     Object.values(this.lists).forEach((childList) => {
       const stub = fragment.content.querySelector(
           `[data-id="${tmpId}"]`,
@@ -274,6 +264,13 @@ export default class Block{
     return document.createElement(tagName) as HTMLTemplateElement;
   }
 
+  setProps = (nextProps: object) => {
+    if (!nextProps) {
+      return;
+    }
+
+    Object.assign(this.props, nextProps);
+  };
 
   // pageChange(a:string): void {
   //   const ppp : { [key: string]: any } = Pages

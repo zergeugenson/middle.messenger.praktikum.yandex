@@ -1,0 +1,16 @@
+
+.button {
+  font: black;
+  height: 40px;
+  width: 163px;
+  text-align: center;
+  border-radius: 8px;
+  background-color: blue;
+  color: red;
+  border: 0;
+  cursor: pointer;
+
+  &__margin {
+    margin-top: 40px;
+  }
+}
