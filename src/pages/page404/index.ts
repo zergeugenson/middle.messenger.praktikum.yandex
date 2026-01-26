@@ -15,8 +15,10 @@ export class page404 extends Block {
                     console.log('CLICK', el?.getAttribute('data-page'));
                     event.preventDefault();
                     event.stopPropagation();
+                    eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
                 },
             }),
         });
+        const eventBus = this.eventBus();
     }
 }

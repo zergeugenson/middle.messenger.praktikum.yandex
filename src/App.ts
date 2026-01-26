@@ -6,6 +6,7 @@ import { inputField }  from './components/inputField';
 import { submitButton } from '@/components/submitButton';
 import { iLink } from '@/components/iLink/deleteme';
 import { roundButton } from '@/components/roundButton';
+import Block from '@/framework/Block';
 
 Handlebars.registerPartial('inputField', inputField );
 Handlebars.registerPartial('submitButton', submitButton);
@@ -19,11 +20,13 @@ import { mockCreditionals } from './mock/mockData.js';
 
 import { page404 } from '@/pages';
 
-export default class App {
+export default class App extends Block {
   public state: Record<string, any>;
   public appElement: HTMLElement | null;
 
+
   constructor() {
+    super({});
     this.state = {
       currentPage: 'page404',
       creditionals: mockCreditionals,

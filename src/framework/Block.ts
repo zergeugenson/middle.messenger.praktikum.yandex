@@ -2,6 +2,9 @@ import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
 import { v4 as newUuid } from "uuid";
 
+import * as Pages from '@/pages';
+import { page404 } from '@/pages';
+
 interface EventMap {
   [key: string]: EventListener | EventListenerObject;
 }
@@ -30,6 +33,7 @@ export default class Block{
     ONUPDATE: 'flow:component-did-update',
     ONUNMOUNT: 'flow:component-will-unmount',
     ONRENDER: 'flow:render',
+    pageChange:'pageChange',
   };
 
   private _isMounted: boolean = false;
@@ -39,7 +43,7 @@ export default class Block{
   protected lists: Record<string, any[]>;
   protected template: string | undefined;
   protected eventBus: () => EventBus;
-
+  public al: HTMLElement | null;
 
   constructor({ ...propsWithChildren }) {
     const eventBus = new EventBus();
@@ -118,6 +122,7 @@ export default class Block{
     eventBus.on(Block.EVENTS.ONUPDATE, this._componentDidUpdate.bind(this) as EventCallback);
     eventBus.on(Block.EVENTS.ONUNMOUNT, this._componentWillUnmount.bind(this),);
     eventBus.on(Block.EVENTS.ONRENDER, this._render.bind(this) as EventCallback);
+    eventBus.on(Block.EVENTS.pageChange, this.pageChange.bind(this) as EventCallback);
   }
 
   protected init(): void {
@@ -242,8 +247,6 @@ export default class Block{
     }
     this._element = newElement;
     this._addEvents();
-
-    // console.log(this.element);
   }
 
   render(): string {
@@ -269,5 +272,14 @@ export default class Block{
 
   _createDocumentElement(tagName: string): HTMLTemplateElement {
     return document.createElement(tagName) as HTMLTemplateElement;
+  }
+
+
+  pageChange(a:string): void {
+    const ppp : { [key: string]: any } = Pages
+    console.log('change in Block', a, ppp, ppp[a])
+    const displayPage = new page404();
+    this.al = document.getElementById('app');
+    this.al?.appendChild(displayPage.getContent());
   }
 }
