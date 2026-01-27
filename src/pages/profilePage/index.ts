@@ -21,7 +21,7 @@ export class ProfilePage extends Block {
                 id: 'button-back-to-chat',
                 disabled: false,
                 class: "i-link rotate",
-                datapage: 'chatPage',
+                datapage: 'ChatPage',
                 onClick: this.handler,
             }),
             avatarField: new inputField({

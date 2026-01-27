@@ -4,6 +4,6 @@ declare module '*?raw' {
 }
 
 declare module '*.hbs' {
-  const content: string; // Or the appropriate type your loader provides
+  const content: string;
   export default content;
 }

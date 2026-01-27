@@ -2,30 +2,24 @@ import Handlebars from 'handlebars';
 import * as Pages from '@/pages';
 import './helpers/handlebarsHelpers.js';
 import Block from '@/framework/Block';
-
-
-
-// import { inputField }  from './components/inputField';
-// import { SubmitButton } from '@/components/submitButton';
-// import { iLink } from '@/components/iLink/deleteme';
-// import { RoundButton } from '@/components/roundButton';
-// Handlebars.registerPartial('inputField', inputField );
-// Handlebars.registerPartial('SubmitButton', SubmitButton);
-// Handlebars.registerPartial('iLink', iLink);
-// Handlebars.registerPartial('RoundButton', RoundButton);
-
-
-
-import { credentialsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
-
 // 2DO убрать отладочные данные
 import {mockCredentials} from './mock/mockData.js';
+import { credentialsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
+
+import { chatContact } from '@/pages/chatPage/templateParts/chatContact';
+import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
+
+Handlebars.registerPartial('chatContact', chatContact);
+Handlebars.registerPartial('chatMessage', chatMessage);
 
 import { Page404 } from '@/pages/page404';
 import { Page5xx } from '@/pages/page5xx';
 import { LoginPage } from '@/pages/loginPage';
 import { RegisterPage } from '@/pages/registerPage';
 import { ProfilePage } from '@/pages/profilePage';
+import { ChatPage } from '@/pages/chatPage';
+
+
 
 export default class App extends Block {
   public state: Record<string, any>;
@@ -47,8 +41,7 @@ export default class App extends Block {
 
   renderPage() {
     // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new ProfilePage(this.props);
-    console.log(displayPage.getContent());
+    const displayPage = new ChatPage(this.props);
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
     }
