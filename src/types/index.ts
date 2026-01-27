@@ -4,7 +4,7 @@
 // }
 //
 interface Attributes {
-    [key: string]: string;
+  [key: string]: string;
 }
 
 

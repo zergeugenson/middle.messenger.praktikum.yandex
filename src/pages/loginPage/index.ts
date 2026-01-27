@@ -2,7 +2,7 @@ import './style.scss';
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import { SubmitButton } from '@/components/submitButton';
-import { inputField } from '@/components/inputField';
+import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs?raw';
 
 export class LoginPage extends Block {
@@ -15,7 +15,7 @@ export class LoginPage extends Block {
     };
 
     this.children = {
-      loginField: new inputField({
+      loginField: new InputField({
         id: 'log-login',
         name: 'login',
         type: 'text',
@@ -24,7 +24,7 @@ export class LoginPage extends Block {
         title: '',
         onBlur: this.onLoginChange.bind(this),
       }),
-      passwordField: new inputField({
+      passwordField: new InputField({
         id: 'log-password',
         name: 'password',
         type: 'password',
@@ -94,22 +94,22 @@ export class LoginPage extends Block {
     }
     const inputValue = e.target.value;
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/;
-    let errorText = "";
+    let errorText = '';
 
     if (!passwordRegex.test(inputValue)) {
       if (inputValue.length < 8 || inputValue.length > 40) {
-        errorText = "Пароль должен быть от 8 до 40 символов.";
+        errorText = 'Пароль должен быть от 8 до 40 символов.';
       } else if (!/[A-Z]/.test(inputValue)) {
-        errorText = "Пароль должен содержать хотя бы одну заглавную букву.";
+        errorText = 'Пароль должен содержать хотя бы одну заглавную букву.';
       } else if (!/\d/.test(inputValue)) {
-        errorText = "Пароль должен содержать хотя бы одну цифру.";
+        errorText = 'Пароль должен содержать хотя бы одну цифру.';
       }
       this.children.passwordField.setProps({
         errorText: errorText,
       });
     } else {
       this.children.passwordField.setProps({
-        errorText: "",
+        errorText: '',
       });
     }
   }
@@ -119,6 +119,6 @@ export class LoginPage extends Block {
     return template;
   }
 
-  onSubmit(){ console.log("кликнули кнопку сабмит")}
+  onSubmit() { console.log('кликнули кнопку сабмит');}
 
 }

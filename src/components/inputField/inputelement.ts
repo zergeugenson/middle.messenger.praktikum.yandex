@@ -1,10 +1,10 @@
 import Block from '@/framework/Block';
-import type { BlockProps } from '@/types';
+// import type { BlockProps } from '@/types';
 
 export default class Input extends Block {
-  constructor(props: BlockProps) {
-    super(props);
-  }
+  // constructor(props: BlockProps) {
+  //   super(props);
+  // }
 
   render(): string {
     return `

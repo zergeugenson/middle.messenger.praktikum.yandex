@@ -3,7 +3,7 @@ import * as Pages from '@/pages';
 import './helpers/handlebarsHelpers.js';
 import Block from '@/framework/Block';
 // 2DO убрать отладочные данные
-import {mockCredentials} from './mock/mockData.js';
+import { mockCredentials } from './mock/mockData.js';
 import { credentialsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
 
 import { chatContact } from '@/pages/chatPage/templateParts/chatContact';
@@ -12,12 +12,12 @@ import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
 Handlebars.registerPartial('chatContact', chatContact);
 Handlebars.registerPartial('chatMessage', chatMessage);
 
-import { Page404 } from '@/pages/page404';
-import { Page5xx } from '@/pages/page5xx';
+// import { Page404 } from '@/pages/page404';
+// import { Page5xx } from '@/pages/page5xx';
 import { LoginPage } from '@/pages/loginPage';
-import { RegisterPage } from '@/pages/registerPage';
-import { ProfilePage } from '@/pages/profilePage';
-import { ChatPage } from '@/pages/chatPage';
+// import { RegisterPage } from '@/pages/registerPage';
+// import { ProfilePage } from '@/pages/profilePage';
+// import { ChatPage } from '@/pages/chatPage';
 
 
 
@@ -41,7 +41,7 @@ export default class App extends Block {
 
   renderPage() {
     // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new ChatPage(this.props);
+    const displayPage = new LoginPage(this.props);
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
     }

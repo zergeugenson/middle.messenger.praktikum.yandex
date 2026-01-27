@@ -13,9 +13,7 @@ export interface Children {
 
 
 export default class Block {
-
-  [key: string]: unknown;
-
+  // [key: string]: unknown;
   static EVENTS = {
     ONINIT: 'init',
     ONMOUNT: 'flow:component-did-mount',
@@ -26,6 +24,8 @@ export default class Block {
   };
 
   private _isMounted: boolean = false;
+
+  protected id: string;
 
   protected _element: HTMLElement | null = null;
 
@@ -44,6 +44,7 @@ export default class Block {
     const eventBus = new EventBus();
     const { props, children, lists } = this._getChildrenAndProps(propsWithChildren);
     this.props = this._makePropsProxy(props);
+    // eslint-disable-next-line
     this.children = children;
     this.lists = lists;
     this.template = this.props.template;
@@ -58,7 +59,7 @@ export default class Block {
     lists: Record<string, any[]>
   } {
     const children: Children = {};
-    const props: { [key: string]: unknown } = {};
+    const props: { [key: string]: BlockProps } = {};
     const lists: { [key: string]: Children[] } = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -182,7 +183,7 @@ export default class Block {
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     // 2do разобраться с этим.
     const isEqual = oldProps === newProps;
-    console.log("isEqual", isEqual)
+    console.log('isEqual', isEqual);
     return true;
   }
 
@@ -192,7 +193,7 @@ export default class Block {
 
   private _render(): void {
     // console.log('ONRENDER:', this.props);
-    const propsAndStubs: Record<string, unknown> = { ...this.props };
+    const propsAndStubs = { ...this.props };
     const tmpId =  newUuid();
 
     Object.entries(this.children).forEach(([key, child]) => {

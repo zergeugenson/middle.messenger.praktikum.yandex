@@ -5,13 +5,13 @@ import ErrorLine from './errorline';
 import Input from './inputelement';
 import type { BlockProps } from '@/types';
 
-export class inputField extends Block {
+export class InputField extends Block {
   constructor(props: BlockProps) {
     super({
       ...props,
       Input: new Input({
         events: {
-          blur: props.onBlur || (() => {console.log('def blur')}),
+          blur: props.onBlur || (() => {console.log('def blur');}),
         },
         type: props?.type || 'text',
         title: props.title,
