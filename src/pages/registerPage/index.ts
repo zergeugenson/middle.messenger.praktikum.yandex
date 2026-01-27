@@ -22,7 +22,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Электронная почта',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       loginField: new InputField({
@@ -32,7 +32,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Желаемый логин',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       firstNameField: new InputField({
@@ -42,7 +42,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Имя',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       secondNameField: new InputField({
@@ -52,7 +52,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Фамилия',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       phoneField: new InputField({
@@ -62,7 +62,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Телефон',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       passwordField: new InputField({
@@ -72,7 +72,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Введите пароль',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       passwordRepeatField: new InputField({
@@ -82,7 +82,7 @@ export class RegisterPage extends Block {
         disabled: false,
         placeholder: 'Повторите пароль',
         title: '',
-        onBlur: this.onpasswordChange.bind(this),
+        onBlur: this.handler.bind(this),
         value: this.props.value,
       }),
       SubmitButton: new SubmitButton({
@@ -110,64 +110,12 @@ export class RegisterPage extends Block {
 
   }
 
-  onSubmitClick(e: Event) {
-    // const el = e.target as HTMLElement;
-    // console.log('onSubmitClick', el?.getAttribute('data-page'), this.children.SubmitButton);
-    // this.children.SubmitButton.setProps({ text: 'jopa' });
-    e.preventDefault();
-    e.stopPropagation();
-    // const form:HTMLElement = document.getElementById('login-form')!;
-    // const formData = new FormData(form as HTMLFormElement);
-    // const Password = formData.get("password")?.toString() || '';
-
-    // const err = this.validatePassword(Password);
-
-    // if(err) {
-    //   this.children.passwordField.setProps({
-    //     error: true,
-    //     errorText: err,
-    //   });
-    // }
-
-    // console.log('Кликнули САБМИТ', formData, Password);
-  }
-
-  onLoginChange(e: Event) {
-    console.log('onLoginChange', typeof e);
-  }
-
-  onpasswordChange(e: Event) {
-    // const err = this.validatePassword('ef');
-    // this.setError(this.children.passwordField, err)
-    // console.log("PASS:", this.children.passwordField, e)
-    if (!(e.target instanceof HTMLInputElement)) {
-      return;
-    }
-    const inputValue = e.target.value;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/;
-    let errorText = '';
-
-    if (!passwordRegex.test(inputValue)) {
-      if (inputValue.length < 8 || inputValue.length > 40) {
-        errorText = 'Пароль должен быть от 8 до 40 символов.';
-      } else if (!/[A-Z]/.test(inputValue)) {
-        errorText = 'Пароль должен содержать хотя бы одну заглавную букву.';
-      } else if (!/\d/.test(inputValue)) {
-        errorText = 'Пароль должен содержать хотя бы одну цифру.';
-      }
-      this.children.passwordField.setProps({
-        errorText: errorText,
-      });
-    } else {
-      this.children.passwordField.setProps({
-        errorText: '',
-      });
-    }
-  }
-
-
   render(): string {
     return template;
+  }
+
+  handler(e: Event): void {
+    console.log(e);
   }
 
   onSubmit(e: Event) { console.log('кликнули кнопку сабмит', e);}

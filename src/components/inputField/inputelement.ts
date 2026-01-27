@@ -12,11 +12,11 @@ export default class Input extends Block {
         id="{{id}}"
         placeholder="{{placeholder}}"
         type="{{ type }}"
-        title="{{ title }}"
         name="{{ name }}"
         value="{{value}}"
         autocomplete="off"
         class="input-element"
+        {{# if isdisabled }} disabled{{/ if }}
       />
     `;
   }

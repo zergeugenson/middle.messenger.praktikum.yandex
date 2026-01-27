@@ -9,7 +9,7 @@ export class SubmitButton extends Block {
       template,
       events: {
         click: (e: Event) => {
-          props.onClick(e);
+          typeof props.onClick === 'function' ? props.onClick(e) : () =>{}
         },
       },
       attr: {

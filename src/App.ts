@@ -15,7 +15,7 @@ Handlebars.registerPartial('chatMessage', chatMessage);
 // import { Page404 } from '@/pages/page404';
 // import { Page5xx } from '@/pages/page5xx';
 import { LoginPage } from '@/pages/loginPage';
-// import { RegisterPage } from '@/pages/registerPage';
+ import { RegisterPage } from '@/pages/registerPage';
 // import { ProfilePage } from '@/pages/profilePage';
 // import { ChatPage } from '@/pages/chatPage';
 
