@@ -2,7 +2,7 @@ import Block from '@/framework/Block';
 import './style.scss';
 import template from './submitButton.hbs?raw';
 
-export class submitButton extends Block {
+export class SubmitButton extends Block {
   constructor(props: any) {
     super({
       ...props,

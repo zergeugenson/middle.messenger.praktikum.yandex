@@ -1,4 +1,4 @@
-export const mockCreditionals = {
+export const mockCredentials = {
   login: 'zergeugenson',
   mail: 'zerg@mymailserver.ru',
   first_name: 'Сергей',

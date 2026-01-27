@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
-import {creditionalsFieldLabels} from "../lib/constants/creditionalsFieldLabels.js";
+import {credentialsFieldLabels} from "../lib/constants/creditionalsFieldLabels.js";
+import {mockCredentials} from "@/mock/mockData.js";
 
 Handlebars.registerHelper('fieldLabel', function() {
- return creditionalsFieldLabels[arguments[0]]
+ return credentialsFieldLabels[arguments[0]]
 });

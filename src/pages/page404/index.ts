@@ -1,3 +1,4 @@
+import './style.scss';
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import type { BlockProps } from '@/types';

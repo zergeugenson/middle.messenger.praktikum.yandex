@@ -1,7 +1,7 @@
 import './style.scss';
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
-import { submitButton } from '@/components/submitButton';
+import { SubmitButton } from '@/components/submitButton';
 import { inputField } from '@/components/inputField';
 import template from './registerPage.hbs?raw';
 
@@ -85,7 +85,7 @@ export class RegisterPage extends Block {
                 onBlur: this.onpasswordChange.bind(this),
                 value: this.props.value,
             }),
-            submitButton: new submitButton({
+            SubmitButton: new SubmitButton({
                 id: 'signup-button',
                 text: 'Зарегистрироваться',
                 type: 'submit',
@@ -112,8 +112,8 @@ export class RegisterPage extends Block {
 
     onSubmitClick(e: Event) {
         // const el = e.target as HTMLElement;
-        // console.log('onSubmitClick', el?.getAttribute('data-page'), this.children.submitButton);
-        // this.children.submitButton.setProps({ text: 'jopa' });
+        // console.log('onSubmitClick', el?.getAttribute('data-page'), this.children.SubmitButton);
+        // this.children.SubmitButton.setProps({ text: 'jopa' });
         e.preventDefault();
         e.stopPropagation();
         // const form:HTMLElement = document.getElementById('login-form')!;

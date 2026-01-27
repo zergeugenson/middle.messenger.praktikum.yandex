@@ -1,7 +1,7 @@
 export { LoginPage } from './loginPage';
 export { RegisterPage } from './registerPage';
 export { Page404 } from './page404';
-export { page5xx } from './page5xx';
+export { Page5xx } from './page5xx';
 export { chatPage } from './chatPage';
-export { profilePage } from './profilePage';
+export { ProfilePage } from './profilePage';
 

@@ -1,4 +1,4 @@
-export const creditionalsFieldLabels = {
+export const credentialsFieldLabels = {
   login: 'Логин',
   mail: 'Имейл',
   first_name: 'Имя',

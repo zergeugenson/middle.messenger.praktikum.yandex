@@ -6,24 +6,26 @@ import Block from '@/framework/Block';
 
 
 // import { inputField }  from './components/inputField';
-// import { submitButton } from '@/components/submitButton';
+// import { SubmitButton } from '@/components/submitButton';
 // import { iLink } from '@/components/iLink/deleteme';
-// import { roundButton } from '@/components/roundButton';
+// import { RoundButton } from '@/components/roundButton';
 // Handlebars.registerPartial('inputField', inputField );
-// Handlebars.registerPartial('submitButton', submitButton);
+// Handlebars.registerPartial('SubmitButton', SubmitButton);
 // Handlebars.registerPartial('iLink', iLink);
-// Handlebars.registerPartial('roundButton', roundButton);
+// Handlebars.registerPartial('RoundButton', RoundButton);
 
 
 
-import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
+import { credentialsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
 
 // 2DO убрать отладочные данные
-import { mockCreditionals } from './mock/mockData.js';
+import {mockCredentials} from './mock/mockData.js';
 
 import { Page404 } from '@/pages/page404';
+import { Page5xx } from '@/pages/page5xx';
 import { LoginPage } from '@/pages/loginPage';
 import { RegisterPage } from '@/pages/registerPage';
+import { ProfilePage } from '@/pages/profilePage';
 
 export default class App extends Block {
   public state: Record<string, any>;
@@ -35,8 +37,8 @@ export default class App extends Block {
     super({});
     this.state = {
       currentPage: 'RegisterPage',
-      creditionals: mockCreditionals,
-      creditionalsFieldLabels: creditionalsFieldLabels,
+      credentials: mockCredentials,
+      credentialsFieldLabels: credentialsFieldLabels,
       errorCode: 502,
     }
     ;
@@ -45,7 +47,7 @@ export default class App extends Block {
 
   renderPage() {
     // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new RegisterPage(this.props);
+    const displayPage = new ProfilePage(this.props);
     console.log(displayPage.getContent());
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
@@ -55,9 +57,9 @@ export default class App extends Block {
     if (!Pages || !Pages[this.state.currentPage]) return;
     const template = Handlebars.compile(Pages[this.state.currentPage]);
     this.appElement.innerHTML = template({
-      creditionals: this.state.creditionals,
-      creditionalsFieldLabels: this.state.creditionalsFieldLabels,
-      errorCode: this.state.currentPage === 'page5xx' ? this.state.errorCode : 0,
+      credentials: this.state.credentials,
+      credentialsFieldLabels: this.state.credentialsFieldLabels,
+      errorCode: this.state.currentPage === 'Page5xx' ? this.state.errorCode : 0,
     });
 
     this.attachEventListeners();
