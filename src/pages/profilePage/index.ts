@@ -116,7 +116,7 @@ export class ProfilePage extends Block {
         class: 'hidden',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: "AAArrrr66hdm",
+        value: 'AAArrrr66hdm',
       }),
       passwordRepeatField: new InputField({
         id: 'profile-password_repeat',
@@ -127,7 +127,7 @@ export class ProfilePage extends Block {
         class: 'hidden',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: "AAArrrr66hdm",
+        value: 'AAArrrr66hdm',
       }),
     };
 

@@ -23,7 +23,7 @@ export class RegisterPage extends Block {
         placeholder: 'Электронная почта',
         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "sergeykhromov.com",
+        value: 'sergeykhromov.com',
         isError: this.props.isError,
       }),
       loginField: new InputField({
@@ -34,7 +34,7 @@ export class RegisterPage extends Block {
         placeholder: 'Желаемый логин',
         pattern: /^[a-zA-Z0-9_-]{3,20}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "sergeykhromov",
+        value: 'sergeykhromov',
       }),
       firstNameField: new InputField({
         id: 'reg-first_name',
@@ -44,7 +44,7 @@ export class RegisterPage extends Block {
         placeholder: 'Имя',
         pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "Сергей",
+        value: 'Сергей',
       }),
       secondNameField: new InputField({
         id: 'reg-second_name',
@@ -54,7 +54,7 @@ export class RegisterPage extends Block {
         placeholder: 'Фамилия',
         pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "Хромов",
+        value: 'Хромов',
       }),
       phoneField: new InputField({
         id: 'reg-phone',
@@ -64,7 +64,7 @@ export class RegisterPage extends Block {
         placeholder: 'Телефон',
         pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "+7(916)121-11-22",
+        value: '+7(916)121-11-22',
       }),
       passwordField: new InputField({
         id: 'reg-password',
@@ -74,7 +74,7 @@ export class RegisterPage extends Block {
         placeholder: 'Введите пароль',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: "AAArrrr66hdm",
+        value: 'AAArrrr66hdm',
       }),
       passwordRepeatField: new InputField({
         id: 'reg-password_repeat',
@@ -84,7 +84,7 @@ export class RegisterPage extends Block {
         placeholder: 'Повторите пароль',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: "AAArrrr66hdm",
+        value: 'AAArrrr66hdm',
       }),
       SubmitButton: new SubmitButton({
         id: 'signup-button',
@@ -114,15 +114,15 @@ export class RegisterPage extends Block {
 
   onSubmit(e: Event) {
     e.preventDefault();
-    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
-    if(isError) return;
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+    if (isError) return;
     const form:HTMLElement = document.getElementById('register-form')!;
     const formData = new FormData(form as HTMLFormElement);
-    const data: {[key: string]: FormDataEntryValue} = {};
+    const data: { [key: string]: FormDataEntryValue } = {};
     formData.forEach((value, key) => {
       data[key] = value;
     });
-    console.log("Form Data:", data);
+    console.log('Form Data:', data);
   }
 
 }

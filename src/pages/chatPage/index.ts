@@ -66,7 +66,7 @@ export class ChatPage extends Block {
         placeholder: 'Сообщение',
         pattern: /.+/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: "",
+        value: '',
       }),
       RoundButton: new RoundButton({
         id: 'message-send',
@@ -85,15 +85,15 @@ export class ChatPage extends Block {
 
   onSubmit(e: Event) {
     e.preventDefault();
-    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
-    if(isError) return;
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+    if (isError) return;
     const form:HTMLElement = document.getElementById('send-message-form')!;
     const formData = new FormData(form as HTMLFormElement);
-    const data: {[key: string]: FormDataEntryValue} = {};
+    const data: { [key: string]: FormDataEntryValue } = {};
     formData.forEach((value, key) => {
       data[key] = value;
     });
-    console.log("Form Data:", data);
+    console.log('Form Data:', data);
   }
 
   handler(e:Event) {

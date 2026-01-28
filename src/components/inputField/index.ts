@@ -31,19 +31,19 @@ export class InputField extends Block {
         errorText: props.errorText || '',
       }),
     });
-    this._init()
+    this._init();
   }
 
-  public doValidateAndCallback(init=false): boolean {
-    if(!this.props.pattern || !this.props.errorMessage) return false;
+  public doValidateAndCallback(init = false): boolean {
+    if (!this.props.pattern || !this.props.errorMessage) return false;
     const regExp = new RegExp(this.props.pattern);
     const res = regExp.test((this.children.Input.element as HTMLInputElement).value);
     this.children.ErrorLine.setProps({
       errorText: res ? '' : this.props.errorMessage,
-    })
+    });
     this.isError = !res;
-    if(!init && typeof this.props.onInput === 'function') this.props.onInput();
-    if(!init && typeof this.props.onBlur === 'function') this.props.onBlur();
+    if (!init && typeof this.props.onInput === 'function') this.props.onInput();
+    if (!init && typeof this.props.onBlur === 'function') this.props.onBlur();
     return true;
   }
 

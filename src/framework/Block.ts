@@ -24,6 +24,7 @@ export default class Block {
   };
 
   public isError: boolean = false;
+
   private _isMounted: boolean = false;
 
   protected id: string;

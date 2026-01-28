@@ -23,7 +23,7 @@ export class LoginPage extends Block {
         placeholder: 'Введите логин',
         pattern: /^[a-zA-Z0-9_-]{3,20}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "sergeykhromov",
+        value: 'sergeykhromov',
       }),
       passwordField: new InputField({
         id: 'log-password',
@@ -33,7 +33,7 @@ export class LoginPage extends Block {
         placeholder: 'Введите пароль',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: "AAArrrr66hdm",
+        value: 'AAArrrr66hdm',
       }),
       SubmitButton: new SubmitButton({
         id: 'signin-button',
@@ -60,15 +60,15 @@ export class LoginPage extends Block {
 
   onSubmit(e: Event) {
     e.preventDefault();
-    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
-    if(isError) return;
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+    if (isError) return;
     const form:HTMLElement = document.getElementById('login-form')!;
     const formData = new FormData(form as HTMLFormElement);
-    const data: {[key: string]: FormDataEntryValue} = {};
+    const data: { [key: string]: FormDataEntryValue } = {};
     formData.forEach((value, key) => {
       data[key] = value;
     });
-    console.log("Form Data:", data);
+    console.log('Form Data:', data);
   }
 
   render(): string {

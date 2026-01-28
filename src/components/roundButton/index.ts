@@ -9,7 +9,9 @@ export class RoundButton extends Block {
       template,
       events: {
         click: (e: Event) => {
-          typeof props.onClick === 'function' ? props.onClick(e) : () =>{}
+          if (typeof props.onClick === 'function') {
+            props.onClick(e);
+          }
         },
       },
       attr: {
