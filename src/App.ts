@@ -5,12 +5,15 @@ import Block from '@/framework/Block';
 // 2DO убрать отладочные данные
 import { mockCredentials } from './mock/mockData.js';
 import { credentialsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
+import { iLink } from './components/iLink/deleteme';
 
 import { chatContact } from '@/pages/chatPage/templateParts/chatContact';
 import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
+import { revieverMenu } from '@/components/revieverMenu';
 
 Handlebars.registerPartial('chatContact', chatContact);
 Handlebars.registerPartial('chatMessage', chatMessage);
+Handlebars.registerPartial('pLink', iLink);
 
 // import { Page404 } from '@/pages/page404';
 // import { Page5xx } from '@/pages/page5xx';
@@ -25,7 +28,7 @@ export default class App extends Block {
   public state: Record<string, any>;
 
   public appElement: HTMLElement | null;
-
+  public menuElement: any;
 
   constructor() {
     super({});
@@ -37,11 +40,12 @@ export default class App extends Block {
     }
     ;
     this.appElement = document.getElementById('app');
+    this.menuElement = document.getElementById('revieverMenu');
   }
 
   renderPage() {
     // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new ChatPage(this.props);
+    const displayPage = new LoginPage(this.props);
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
     }
@@ -54,6 +58,9 @@ export default class App extends Block {
       credentialsFieldLabels: this.state.credentialsFieldLabels,
       errorCode: this.state.currentPage === 'Page5xx' ? this.state.errorCode : 0,
     });
+
+    const menuTemplate = Handlebars.compile(revieverMenu);
+    this.menuElement.innerHTML = menuTemplate({});
 
     this.attachEventListeners();
   }
