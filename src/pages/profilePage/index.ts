@@ -22,14 +22,12 @@ export class ProfilePage extends Block {
         disabled: false,
         class: 'i-link rotate',
         datapage: 'ChatPage',
-        onClick: this.handler.bind(this),
       }),
       avatarField: new InputField({
         id: 'profile-avatar-field',
         name: 'avatar',
         type: 'file',
         disabled: false,
-        onClick: this.handler.bind(this),
         class: 'hidden',
       }),
       loginField: new InputField({
@@ -79,7 +77,6 @@ export class ProfilePage extends Block {
         type: 'text',
         disabled: false,
         skin: 'inline',
-        onBlur: this.handler.bind(this),
       }),
       phoneField: new InputField({
         id: 'profile-phone',
@@ -93,19 +90,15 @@ export class ProfilePage extends Block {
       }),
       changeDataLink: new Link({
         text: 'Изменить данные',
-        onClick: this.handler.bind(this),
       }),
       changePasswordLink: new Link({
         text: 'Изменить пароль',
-        onClick: this.handler.bind(this),
       }),
       logoutLink: new Link({
         text: 'Выйти',
-        onClick: this.handler.bind(this),
       }),
       deleteProfileLink: new Link({
         text: 'Удалить профиль',
-        onClick: this.handler.bind(this),
       }),
       passwordField: new InputField({
         id: 'profile-password',
@@ -139,28 +132,5 @@ export class ProfilePage extends Block {
     return template;
   }
 
-  onSubmitClick(e: Event): void {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  onLoginChange(e: Event): void {
-    console.log('onLoginChange', typeof e);
-  }
-
-  onpasswordChange(e: Event): void {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
   onSubmit() { console.log('кликнули кнопку сабмит');}
-
-  handler(e:Event): void {
-    console.log(e);
-  }
-
-  test(e:any = 'jopa'): void {
-    console.log('TEST', e);
-  }
-
 }

@@ -87,11 +87,12 @@
       padding: 15px;
 
       #send-message-form {
-        flex-grow: 1;
+        align-items: center;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        flex-grow: 1;
         gap: 10px;
+
         .input-field {
           flex-grow: 1;
         }

@@ -48,7 +48,6 @@ export class ChatPage extends Block {
       profileLink: new Link({
         datapage: 'ProfilePage',
         text: 'Профиль >>',
-        onClick: this.handler.bind(this),
       }),
       searchField: new InputField({
         id: 'chat-search',
@@ -56,7 +55,6 @@ export class ChatPage extends Block {
         type: 'text',
         disabled: false,
         placeholder: 'Поиск контактов',
-        onInput: this.handler.bind(this),
       }),
       messageField: new InputField({
         id: 'message-field',
@@ -94,9 +92,5 @@ export class ChatPage extends Block {
       data[key] = value;
     });
     console.log('Form Data:', data);
-  }
-
-  handler(e:Event) {
-    console.log(e);
   }
 }
