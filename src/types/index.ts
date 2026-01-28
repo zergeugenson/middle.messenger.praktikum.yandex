@@ -1,19 +1,20 @@
 
-// interface EventMap {
-//     [key: string]: EventListener | EventListenerObject;
-// }
-//
+interface EventMap {
+  [key: string]: EventListener | EventListenerObject;
+}
+
 interface Attributes {
   [key: string]: string;
 }
 
-
 // 2DO разобраться с типами пропсов
 export interface BlockProps {
-  // events?: EventMap;
+  events?: EventMap;
   attr?: Attributes | false;
   template?: string;
-  [key:string]: any;
-  children?: any;
+  children?: unknown;
+  onClick?: (event: Event) => void;
+  onBlur?: (event: Event) => void;
+  class?: string;
+  [key:string]: unknown;
 }
-

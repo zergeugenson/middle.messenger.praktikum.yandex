@@ -1,19 +1,22 @@
 import Block from '@/framework/Block';
 import './style.scss';
 import iLink from './iLink.hbs?raw';
+import type { BlockProps } from '@/types';
 
 export class Link extends Block {
-  constructor(props: any) {
+  constructor(props: BlockProps) {
     super({
       template: iLink,
       ...props,
       events: {
         click: (e: Event) => {
-          props.onClick(e);
+          if (typeof props.onClick === 'function') {
+            props.onClick(e);
+          }
         },
       },
       attr: {
-        class: [`i-link ${props.class ? ' ' + props.class : ''}`],
+        class: [`i-link ${props.class}`],
         'data-page': props.datapage,
       },
     });
