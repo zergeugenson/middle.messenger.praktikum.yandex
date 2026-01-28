@@ -64,46 +64,37 @@ export class ChatPage extends Block {
         type: 'text',
         disabled: false,
         placeholder: 'Сообщение',
-        onInput: this.handler.bind(this),
+        pattern: /.+/,
+        errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
+        value: "",
       }),
       RoundButton: new RoundButton({
         id: 'message-send',
-        disabled: true,
-        class: 'i-link',
-        onClick: this.handler.bind(this),
+        type: 'submit',
+        disabled: false,
       }),
     };
 
     super.init();
 
-
   }
-
-  onSubmitClick(e: Event) {
-
-    e.preventDefault();
-    e.stopPropagation();
-
-  }
-
-  onLoginChange(e: Event) {
-    console.log('onLoginChange', typeof e);
-  }
-
-  onpasswordChange(e: Event) {
-
-    if (!(e.target instanceof HTMLInputElement)) {
-      return;
-    }
-
-  }
-
 
   render(): string {
     return template;
   }
 
-  onSubmit() { console.log('кликнули кнопку сабмит');}
+  onSubmit(e: Event) {
+    e.preventDefault();
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
+    if(isError) return;
+    const form:HTMLElement = document.getElementById('send-message-form')!;
+    const formData = new FormData(form as HTMLFormElement);
+    const data: {[key: string]: FormDataEntryValue} = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+    console.log("Form Data:", data);
+  }
 
   handler(e:Event) {
     console.log(e);

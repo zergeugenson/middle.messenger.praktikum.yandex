@@ -9,13 +9,14 @@ export class RoundButton extends Block {
       template,
       events: {
         click: (e: Event) => {
-          props.onClick(e);
+          typeof props.onClick === 'function' ? props.onClick(e) : () =>{}
         },
       },
       attr: {
         class: [`round-button ${props.class ? ' ' + props.class : ''}`],
         'data-page': props.datapage,
         id: props.id,
+        type: props.type || 'button',
       },
     });
   }
