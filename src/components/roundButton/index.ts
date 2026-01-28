@@ -1,9 +1,10 @@
 import Block from '@/framework/Block';
 import './style.scss';
 import template from './roundButton.hbs?raw';
+import type { BlockProps } from '@/types';
 
 export class RoundButton extends Block {
-  constructor(props: any) {
+  constructor(props: BlockProps) {
     super({
       ...props,
       template,

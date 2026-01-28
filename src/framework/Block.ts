@@ -73,7 +73,7 @@ export default class Block {
       ) {
         lists[key] = value;
       } else {
-        props[key] = value;
+        props[key] = value as BlockProps;
       }
     });
 
@@ -155,8 +155,8 @@ export default class Block {
 
     Object.values(this.lists).forEach((childList) => {
       Object.values(childList).forEach((children) =>
-        Object.values(children).forEach((child) => {
-          child.dispatchComponentDidUnMount();
+        Object.values(children).forEach((child:Block) => {
+          child?.dispatchComponentDidUnMount();
         }),
       );
     });
@@ -226,7 +226,7 @@ export default class Block {
       if (stub) {
         const elements = childList
           .map((children) =>
-            Object.values(children).map((child) => child.getContent()),
+            Object.values(children).map((child:Block) => child?.getContent()),
           )
           .flat();
 

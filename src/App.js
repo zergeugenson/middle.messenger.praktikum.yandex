@@ -27,7 +27,7 @@ export default class App extends Block {
 		}
 		;
 		this.appElement = document.getElementById('app');
-		this.menuElement = document.getElementById('revieverMenu');
+		this.menuElement = document.getElementById('reviever-menu');
 	}
 
 	renderPage() {
