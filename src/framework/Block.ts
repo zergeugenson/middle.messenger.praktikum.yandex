@@ -1,26 +1,15 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
 import { v4 as newUuid } from 'uuid';
-import type { BlockProps } from '@/types';
-
-// import * as Pages from '@/pages';
-// import { Page404 } from '@/pages';
-
-export interface Children {
-  [key: string]: Block;
-}
-
-
+import type { BlockProps, Children } from '@/types';
 
 export default class Block {
-  // [key: string]: unknown;
   static EVENTS = {
     ONINIT: 'init',
     ONMOUNT: 'flow:component-did-mount',
     ONUPDATE: 'flow:component-did-update',
     ONUNMOUNT: 'flow:component-will-unmount',
     ONRENDER: 'flow:render',
-    // pageChange:'pageChange',
   };
 
   public isError: boolean = false;
@@ -40,13 +29,11 @@ export default class Block {
   protected template: string | undefined;
 
   protected eventBus: () => EventBus;
-  // public al: HTMLElement | null;
 
   constructor({ ...propsWithChildren }) {
     const eventBus = new EventBus();
     const { props, children, lists } = this._getChildrenAndProps(propsWithChildren);
     this.props = this._makePropsProxy(props);
-    // eslint-disable-next-line
     this.children = children;
     this.lists = lists;
     this.template = this.props.template;
@@ -58,7 +45,7 @@ export default class Block {
   private _getChildrenAndProps(propsAndChildren: BlockProps): {
     children: Record<string, Block>,
     props: BlockProps,
-    lists: Record<string, any[]>
+    lists: Record<string, BlockProps[]>
   } {
     const children: Children = {};
     const props: { [key: string]: BlockProps } = {};
@@ -80,7 +67,7 @@ export default class Block {
     return { children, props, lists };
   }
 
-  private _makePropsProxy(props: any): BlockProps {
+  private _makePropsProxy(props: BlockProps): BlockProps {
     const self = this as Block;
 
     return new Proxy(props, {
@@ -139,7 +126,7 @@ export default class Block {
 
       Object.values(this.lists).forEach((childList) => {
         Object.values(childList).forEach((children) =>
-          Object.values(children).forEach((child:any) => {
+          Object.values(children).forEach((child:Block) => {
             child.dispatchComponentDidMount();
           }),
         );
@@ -267,8 +254,6 @@ export default class Block {
     return this.element;
   }
 
-
-
   _createDocumentElement(tagName: string): HTMLTemplateElement {
     return document.createElement(tagName) as HTMLTemplateElement;
   }
@@ -277,15 +262,7 @@ export default class Block {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
   };
 
-  // pageChange(a:string): void {
-  //   const ppp : { [key: string]: any } = Pages
-  //   console.log('change in Block', a, ppp, ppp[a])
-  //   const displayPage = new Page404();
-  //   this.al = document.getElementById('app');
-  //   this.al?.appendChild(displayPage.getContent());
-  // }
 }

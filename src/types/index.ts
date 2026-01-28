@@ -1,3 +1,8 @@
+import Block from '@/framework/Block';
+
+export interface Children {
+  [key: string]: Block;
+}
 
 interface EventMap {
   [key: string]: EventListener | EventListenerObject;
