@@ -16,7 +16,7 @@ Handlebars.registerPartial('chatMessage', chatMessage);
 // import { Page5xx } from '@/pages/page5xx';
 import { LoginPage } from '@/pages/loginPage';
  import { RegisterPage } from '@/pages/registerPage';
-// import { ProfilePage } from '@/pages/profilePage';
+import { ProfilePage } from '@/pages/profilePage';
 // import { ChatPage } from '@/pages/chatPage';
 
 
@@ -41,7 +41,7 @@ export default class App extends Block {
 
   renderPage() {
     // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new RegisterPage(this.props);
+    const displayPage = new ProfilePage(this.props);
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
     }

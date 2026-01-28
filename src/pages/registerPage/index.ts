@@ -23,7 +23,8 @@ export class RegisterPage extends Block {
         placeholder: 'Электронная почта',
         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: "sergey@khromov.com",
+        value: "sergeykhromov.com",
+        isError: this.props.isError,
       }),
       loginField: new InputField({
         id: 'reg-login',
