@@ -4,7 +4,6 @@ import { Link } from '@/components/iLink';
 import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs?raw';
-import { validateLogin, validatePassword } from '@/framework/Validations'
 
 export class LoginPage extends Block {
   init() {
@@ -22,7 +21,9 @@ export class LoginPage extends Block {
         type: 'text',
         disabled: false,
         placeholder: 'Введите логин',
-        onBlur: this.onLoginChange.bind(this),
+        pattern: /^[a-zA-Z0-9_-]{3,20}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: "sergeykhromov",
       }),
       passwordField: new InputField({
         id: 'log-password',
@@ -30,8 +31,9 @@ export class LoginPage extends Block {
         type: 'password',
         disabled: false,
         placeholder: 'Введите пароль',
-        onBlur: this.onpasswordChange.bind(this),
-        value: this.props.value,
+        pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+        errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
+        value: "AAArrrr66hdm",
       }),
       SubmitButton: new SubmitButton({
         id: 'signin-button',
@@ -56,26 +58,10 @@ export class LoginPage extends Block {
 
   }
 
-  onLoginChange(e: Event) {
-    const errorText = validateLogin(e)
-    if(errorText) {
-      this.children.loginField.setProps({
-        errorText: errorText,
-      });
-    }
-  }
-
-  onpasswordChange(e: Event) {
-    const errorText = validatePassword(e)
-    if(errorText) {
-      this.children.passwordField.setProps({
-        errorText: errorText,
-      });
-    }
-  }
-
   onSubmit(e: Event) {
     e.preventDefault();
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
+    if(isError) return;
     const form:HTMLElement = document.getElementById('login-form')!;
     const formData = new FormData(form as HTMLFormElement);
     const data: {[key: string]: FormDataEntryValue} = {};

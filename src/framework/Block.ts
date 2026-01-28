@@ -23,6 +23,7 @@ export default class Block {
     // pageChange:'pageChange',
   };
 
+  public isError: boolean = false;
   private _isMounted: boolean = false;
 
   protected id: string;
@@ -172,7 +173,6 @@ export default class Block {
   }
 
   private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): void {
-    console.log('ONUPDATE, old=', oldProps, 'new=', newProps);
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -182,8 +182,9 @@ export default class Block {
 
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     // 2do разобраться с этим.
-    const isEqual = oldProps === newProps;
-    console.log('isEqual', isEqual);
+    // const isEqual = oldProps === newProps;
+    // console.log('isEqual', isEqual);
+    console.log('ONUPDATE: \n oldProps=', oldProps, '\n newProps=', newProps);
     return true;
   }
 

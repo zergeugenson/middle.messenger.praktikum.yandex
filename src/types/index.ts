@@ -15,5 +15,6 @@ export interface BlockProps {
   template?: string;
   [key:string]: any;
   children?: any;
+  // isError: boolean;
 }
 
