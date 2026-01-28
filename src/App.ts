@@ -41,7 +41,7 @@ export default class App extends Block {
 
   renderPage() {
     // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new LoginPage(this.props);
+    const displayPage = new RegisterPage(this.props);
     if (this.appElement) {
       this.appElement.appendChild(displayPage.getContent());
     }
