@@ -13,16 +13,7 @@ import { revieverMenu } from '@/components/revieverMenu';
 
 Handlebars.registerPartial('chatContact', chatContact);
 Handlebars.registerPartial('chatMessage', chatMessage);
-Handlebars.registerPartial('pLink', iLink);
-
-// import { Page404 } from '@/pages/page404';
-// import { Page5xx } from '@/pages/page5xx';
-import { LoginPage } from '@/pages/loginPage';
-import { RegisterPage } from '@/pages/registerPage';
-import { ProfilePage } from '@/pages/profilePage';
-import { ChatPage } from '@/pages/chatPage';
-
-
+Handlebars.registerPartial('iLink', iLink);
 
 export default class App extends Block {
   public state: Record<string, any>;
@@ -33,7 +24,7 @@ export default class App extends Block {
   constructor() {
     super({});
     this.state = {
-      currentPage: 'RegisterPage',
+      currentPage: 'LoginPage',
       credentials: mockCredentials,
       credentialsFieldLabels: credentialsFieldLabels,
       errorCode: 502,
@@ -44,36 +35,33 @@ export default class App extends Block {
   }
 
   renderPage() {
-    // if (this.state.currentPage === 'RegisterPage') {
-    const displayPage = new LoginPage(this.props);
-    if (this.appElement) {
-      this.appElement.appendChild(displayPage.getContent());
-    }
-    // }
-    return '';
-    if (!Pages || !Pages[this.state.currentPage]) return;
-    const template = Handlebars.compile(Pages[this.state.currentPage]);
-    this.appElement.innerHTML = template({
-      credentials: this.state.credentials,
-      credentialsFieldLabels: this.state.credentialsFieldLabels,
-      errorCode: this.state.currentPage === 'Page5xx' ? this.state.errorCode : 0,
-    });
-
     const menuTemplate = Handlebars.compile(revieverMenu);
     this.menuElement.innerHTML = menuTemplate({});
 
+    this.appElement.remove();
+    const newApp = document.createElement('div');
+    newApp.id = 'app';
+    document.body.append(newApp);
+
+    this.appElement = document.getElementById('app');
+    const displayPage = new Pages[this.state.currentPage](this.props);
+
+    if (this.appElement) {
+      this.appElement.appendChild(displayPage.getContent());
+    }
+
     this.attachEventListeners();
+
+
   }
 
   attachEventListeners() {
     const Links = document.querySelectorAll('.i-link');
+    console.log(Links)
     Links.forEach(link => {
       link.addEventListener('click', (e:Event & {
         target: HTMLButtonElement
       }) => {
-        if (!(e.target instanceof HTMLButtonElement)) {
-          return;
-        }
         e.preventDefault();
         this.changePage(e.target.dataset.page);
       });
