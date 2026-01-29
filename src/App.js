@@ -6,7 +6,6 @@
 
 import Handlebars from 'handlebars';
 import * as Pages from '@/pages';
-import './helpers/handlebarsHelpers.js';
 import Block from '@/framework/Block';
 
 // 2DO удалить deleteme.ts
@@ -20,47 +19,47 @@ Handlebars.registerPartial('iLink', iLink);
 
 export default class App extends Block {
 
-	constructor() {
-		super({});
-		this.state = {
-			currentPage: 'LoginPage',
-		}
-		;
-		this.appElement = document.getElementById('app');
-		this.menuElement = document.getElementById('reviever-menu');
-	}
+  constructor() {
+    super({});
+    this.state = {
+      currentPage: 'LoginPage',
+    }
+    ;
+    this.appElement = document.getElementById('app');
+    this.menuElement = document.getElementById('reviever-menu');
+  }
 
-	renderPage() {
-		const menuTemplate = Handlebars.compile(revieverMenu);
-		this.menuElement.innerHTML = menuTemplate({});
+  renderPage() {
+    const menuTemplate = Handlebars.compile(revieverMenu);
+    this.menuElement.innerHTML = menuTemplate({});
 
-		this.appElement.remove();
-		const newApp = document.createElement('div');
-		newApp.id = 'app';
-		document.body.append(newApp);
+    this.appElement.remove();
+    const newApp = document.createElement('div');
+    newApp.id = 'app';
+    document.body.append(newApp);
 
-		this.appElement = document.getElementById('app');
-		const displayPage = new Pages[this.state.currentPage](this.props);
+    this.appElement = document.getElementById('app');
+    const displayPage = new Pages[this.state.currentPage](this.props);
 
-		if (this.appElement) {
-			this.appElement.appendChild(displayPage.getContent());
-		}
-		this.attachEventListeners();
-	}
+    if (this.appElement) {
+      this.appElement.appendChild(displayPage.getContent());
+    }
+    this.attachEventListeners();
+  }
 
-	attachEventListeners() {
-		const Links = document.querySelectorAll('.i-link');
-		Links.forEach(link => {
-			link.addEventListener('click', (e) => {
+  attachEventListeners() {
+    const Links = document.querySelectorAll('.i-link');
+    Links.forEach(link => {
+      link.addEventListener('click', (e) => {
 
-				e.preventDefault();
-				this.changePage(e.target.dataset.page);
-			});
-		});
-	}
+        e.preventDefault();
+        this.changePage(e.target.dataset.page);
+      });
+    });
+  }
 
-	changePage(page) {
-		this.state.currentPage = page;
-		this.renderPage();
-	}
+  changePage(page) {
+    this.state.currentPage = page;
+    this.renderPage();
+  }
 }
