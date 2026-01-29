@@ -51,9 +51,10 @@ export default class App extends Block {
     const Links = document.querySelectorAll('.i-link');
     Links.forEach(link => {
       link.addEventListener('click', (e) => {
-
         e.preventDefault();
-        this.changePage(e.target.dataset.page);
+        if(!e.target.dataset.disabled) {
+          this.changePage(e.target.dataset.page);
+        }
       });
     });
   }

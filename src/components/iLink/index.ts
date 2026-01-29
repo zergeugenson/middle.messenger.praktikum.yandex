@@ -10,14 +10,12 @@ export class Link extends Block {
       ...props,
       events: {
         click: (e: Event) => {
+          e.preventDefault();
+          e.stopPropagation();
           if (typeof props.onClick === 'function') {
             props.onClick(e);
           }
         },
-      },
-      attr: {
-        class: [`i-link ${props.class}`],
-        'data-page': props.datapage,
       },
     });
   }

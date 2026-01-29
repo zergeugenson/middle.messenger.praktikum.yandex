@@ -1,3 +1,6 @@
 a.i-link {
   text-decoration: none;
+  &.disabled{
+    color: var(--border-color);
+  }
 }

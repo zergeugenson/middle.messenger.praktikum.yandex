@@ -89,20 +89,27 @@ export class ProfilePage extends Block {
         value: credentials.phone,
       }),
       changeDataLink: new Link({
+        href: '#',
         text: 'Изменить данные',
         datapage: 'ProfilePage',
       }),
       changePasswordLink: new Link({
+        href: '#',
         text: 'Изменить пароль',
         datapage: 'ProfilePage',
+        disabled: true,
       }),
       logoutLink: new Link({
+        href: '#',
         text: 'Выйти',
         datapage: 'ProfilePage',
+        disabled: true,
       }),
       deleteProfileLink: new Link({
+        href: '#',
         text: 'Удалить профиль',
-        datapage: 'ProfilePage',
+        datapage: 'LoginPage',
+        disabled: true,
       }),
       passwordField: new InputField({
         id: 'profile-password',
