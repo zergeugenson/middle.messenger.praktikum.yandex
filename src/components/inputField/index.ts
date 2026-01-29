@@ -23,17 +23,20 @@ export class InputField extends Block {
         class: props.class || '',
         id: props.id,
         placeholder: props.placeholder,
-        skin: props.skin,
+        skin: props.errorText,
         isdisabled: props.isdisabled || false,
-        isError: props.isError || false,
       }),
       ErrorLine: new ErrorLine({
         errorText: props.errorText || '',
       }),
+      isError: props.errorText,
     });
     this._init();
   }
 
+  get flagError(){
+    return this.isError
+  }
   public doValidateAndCallback(e: Event | undefined, init = false): boolean {
     if (!this.props.pattern || !this.props.errorMessage) return false;
     const regExp = new RegExp(this?.props?.pattern as string || '');

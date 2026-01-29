@@ -53,15 +53,17 @@
         margin-bottom: 30px;
 
         li.userdata__item {
-          border-bottom: 1px solid var(--border-color);
+          //border-bottom: 1px solid var(--border-color);
           display: flex;
           font-size: 16px;
-          padding: 8px 0;
+          padding: 6px 0;
 
           &:last-child {
             border: none;
           }
-
+          .userdata__item-label {
+            padding-top: 12px;
+          }
           .userdata__item-field {
             display: flex;
             flex-grow: 1;
@@ -92,7 +94,7 @@
   }
 
   .input-field__error {
-    display: none;
+    //display: none;
   }
   .profile-submit-button  {
     border: none;

@@ -1,12 +1,15 @@
 import Block from '@/framework/Block';
-// import type { BlockProps } from '@/types';
 
 export default class ErrorLine extends Block {
-  // constructor(props: BlockProps) {
-  //   super(props);
-  // }
-
   render(): string {
-    return '<div class="input__text-error">{{errorText}}</div>';
+    return `
+      <div class="input-field__error{{# if errorText }} error{{/ if }}">
+          <div class="error-message">
+              <div class="input__text-error">
+                  {{# if errorText }}{{ errorText }}{{ else }}&nbsp;{{/ if }}
+              </div>
+          </div>
+      </div>
+`;
   }
 }
