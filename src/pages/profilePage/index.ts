@@ -90,15 +90,19 @@ export class ProfilePage extends Block {
       }),
       changeDataLink: new Link({
         text: 'Изменить данные',
+        datapage: 'ProfilePage',
       }),
       changePasswordLink: new Link({
         text: 'Изменить пароль',
+        datapage: 'ProfilePage',
       }),
       logoutLink: new Link({
         text: 'Выйти',
+        datapage: 'ProfilePage',
       }),
       deleteProfileLink: new Link({
         text: 'Удалить профиль',
+        datapage: 'ProfilePage',
       }),
       passwordField: new InputField({
         id: 'profile-password',

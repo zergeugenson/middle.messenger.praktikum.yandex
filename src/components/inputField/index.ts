@@ -14,8 +14,8 @@ export class InputField extends Block {
       ...props,
       Input: new Input({
         events: {
-          blur: () => this.doValidateAndCallback(),
-          input: () => this.doValidateAndCallback(),
+          blur: (e:Event) => this.doValidateAndCallback(e),
+          input: (e:Event) => this.doValidateAndCallback(e),
         },
         type: props?.type || 'text',
         name: props.name,
@@ -34,21 +34,21 @@ export class InputField extends Block {
     this._init();
   }
 
-  public doValidateAndCallback(init = false): boolean {
+  public doValidateAndCallback(e: Event | undefined, init = false): boolean {
     if (!this.props.pattern || !this.props.errorMessage) return false;
-    const regExp = new RegExp(this.props.pattern);
+    const regExp = new RegExp(this?.props?.pattern as string || '');
     const res = regExp.test((this.children.Input.element as HTMLInputElement).value);
     this.children.ErrorLine.setProps({
       errorText: res ? '' : this.props.errorMessage,
     });
     this.isError = !res;
-    if (!init && typeof this.props.onInput === 'function') this.props.onInput();
-    if (!init && typeof this.props.onBlur === 'function') this.props.onBlur();
+    if (!init && e && typeof this.props.onInput === 'function') this.props.onInput(e);
+    if (!init && e && typeof this.props.onBlur === 'function') this.props.onBlur(e);
     return true;
   }
 
   protected _init(): void {
-    this.doValidateAndCallback(true);
+    this.doValidateAndCallback(undefined, true);
     // this.validate = this.validate.bind(this);
   }
 

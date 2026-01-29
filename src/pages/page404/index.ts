@@ -12,13 +12,13 @@ export class Page404 extends Block {
         href: '#',
         datapage: 'LoginPage',
         text: 'Назад на главную',
-        onClick: (event: Event) => {
-          const el = event.target as HTMLElement;
-          console.log('CLICK', el?.getAttribute('data-page'));
-          event.preventDefault();
-          event.stopPropagation();
+        // onClick: (event: Event) => {
+          // const el = event.target as HTMLElement;
+          // console.log('CLICK', el?.getAttribute('data-page'));
+          // event.preventDefault();
+          // event.stopPropagation();
           // eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
-        },
+        // },
       }),
     });
   }

@@ -96,13 +96,6 @@ export class RegisterPage extends Block {
       LinkBack: new Link({
         datapage: 'LoginPage',
         text: 'Войти',
-        onClick: (event: Event) => {
-          const el = event.target as HTMLElement;
-          console.log('CLICK', el?.getAttribute('data-page'));
-          event.preventDefault();
-          event.stopPropagation();
-          // eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
-        },
       }),
     };
     super.init();

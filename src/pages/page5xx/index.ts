@@ -12,12 +12,6 @@ export class Page5xx extends Block {
         href: '#',
         datapage: 'LoginPage',
         text: 'Назад на главную',
-        onClick: (event: Event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          // const el = event.target as HTMLElement;
-          // eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
-        },
       }),
     });
   }

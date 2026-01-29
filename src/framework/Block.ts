@@ -1,6 +1,6 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
-import { v4 as newUuid } from 'uuid';
+import { nanoid } from 'nanoid';
 import type { BlockProps, Children } from '@/types';
 
 export default class Block {
@@ -183,7 +183,7 @@ export default class Block {
   private _render(): void {
     // console.log('ONRENDER:', this.props);
     const propsAndStubs = { ...this.props };
-    const tmpId =  newUuid();
+    const tmpId =  nanoid(10);
 
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
