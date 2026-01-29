@@ -1,1 +1,13 @@
-<button data-page="{{data-page}}" id="{{id}}" class="{{class}}" type="{{type}}" {{#if disabled}} disabled{{/if}}>{{text}}</button>
+<button
+	{{#if datapage }}
+	data-page="datapage"
+	{{/if}}
+	{{#if id }}
+	id="{{ id }}"
+	{{/if}}
+	class="{{class}}"
+	type="{{type}}"
+	{{#if disabled}} disabled{{/if}}
+>
+	{{text}}
+</button>

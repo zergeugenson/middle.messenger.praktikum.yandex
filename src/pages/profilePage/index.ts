@@ -5,6 +5,7 @@ import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
 import template from './profilePage.hbs?raw';
 import { mockCredentials as credentials } from '@/mock/mockData.js';
+import {SubmitButton} from "@/components/submitButton";
 
 export class ProfilePage extends Block {
   init() {
@@ -88,10 +89,16 @@ export class ProfilePage extends Block {
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
         value: credentials.phone,
       }),
-      changeDataLink: new Link({
-        href: '#',
+      // changeDataLink: new Link({
+      //   href: '#',
+      //   text: 'Изменить данные',
+      //   datapage: 'ProfilePage',
+      // }),
+      changeDataLink: new SubmitButton({
         text: 'Изменить данные',
-        datapage: 'ProfilePage',
+        type: 'submit',
+        disabled: false,
+        class: "profile-submit-button",
       }),
       changePasswordLink: new Link({
         href: '#',
@@ -143,5 +150,16 @@ export class ProfilePage extends Block {
     return template;
   }
 
-  onSubmit() { console.log('кликнули кнопку сабмит');}
+  onSubmit(e: Event) {
+    e.preventDefault();
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+    if (isError) return;
+    const form:HTMLElement = document.getElementById('change-profile-form')!;
+    const formData = new FormData(form as HTMLFormElement);
+    const data: { [key: string]: FormDataEntryValue } = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+    console.log('Form Data:', data);
+  }
 }

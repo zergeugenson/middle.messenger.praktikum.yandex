@@ -22,7 +22,7 @@ export default class App extends Block {
   constructor() {
     super({});
     this.state = {
-      currentPage: 'LoginPage',
+      currentPage: 'ProfilePage',
     }
     ;
     this.appElement = document.getElementById('app');
