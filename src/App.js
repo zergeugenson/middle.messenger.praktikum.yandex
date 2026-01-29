@@ -52,7 +52,7 @@ export default class App extends Block {
     Links.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        if(!e.target.dataset.disabled) {
+        if (!e.target.dataset.disabled) {
           this.changePage(e.target.dataset.page);
         }
       });
