@@ -5,7 +5,7 @@ import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
 import template from './profilePage.hbs?raw';
 import { mockCredentials as credentials } from '@/mock/mockData.js';
-import {SubmitButton} from "@/components/submitButton";
+import { SubmitButton } from '@/components/submitButton';
 
 export class ProfilePage extends Block {
   init() {
@@ -87,7 +87,7 @@ export class ProfilePage extends Block {
         text: 'Изменить данные',
         type: 'submit',
         disabled: false,
-        class: "profile-submit-button",
+        class: 'profile-submit-button',
       }),
       changePasswordLink: new Link({
         href: '#',
