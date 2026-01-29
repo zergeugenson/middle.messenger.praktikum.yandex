@@ -12,8 +12,9 @@
 - Handlebars
 - Express.js
 - SCSS
--  ESLint
--  Stylelint
+- ESLint
+- Stylelint
+- nanoid
 
 
 ## Установка
