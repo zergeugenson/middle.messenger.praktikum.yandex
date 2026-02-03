@@ -1,65 +1,66 @@
+
+/**
+ * ЭТОТ ФАЙЛ БУДЕТ ПОЛНОСТЬЮ УБРАН В СЛЕДУЮЩЕМ СПРИНТЕ, КАК ТОЛЬКО ПОДНИМЕТСЯ РУТЕР
+ * Никакого другого смысла, кроме переключения страниц, у него нет, поэтому он остался JS, а не TS
+ */
+
 import Handlebars from 'handlebars';
-import * as Pages from './pages';
-import './helpers/handlebarsHelpers.js';
+import * as Pages from '@/pages';
+import Block from '@/framework/Block';
 
-import { inputField }  from './components/inputField';
-import { submitButton } from './components/submitButton';
-import { iLink } from './components/iLink';
-import { roundButton } from './components/roundButton';
-
-Handlebars.registerPartial('inputField', inputField );
-Handlebars.registerPartial('submitButton', submitButton);
+// 2DO удалить deleteme.ts
+import { iLink } from './components/iLink/deleteme';
+import { chatContact } from '@/pages/chatPage/templateParts/chatContact';
+import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
+import { revieverMenu } from '@/components/revieverMenu';
+Handlebars.registerPartial('chatContact', chatContact);
+Handlebars.registerPartial('chatMessage', chatMessage);
 Handlebars.registerPartial('iLink', iLink);
-Handlebars.registerPartial('roundButton', roundButton);
 
-import { creditionalsFieldLabels } from './lib/constants/creditionalsFieldLabels.js';
-// 2DO убрать во втором спринте
-import { revieverMenu } from './components/revieverMenu';
+export default class App extends Block {
 
-// 2DO убрать отладочные данные
-import { mockCreditionals } from './mock/mockData.js';
+  constructor() {
+    super({});
+    this.state = {
+      currentPage: 'LoginPage',
+    }
+    ;
+    this.appElement = document.getElementById('app');
+    this.menuElement = document.getElementById('reviever-menu');
+  }
 
-export default class App {
-	constructor() {
-		this.state = {
-			currentPage: 'loginPage',
-			creditionals: mockCreditionals,
-			creditionalsFieldLabels: creditionalsFieldLabels,
-			errorCode: 502,
-		}
-		;
-		this.appElement = document.getElementById('app');
-		this.menuElement = document.getElementById('revieverMenu');
-	}
+  renderPage() {
+    const menuTemplate = Handlebars.compile(revieverMenu);
+    this.menuElement.innerHTML = menuTemplate({});
 
-	render() {
-		let template;
-		if(!Pages || !Pages[this.state.currentPage]) return;
-		template = Handlebars.compile(Pages[this.state.currentPage]);
-		this.appElement.innerHTML = template({
-			creditionals: this.state.creditionals,
-			creditionalsFieldLabels: this.state.creditionalsFieldLabels,
-			errorCode: this.state.currentPage==='page5xx' ? this.state.errorCode : 0,
-		});
-// 2DO убрать во втором спринте
-		const menuTemplate = Handlebars.compile(revieverMenu);
-		this.menuElement.innerHTML = menuTemplate({});
+    this.appElement.remove();
+    const newApp = document.createElement('div');
+    newApp.id = 'app';
+    document.body.append(newApp);
 
-		this.attachEventListeners();
-	}
+    this.appElement = document.getElementById('app');
+    const displayPage = new Pages[this.state.currentPage](this.props);
 
-	attachEventListeners() {
-		const Links = document.querySelectorAll('.i-link');
-		Links.forEach(link => {
-			link.addEventListener('click', (e) => {
-				e.preventDefault();
-				this.changePage(e.target.dataset.page);
-			});
-		});
-	}
+    if (this.appElement) {
+      this.appElement.appendChild(displayPage.getContent());
+    }
+    this.attachEventListeners();
+  }
 
-	changePage(page) {
-		this.state.currentPage = page;
-		this.render();
-	}
+  attachEventListeners() {
+    const Links = document.querySelectorAll('.i-link');
+    Links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!e.target.dataset.disabled) {
+          this.changePage(e.target.dataset.page);
+        }
+      });
+    });
+  }
+
+  changePage(page) {
+    this.state.currentPage = page;
+    this.renderPage();
+  }
 }

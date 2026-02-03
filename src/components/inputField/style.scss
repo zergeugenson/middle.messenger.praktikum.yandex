@@ -1,5 +1,6 @@
 .input-field {
   font-size: 12px;
+
   &__body{
     align-items: stretch;
     background-color: #fff;
@@ -11,37 +12,37 @@
     overflow: hidden;
     padding: 12px;
     width: 100%;
+
     .input-element{
+      background-color: transparent;
       border: none;
-      flex: 1 1 auto;
-      width: 100%;
-      color: var(--text-color);
-      outline: none;
       box-shadow: none;
       caret-color: var(--text-color);
-      padding: 0;
+      color: var(--text-color);
+      flex: 1 1 auto;
       font-size: 16px;
       line-height: inherit;
-      background-color: transparent;
+      outline: none;
+      padding: 0;
+      width: 100%;
     }
   }
+
   &__error {
-    //display: none;
     &.error {
-      //display: block;
       .error-message {
-        margin-top: 8px;
         color: var(--danger-color);
-        text-align: left;
         overflow: hidden;
         position: relative;
+        text-align: left;
       }
     }
   }
+
   &.inline {
     .input-field__body {
-      padding: 0;
       border: none;
+      padding: 0;
     }
   }
 }

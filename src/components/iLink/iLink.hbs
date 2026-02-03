@@ -1,1 +1,8 @@
-<a href="{{href}}" class="i-link {{class}}" data-page="{{data-page}}" >{{text}}</a>
+<a
+	href="{{href}}"
+	class="i-link{{# if class }} {{class}}{{/ if }}{{# if disabled }} disabled{{/ if }}"
+	data-page="{{datapage}}"
+	{{# if disabled }}data-disabled="disabled"{{/ if }}
+>
+	{{text}}
+</a>
