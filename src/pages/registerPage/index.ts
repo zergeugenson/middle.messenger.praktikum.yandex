@@ -94,7 +94,7 @@ export class RegisterPage extends Block {
         onClick: ()=>{},
       }),
       LinkBack: new Link({
-        datapage: 'LoginPage',
+        href: '/',
         text: 'Войти',
       }),
     };

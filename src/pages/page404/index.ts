@@ -9,8 +9,7 @@ export class Page404 extends Block {
     super({
       ...props,
       LinkBack: new Link({
-        href: '#',
-        datapage: 'LoginPage',
+        href: '/',
         text: 'Назад на главную',
         // onClick: (event: Event) => {
         // const el = event.target as HTMLElement;

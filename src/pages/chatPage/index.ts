@@ -46,7 +46,7 @@ export class ChatPage extends Block {
 
     this.children = {
       profileLink: new Link({
-        datapage: 'ProfilePage',
+        href: '/profile',
         text: 'Профиль >>',
       }),
       searchField: new InputField({

@@ -90,15 +90,14 @@ export class ProfilePage extends Block {
         class: 'profile-submit-button',
       }),
       changePasswordLink: new Link({
-        href: '#',
+        href: '/profile',
         text: 'Изменить пароль',
-        datapage: 'ProfilePage',
         disabled: true,
       }),
       logoutLink: new Link({
         href: '#',
         text: 'Выйти',
-        datapage: 'ProfilePage',
+        datapage: 'LoginPage',
         disabled: true,
       }),
       deleteProfileLink: new Link({

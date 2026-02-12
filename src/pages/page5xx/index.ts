@@ -9,8 +9,7 @@ export class Page5xx extends Block {
     super({
       ...props,
       LinkBack: new Link({
-        href: '#',
-        datapage: 'LoginPage',
+        href: '/',
         text: 'Назад на главную',
       }),
     });
