@@ -42,8 +42,8 @@ export class LoginPage extends Block {
         disabled: false,
       }),
       LinkBack: new Link({
-        datapage: 'RegisterPage',
         text: 'Регистрация',
+        href: '/register'
       }),
     };
 

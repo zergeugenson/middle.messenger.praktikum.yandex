@@ -10,9 +10,9 @@ export class Link extends Block {
       ...props,
       events: {
         click: (e: Event) => {
-          e.preventDefault();
-          e.stopPropagation();
           if (typeof props.onClick === 'function') {
+            e.preventDefault();
+            e.stopPropagation();
             props.onClick(e);
           }
         },

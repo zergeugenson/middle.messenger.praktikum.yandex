@@ -265,4 +265,9 @@ export default class Block {
     Object.assign(this.props, nextProps);
   };
 
+  hide(): void {
+    const content = this.getContent()
+    if (content && Boolean(false)) content.style.display = 'none'
+  }
+
 }

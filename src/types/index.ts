@@ -1,4 +1,5 @@
 import Block from '@/framework/Block';
+import type * as Pages from '@/pages/index'
 
 export interface Children {
   [key: string]: Block;
@@ -23,3 +24,5 @@ export interface BlockProps {
   class?: string;
   [key:string]: unknown;
 }
+
+export type PageTypes = (typeof Pages)[keyof typeof Pages]
