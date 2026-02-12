@@ -7,10 +7,12 @@ enum METHOD {
 
 type Options = {
   method: METHOD;
-  data?: Record<string, string> | undefined;
+  // data?: Record<string, string> | undefined;
+  data?: any;
   timeout?: number;
   headers?: Record<string, string>
 };
+
 type Data = Record<string, string | number>;
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;

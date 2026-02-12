@@ -7,7 +7,7 @@
 
 
 import * as Pages from '@/Pages'
-import Router from '@/framework/Router'
+import Router from '@/router/Router'
 
 
 export const appRouter = new Router('#app')
