@@ -63,9 +63,7 @@ class LoginPage extends Block {
 
     onSubmit(e: Event) {
         e.preventDefault();
-        const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
-
-        console.log("", isError)
+        const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
 
         if (isError) {
             window.store.set({ notValid: true })
