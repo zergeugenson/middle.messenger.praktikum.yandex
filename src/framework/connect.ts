@@ -25,7 +25,6 @@ export function connect(
           state = newState
         }
 
-        console.log("ON", this.onChangeStoreCallback)
         store.on(StoreEvents.Updated, this.onChangeStoreCallback)
       }
 
