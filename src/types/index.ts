@@ -13,6 +13,10 @@ interface Attributes {
   [key: string]: string;
 }
 
+interface User {
+  [key: string]: string;
+}
+
 // 2DO разобраться с типами пропсов
 export interface BlockProps {
   events?: EventMap;
@@ -25,4 +29,11 @@ export interface BlockProps {
   [key:string]: unknown;
 }
 
-export type PageTypes = (typeof Pages)[keyof typeof Pages]
+export interface AppState {
+  isError: Boolean;
+  messages: any[];
+  chats: any[];
+  user: User;
+}
+
+export type PageTypes = (typeof Pages)[keyof typeof Pages] | any
