@@ -2,22 +2,16 @@ import * as Pages from '@/Pages'
 import Router from '@/router/Router'
 import { Store } from '@/store'
 import type { AppState } from '@/types'
+import { initState } from '@/store'
 
 declare global {
   interface Window {
     store: Store<AppState>
   }
 }
-const initState: AppState = {
-  isError: false,
-  user: {},
-  messages: [],
-  chats: []
-}
 window.store = new Store<AppState>(initState)
 
 export const appRouter = new Router('#app')
-
 document.addEventListener('DOMContentLoaded', () => {
   appRouter
       .use('/', Pages.LoginPage)

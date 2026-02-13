@@ -1,7 +1,16 @@
 import EventBus from '@/framework/EventBus'
+import {AppState} from "@/types";
 
 export enum StoreEvents {
   Updated = 'Updated'
+}
+
+export const initState: AppState = {
+  isError: false,
+  user: {},
+  messages: [],
+  chats: [],
+  isAuthorized: false,
 }
 
 export class Store<State extends Record<string, any>> extends EventBus {

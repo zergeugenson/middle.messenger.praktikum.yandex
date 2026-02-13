@@ -34,6 +34,7 @@ export interface AppState {
   messages: any[];
   chats: any[];
   user: User;
+  isAuthorized: Boolean;
 }
 
 export type PageTypes = (typeof Pages)[keyof typeof Pages] | any

@@ -1,7 +1,10 @@
 import { type PageTypes } from '@/types'
 import Route from './Route'
+import { ROUTES_PATHS } from '@/router/routes'
 
 type RouteType = any
+
+console.log(ROUTES_PATHS)
 
 export default class Router {
   public routes: RouteType[] | undefined
@@ -46,8 +49,25 @@ export default class Router {
       this._currentRoute.leave()
     }
 
-    this._currentRoute = route
-    route.render()
+    const { isAuthorized } = window.store.getState();
+    const isAuthorizedPage =
+        pathname === ROUTES_PATHS.login || pathname === ROUTES_PATHS.register;
+    const isProtectedPage =
+        pathname !== ROUTES_PATHS.login && pathname !== ROUTES_PATHS.register;
+
+    if (!Object.values(ROUTES_PATHS).includes(pathname)) {
+      // 404
+      this.go(ROUTES_PATHS.error404);
+    } else if (!isAuthorized && isProtectedPage) {
+      // не авторизован
+      this.go(ROUTES_PATHS.login);
+    } else if (isAuthorized && isAuthorizedPage) {
+      // авторизован, но идет на логин
+      this.go(ROUTES_PATHS.chat);
+    } else {
+      this._currentRoute = route
+      route.render()
+    }
   }
 
   go(pathname: string): void {

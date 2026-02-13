@@ -1,112 +1,143 @@
 import './style.scss';
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
-import { SubmitButton } from '@/components/submitButton';
+import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
-import template from './registerPage.hbs?raw';
-import { connect } from '@/framework/connect'
+import template from './profilePage.hbs?raw';
+import { mockCredentials as credentials } from '@/mock/mockData.js';
+import { SubmitButton } from '@/components/submitButton';
 import { appRouter } from "@/main";
+import {connect} from "@/framework/connect";
 
-class RegisterPage extends Block {
+class ProfilePage extends Block {
   init() {
     this.props = {
       ...this.props,
+      credentials,
       events: {
         submit: this.onSubmit.bind(this),
       },
     };
 
-    console.log("UserRegister", window.store.getState().user, window.store.getState().isError)
-
     this.children = {
-      emailField: new InputField({
-        id: 'reg-email',
-        name: 'email',
-        type: 'text',
+      RoundButton: new RoundButton({
+        id: 'button-back-to-chat',
         disabled: false,
-        placeholder: 'Электронная почта',
-        pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'sergeykhromov.com',
-        isError: this.props.isError,
+        class: 'i-link rotate',
+        datapage: 'ChatPage',
+      }),
+      avatarField: new InputField({
+        id: 'profile-avatar-field',
+        name: 'avatar',
+        type: 'file',
+        disabled: false,
+        class: 'hidden',
       }),
       loginField: new InputField({
-        id: 'reg-login',
+        id: 'profile-login',
         name: 'login',
         type: 'text',
         disabled: false,
-        placeholder: 'Желаемый логин',
         pattern: /^[a-zA-Z0-9_-]{3,20}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'sergeykhromov',
+        value: credentials.login,
+      }),
+      mailField: new InputField({
+        id: 'profile-mail',
+        name: 'mail',
+        type: 'text',
+        disabled: false,
+        pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: credentials.mail,
       }),
       firstNameField: new InputField({
-        id: 'reg-first_name',
+        id: 'profile-first_name',
         name: 'first_name',
         type: 'text',
         disabled: false,
-        placeholder: 'Имя',
         pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'Сергей',
+        value: credentials.first_name,
       }),
       secondNameField: new InputField({
-        id: 'reg-second_name',
+        id: 'profile-second_name',
         name: 'second_name',
         type: 'text',
         disabled: false,
-        placeholder: 'Фамилия',
         pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'Хромов',
+        value: credentials.second_name,
+      }),
+      displayNameField: new InputField({
+        id: 'profile-display_name',
+        value: credentials.display_name,
+        name: 'display_name',
+        type: 'text',
+        disabled: false,
       }),
       phoneField: new InputField({
-        id: 'reg-phone',
+        id: 'profile-phone',
         name: 'phone',
         type: 'phone',
         disabled: false,
-        placeholder: 'Телефон',
         pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: '+7(916)121-11-22',
+        value: credentials.phone,
+      }),
+      changeDataLink: new SubmitButton({
+        text: 'Изменить данные',
+        type: 'submit',
+        disabled: false,
+        class: 'profile-submit-button',
+      }),
+      changePasswordLink: new Link({
+        href: '/profile',
+        text: 'Изменить пароль',
+        disabled: true,
+        onClick: (event: Event) => {
+          event.preventDefault();
+          appRouter.go('/profile');
+        },
+      }),
+      logoutLink: new Link({
+        href: '#',
+        text: 'Выйти',
+        datapage: 'LoginPage',
+        disabled: true,
+      }),
+      deleteProfileLink: new Link({
+        href: '#',
+        text: 'Удалить профиль',
+        datapage: 'LoginPage',
+        disabled: true,
       }),
       passwordField: new InputField({
-        id: 'reg-password',
+        id: 'profile-password',
         name: 'password',
         type: 'password',
         disabled: false,
         placeholder: 'Введите пароль',
+        class: 'hidden',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
         value: 'AAArrrr66hdm',
       }),
       passwordRepeatField: new InputField({
-        id: 'reg-password_repeat',
+        id: 'profile-password_repeat',
         name: 'password_repeat',
         type: 'password',
         disabled: false,
         placeholder: 'Повторите пароль',
+        class: 'hidden',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
         value: 'AAArrrr66hdm',
       }),
-      SubmitButton: new SubmitButton({
-        id: 'signup-button',
-        text: 'Зарегистрироваться',
-        type: 'submit',
-        disabled: false,
-        onClick: ()=>{},
-      }),
-      LinkBack: new Link({
-        href: '/',
-        text: 'Войти',
-        onClick: (event: Event) => {
-          event.preventDefault();
-          appRouter.go('/');
-        },
-      }),
     };
+
     super.init();
+
   }
 
   render(): string {
@@ -117,7 +148,7 @@ class RegisterPage extends Block {
     e.preventDefault();
     const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
     if (isError) return;
-    const form:HTMLElement = document.getElementById('register-form')!;
+    const form:HTMLElement = document.getElementById('change-profile-form')!;
     const formData = new FormData(form as HTMLFormElement);
     const data: { [key: string]: FormDataEntryValue } = {};
     formData.forEach((value, key) => {
@@ -125,7 +156,6 @@ class RegisterPage extends Block {
     });
     console.log('Form Data:', data);
   }
-
 }
 
-export default connect(({ isError, user }) => ({ isError, user }))(RegisterPage)
+export default connect(({ isError, user }) => ({ isError, user }))(ProfilePage)
