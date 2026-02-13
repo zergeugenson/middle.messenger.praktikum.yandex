@@ -6,6 +6,7 @@ import { InputField } from '@/components/inputField';
 import template from './registerPage.hbs?raw';
 import { connect } from '@/framework/connect'
 import { appRouter } from "@/main";
+import {doRegister, doLogout, getUser} from '@/controllers/AuthController'
 
 class RegisterPage extends Block {
   init() {
@@ -25,7 +26,7 @@ class RegisterPage extends Block {
         placeholder: 'Электронная почта',
         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'sergeykhromov.com',
+        value: 'caesar@spqr.rom',
         isError: this.props.isError,
       }),
       loginField: new InputField({
@@ -36,7 +37,7 @@ class RegisterPage extends Block {
         placeholder: 'Желаемый логин',
         pattern: /^[a-zA-Z0-9_-]{3,20}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'sergeykhromov',
+        value: 'caesar',
       }),
       firstNameField: new InputField({
         id: 'reg-first_name',
@@ -46,7 +47,7 @@ class RegisterPage extends Block {
         placeholder: 'Имя',
         pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'Сергей',
+        value: 'Gaius',
       }),
       secondNameField: new InputField({
         id: 'reg-second_name',
@@ -56,7 +57,7 @@ class RegisterPage extends Block {
         placeholder: 'Фамилия',
         pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'Хромов',
+        value: 'Iulius',
       }),
       phoneField: new InputField({
         id: 'reg-phone',
@@ -76,7 +77,7 @@ class RegisterPage extends Block {
         placeholder: 'Введите пароль',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: 'AAArrrr66hdm',
+        value: 'Caesar100',
       }),
       passwordRepeatField: new InputField({
         id: 'reg-password_repeat',
@@ -86,7 +87,7 @@ class RegisterPage extends Block {
         placeholder: 'Повторите пароль',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: 'AAArrrr66hdm',
+        value: 'Caesar100',
       }),
       SubmitButton: new SubmitButton({
         id: 'signup-button',
@@ -122,6 +123,19 @@ class RegisterPage extends Block {
       data[key] = value;
     });
     console.log('Form Data:', data);
+
+    window.store.set({ user: {} })
+    void doLogout();
+    doRegister(data).then((res)=>{
+      console.log("register response", res) // {"id":5603}
+      getUser().then( (resp) => {
+        console.log("register getuser", resp)
+        if(window.store.getState().user?.id) {
+          window.store.set({ isAuthorized: true })
+          appRouter.go('/profile');
+        }
+      });
+    })
   }
 
 }

@@ -6,7 +6,7 @@ import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs?raw';
 import { connect } from '@/framework/connect'
 import { appRouter } from "@/main";
-import { doLogin, getUser } from '@/controllers/AuthController'
+import { doLogin, doLogout, getUser } from '@/controllers/AuthController'
 
 class LoginPage extends Block {
     init() {
@@ -26,7 +26,7 @@ class LoginPage extends Block {
                 placeholder: 'Введите логин',
                 pattern: /^[a-zA-Z0-9_-]{3,20}$/,
                 errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-                value: 'string',
+                value: 'caesar',
             }),
             passwordField: new InputField({
                 id: 'log-password',
@@ -36,7 +36,7 @@ class LoginPage extends Block {
                 placeholder: 'Введите пароль',
                 pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
                 errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-                value: 'string',
+                value: 'Caesar100',
             }),
             SubmitButton: new SubmitButton({
                 id: 'signin-button',
@@ -62,7 +62,9 @@ class LoginPage extends Block {
         e.preventDefault();
         const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
 
-        // if (isError) return;
+        if (isError) {
+            return;
+        }
 
         const form:HTMLElement = document.getElementById('login-form')!;
         const formData = new FormData(form as HTMLFormElement);
@@ -70,6 +72,7 @@ class LoginPage extends Block {
         formData.forEach((value, key) => {
             data[key] = value;
         });
+        void doLogout();
         doLogin(data).then( () => {
             getUser().then( () => {
                 if(window.store.getState().user?.id) {

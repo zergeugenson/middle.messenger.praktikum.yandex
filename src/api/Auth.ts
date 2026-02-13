@@ -9,8 +9,15 @@ export default class AuthApi {
     return await authApi.post('/signin', { data })
   }
 
+  async logout(): Promise<any> {
+    return await authApi.post('/logout')
+  }
+
   async user(): Promise<any> {
     return await authApi.get('/user')
   }
 
+  async register(data: UserLoginForm): Promise<any> {
+    return await authApi.post('/signup', { data })
+  }
 }
