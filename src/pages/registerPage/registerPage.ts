@@ -16,7 +16,7 @@ class RegisterPage extends Block {
       },
     };
 
-    console.log("UserRegister", window.store.getState().user, window.store.getState().isError)
+    console.log("UserRegister", window.store.getState().user, window.store.getState().notValid)
 
     this.children = {
       emailField: new InputField({
@@ -128,4 +128,4 @@ class RegisterPage extends Block {
 
 }
 
-export default connect(({ isError, user }) => ({ isError, user }))(RegisterPage)
+export default connect(({ notValid, user }) => ({ notValid, user }))(RegisterPage)

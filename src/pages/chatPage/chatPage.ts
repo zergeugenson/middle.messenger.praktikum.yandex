@@ -102,4 +102,4 @@ class ChatPage extends Block {
     }
 }
 
-export default connect(({ isError, user }) => ({ isError, user }))(ChatPage)
+export default connect(({ notValid, user }) => ({ notValid, user }))(ChatPage)

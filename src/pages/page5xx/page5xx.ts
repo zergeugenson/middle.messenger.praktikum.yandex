@@ -26,4 +26,4 @@ class Page5xx extends Block {
   }
 }
 
-export default connect(({ isError, user }) => ({ isError, user }))(Page5xx)
+export default connect(({ notValid, user }) => ({ notValid, user }))(Page5xx)

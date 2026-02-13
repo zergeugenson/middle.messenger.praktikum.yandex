@@ -16,9 +16,9 @@ class LoginPage extends Block {
             },
         };
 
-        console.log("UserLogin", window.store.getState().user, window.store.getState().isError)
-        // window.store.set({ isError: true })
-        console.log("UserLogin", window.store.getState().user, window.store.getState().isError)
+        console.log("UserLogin", window.store.getState().user, window.store.getState().notValid)
+        // window.store.set({ notValid: true })
+        console.log("UserLogin", window.store.getState().user, window.store.getState().notValid)
 
         this.children = {
             loginField: new InputField({
@@ -45,7 +45,7 @@ class LoginPage extends Block {
                 id: 'signin-button',
                 text: 'Войти',
                 type: 'submit',
-                disabled: window.store.getState().isError,
+                disabled: window.store.getState().notValid,
             }),
             LinkBack: new Link({
                 text: 'Регистрация',
@@ -64,11 +64,14 @@ class LoginPage extends Block {
     onSubmit(e: Event) {
         e.preventDefault();
         const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+
+        console.log("", isError)
+
         if (isError) {
-            window.store.set({ isError: true })
+            window.store.set({ notValid: true })
             return;
         }
-        window.store.set({ isError: false })
+        window.store.set({ notValid: false })
         const form:HTMLElement = document.getElementById('login-form')!;
         const formData = new FormData(form as HTMLFormElement);
         const data: { [key: string]: FormDataEntryValue } = {};
@@ -83,4 +86,4 @@ class LoginPage extends Block {
     }
 }
 
-export default connect(({ isError, user }) => ({ isError, user }))(LoginPage)
+export default connect(({ notValid, user }) => ({ notValid, user }))(LoginPage)

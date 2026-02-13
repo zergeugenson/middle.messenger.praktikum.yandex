@@ -30,7 +30,7 @@ export interface BlockProps {
 }
 
 export interface AppState {
-  isError: Boolean;
+  notValid: Boolean;
   messages: any[];
   chats: any[];
   user: User;

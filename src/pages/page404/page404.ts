@@ -33,4 +33,4 @@ class Page404 extends Block {
   }
 }
 
-export default connect(({ isError, user }) => ({ isError, user }))(Page404)
+export default connect(({ notValid, user }) => ({ notValid, user }))(Page404)

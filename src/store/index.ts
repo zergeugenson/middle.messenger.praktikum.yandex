@@ -6,7 +6,7 @@ export enum StoreEvents {
 }
 
 export const initState: AppState = {
-  isError: false,
+  notValid: false,
   user: {},
   messages: [],
   chats: [],
@@ -32,6 +32,7 @@ export class Store<State extends Record<string, any>> extends EventBus {
 
     this.state = { ...this.state, ...nextState }
 
+    console.log("emit Updated", prevState, nextState)
     this.emit(StoreEvents.Updated, prevState, nextState)
   }
 }

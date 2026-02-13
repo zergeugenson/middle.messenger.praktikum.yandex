@@ -4,8 +4,6 @@ import { ROUTES_PATHS } from '@/router/routes'
 
 type RouteType = any
 
-console.log(ROUTES_PATHS)
-
 export default class Router {
   public routes: RouteType[] | undefined
   public history: History | undefined
