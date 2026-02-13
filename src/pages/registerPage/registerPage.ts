@@ -16,8 +16,6 @@ class RegisterPage extends Block {
       },
     };
 
-    console.log("UserRegister", window.store.getState().user, window.store.getState().notValid)
-
     this.children = {
       emailField: new InputField({
         id: 'reg-email',

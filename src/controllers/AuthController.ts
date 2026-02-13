@@ -1,10 +1,16 @@
 import AuthApi from '@/api/Auth'
-import type { UserLoginForm } from '@/types'
+import type { UserLoginForm, UserData } from '@/types'
 
 const authApi = new AuthApi()
 
-const login = async (data: UserLoginForm): Promise<void> => {
-  await authApi.login(data)
+const doLogin = async (data: UserLoginForm): Promise<Boolean> => {
+  return await authApi.login(data);
 }
 
-export { login }
+const getUser = async (): Promise<UserData> => {
+  const user = await authApi.user();
+  window.store.set({ user });
+  return user;
+}
+
+export { doLogin, getUser }

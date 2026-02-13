@@ -2,6 +2,7 @@ import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import type { BlockProps, Children } from '@/types';
+import {isEqual} from "@/framework/utils";
 
 export default class Block {
   static EVENTS = {
@@ -172,8 +173,9 @@ export default class Block {
     // 2do разобраться с этим.
     // const isEqual = oldProps === newProps;
     // console.log('isEqual', isEqual);
-    console.log('ONUPDATE: \n oldProps=', oldProps, '\n newProps=', newProps);
-    return true;
+    return !isEqual(oldProps, newProps);
+    // console.log('ONUPDATE: \n oldProps=', oldProps, '\n newProps=', newProps);
+    // return true;
   }
 
   get element(): HTMLElement {

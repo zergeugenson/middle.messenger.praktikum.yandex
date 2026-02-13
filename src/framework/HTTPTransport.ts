@@ -55,12 +55,22 @@ export class HTTPTransport {
       }
 
       xhr.onload = () => {
-        resolve(xhr);
+        try {
+          if (xhr.response === 'OK') {
+            resolve(xhr.response);
+          } else {
+            const response = JSON.parse(xhr.response);
+            resolve(response);
+          }
+        } catch (error) {
+          reject(new Error(`Failed to parse response: ${error}`));
+        }
       };
       xhr.timeout = timeout;
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
+      xhr.withCredentials = true;
 
       if (method === METHOD.GET || !data) {
         xhr.send()

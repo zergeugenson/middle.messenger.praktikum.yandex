@@ -38,8 +38,11 @@ export interface AppState {
 }
 
 export interface UserLoginForm {
-  login: string
-  password: string
+  [key: string]: FormDataEntryValue;
+}
+
+export interface UserData {
+  [key: string]: string;
 }
 
 export type PageTypes = (typeof Pages)[keyof typeof Pages] | any

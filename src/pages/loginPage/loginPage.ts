@@ -6,7 +6,7 @@ import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs?raw';
 import { connect } from '@/framework/connect'
 import { appRouter } from "@/main";
-import { login } from '@/controllers/AuthController'
+import { doLogin, getUser } from '@/controllers/AuthController'
 
 class LoginPage extends Block {
     init() {
@@ -16,10 +16,6 @@ class LoginPage extends Block {
                 submit: this.onSubmit.bind(this),
             },
         };
-
-        console.log("UserLogin", window.store.getState().user, window.store.getState().notValid)
-        // window.store.set({ notValid: true })
-        console.log("UserLogin", window.store.getState().user, window.store.getState().notValid)
 
         this.children = {
             loginField: new InputField({
@@ -66,19 +62,23 @@ class LoginPage extends Block {
         e.preventDefault();
         const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
 
-        if (isError) {
-            // window.store.set({ notValid: true })
-            // return;
-        }
-        // window.store.set({ notValid: false })
+        // if (isError) return;
+
         const form:HTMLElement = document.getElementById('login-form')!;
         const formData = new FormData(form as HTMLFormElement);
         const data: { [key: string]: FormDataEntryValue } = {};
         formData.forEach((value, key) => {
             data[key] = value;
         });
-        console.log('Form Data:', data);
-        void login(data)
+        doLogin(data).then( () => {
+            getUser().then( () => {
+                if(window.store.getState().user?.id) {
+                    window.store.set({ isAuthorized: true })
+                    appRouter.go('/profile');
+                }
+            });
+        });
+
     }
 
     render(): string {
