@@ -6,6 +6,7 @@ import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs?raw';
 import { connect } from '@/framework/connect'
 import { appRouter } from "@/main";
+import { login } from '@/controllers/AuthController'
 
 class LoginPage extends Block {
     init() {
@@ -29,7 +30,7 @@ class LoginPage extends Block {
                 placeholder: 'Введите логин',
                 pattern: /^[a-zA-Z0-9_-]{3,20}$/,
                 errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-                value: 'sergeykhromov',
+                value: 'string',
             }),
             passwordField: new InputField({
                 id: 'log-password',
@@ -39,7 +40,7 @@ class LoginPage extends Block {
                 placeholder: 'Введите пароль',
                 pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
                 errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-                value: 'AAArrrr66hdm',
+                value: 'string',
             }),
             SubmitButton: new SubmitButton({
                 id: 'signin-button',
@@ -66,10 +67,10 @@ class LoginPage extends Block {
         const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError)
 
         if (isError) {
-            window.store.set({ notValid: true })
-            return;
+            // window.store.set({ notValid: true })
+            // return;
         }
-        window.store.set({ notValid: false })
+        // window.store.set({ notValid: false })
         const form:HTMLElement = document.getElementById('login-form')!;
         const formData = new FormData(form as HTMLFormElement);
         const data: { [key: string]: FormDataEntryValue } = {};
@@ -77,6 +78,7 @@ class LoginPage extends Block {
             data[key] = value;
         });
         console.log('Form Data:', data);
+        void login(data)
     }
 
     render(): string {

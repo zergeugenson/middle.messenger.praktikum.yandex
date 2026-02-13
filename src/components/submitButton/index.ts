@@ -16,7 +16,7 @@ export class SubmitButton extends Block {
         },
       },
       attr: {
-        class: [`submit-button ${props.class ? ' ' + props.class : ''}${props.disabled ? ' disabled' : ''}`],
+        class: [`submit-button ${props.class ? ' ' + props.class : ''}`],
       },
     });
   }

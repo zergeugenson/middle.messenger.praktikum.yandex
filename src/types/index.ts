@@ -37,4 +37,9 @@ export interface AppState {
   isAuthorized: Boolean;
 }
 
+export interface UserLoginForm {
+  login: string
+  password: string
+}
+
 export type PageTypes = (typeof Pages)[keyof typeof Pages] | any
