@@ -4,13 +4,14 @@ import { Link } from '@/components/iLink';
 import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
 import template from './profilePage.hbs?raw';
-import { mockCredentials as credentials } from '@/mock/mockData.js';
 import { SubmitButton } from '@/components/submitButton';
-import { appRouter } from "@/main";
-import {connect} from "@/framework/connect";
+import { appRouter } from '@/main';
+import { connect } from '@/framework/connect';
+import { doLogout } from '@/controllers/AuthController';
 
 class ProfilePage extends Block {
   init() {
+    const credentials = window.store.getState().user;
     this.props = {
       ...this.props,
       credentials,
@@ -18,7 +19,6 @@ class ProfilePage extends Block {
         submit: this.onSubmit.bind(this),
       },
     };
-
     this.children = {
       RoundButton: new RoundButton({
         id: 'button-back-to-chat',
@@ -44,12 +44,12 @@ class ProfilePage extends Block {
       }),
       mailField: new InputField({
         id: 'profile-mail',
-        name: 'mail',
+        name: 'email',
         type: 'text',
         disabled: false,
         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: credentials.mail,
+        value: credentials.email,
       }),
       firstNameField: new InputField({
         id: 'profile-first_name',
@@ -95,16 +95,15 @@ class ProfilePage extends Block {
         href: '/profile',
         text: 'Изменить пароль',
         disabled: true,
-        onClick: (event: Event) => {
-          event.preventDefault();
-          appRouter.go('/profile');
-        },
       }),
       logoutLink: new Link({
         href: '#',
         text: 'Выйти',
-        datapage: 'LoginPage',
-        disabled: true,
+        onClick: (event: Event) => {
+          event.preventDefault();
+          void doLogout();
+          appRouter.go('/');
+        },
       }),
       deleteProfileLink: new Link({
         href: '#',
@@ -158,4 +157,4 @@ class ProfilePage extends Block {
   }
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(ProfilePage)
+export default connect(({ notValid, user }) => ({ notValid, user }))(ProfilePage);

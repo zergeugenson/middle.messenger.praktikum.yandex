@@ -73,12 +73,12 @@ export class HTTPTransport {
       xhr.withCredentials = true;
 
       if (method === METHOD.GET || !data) {
-        xhr.send()
+        xhr.send();
       } else if (data instanceof FormData) {
-        xhr.send(data)
+        xhr.send(data);
       } else {
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.send(JSON.stringify(data))
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data));
       }
     });
   }

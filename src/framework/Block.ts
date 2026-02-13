@@ -2,7 +2,7 @@ import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import type { BlockProps, Children } from '@/types';
-import {isEqual} from "@/framework/utils";
+import { isEqual } from '@/framework/utils';
 
 export default class Block {
   static EVENTS = {
@@ -268,8 +268,8 @@ export default class Block {
   };
 
   hide(): void {
-    const content = this.getContent()
-    if (content && Boolean(false)) content.style.display = 'none'
+    const content = this.getContent();
+    if (content && Boolean(false)) content.style.display = 'none';
   }
 
 }

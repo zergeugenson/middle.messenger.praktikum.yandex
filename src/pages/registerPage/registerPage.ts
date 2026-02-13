@@ -4,9 +4,9 @@ import { Link } from '@/components/iLink';
 import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
 import template from './registerPage.hbs?raw';
-import { connect } from '@/framework/connect'
-import { appRouter } from "@/main";
-import {doRegister, doLogout, getUser} from '@/controllers/AuthController'
+import { connect } from '@/framework/connect';
+import { appRouter } from '@/main';
+import { doRegister, getUser } from '@/controllers/AuthController';
 
 class RegisterPage extends Block {
   init() {
@@ -124,20 +124,19 @@ class RegisterPage extends Block {
     });
     console.log('Form Data:', data);
 
-    window.store.set({ user: {} })
-    void doLogout();
-    doRegister(data).then((res)=>{
-      console.log("register response", res) // {"id":5603}
-      getUser().then( (resp) => {
-        console.log("register getuser", resp)
-        if(window.store.getState().user?.id) {
-          window.store.set({ isAuthorized: true })
+    window.store.set({ user: {} });
+    void doRegister(data).then((res)=>{
+      console.log('register response', res); // {"id":5603}
+      void getUser().then( (resp) => {
+        console.log('register getuser', resp);
+        if (window.store.getState().user?.id) {
+          window.store.set({ isAuthorized: true });
           appRouter.go('/profile');
         }
       });
-    })
+    });
   }
 
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(RegisterPage)
+export default connect(({ notValid, user }) => ({ notValid, user }))(RegisterPage);

@@ -1,5 +1,5 @@
 import Block from '@/framework/Block';
-import type * as Pages from '@/pages/index'
+import type * as Pages from '@/pages/index';
 
 export interface Children {
   [key: string]: Block;
@@ -30,11 +30,11 @@ export interface BlockProps {
 }
 
 export interface AppState {
-  notValid: Boolean;
+  notValid: boolean;
   messages: any[];
   chats: any[];
   user: User;
-  isAuthorized: Boolean;
+  isAuthorized: boolean;
 }
 
 export interface UserLoginForm {
@@ -45,4 +45,4 @@ export interface UserData {
   [key: string]: string;
 }
 
-export type PageTypes = (typeof Pages)[keyof typeof Pages] | any
+export type PageTypes = (typeof Pages)[keyof typeof Pages] | any;

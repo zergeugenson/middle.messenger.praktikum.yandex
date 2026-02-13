@@ -3,8 +3,8 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import type { BlockProps } from '@/types';
 import page from './page404.hbs?raw';
-import { appRouter } from "@/main";
-import {connect} from "@/framework/connect";
+import { appRouter } from '@/main';
+import { connect } from '@/framework/connect';
 
 class Page404 extends Block {
   constructor(props: BlockProps) {
@@ -33,4 +33,4 @@ class Page404 extends Block {
   }
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(Page404)
+export default connect(({ notValid, user }) => ({ notValid, user }))(Page404);

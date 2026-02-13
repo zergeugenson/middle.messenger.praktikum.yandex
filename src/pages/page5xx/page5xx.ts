@@ -3,8 +3,8 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import type { BlockProps } from '@/types';
 import page from './page5xx.hbs?raw';
-import { appRouter } from "@/main";
-import {connect} from "@/framework/connect";
+import { appRouter } from '@/main';
+import { connect } from '@/framework/connect';
 
 class Page5xx extends Block {
   constructor(props: BlockProps) {
@@ -26,4 +26,4 @@ class Page5xx extends Block {
   }
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(Page5xx)
+export default connect(({ notValid, user }) => ({ notValid, user }))(Page5xx);

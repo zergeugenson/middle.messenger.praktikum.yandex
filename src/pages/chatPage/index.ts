@@ -1,2 +1,2 @@
-import ChatPage from './chatPage'
-export default ChatPage
+import ChatPage from './chatPage';
+export default ChatPage;
