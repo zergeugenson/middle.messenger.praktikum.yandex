@@ -26,7 +26,8 @@ class LoginPage extends Block {
         placeholder: 'Введите логин',
         pattern: /^[a-zA-Z0-9_-]{3,20}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-        value: 'caesar',
+        // value: 'caesar',
+        value: 'string',
       }),
       passwordField: new InputField({
         id: 'log-password',
@@ -36,7 +37,8 @@ class LoginPage extends Block {
         placeholder: 'Введите пароль',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: 'Caesar100',
+        // value: 'Caesar100',
+        value: 'string',
       }),
       SubmitButton: new SubmitButton({
         id: 'signin-button',
@@ -63,7 +65,7 @@ class LoginPage extends Block {
     const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
 
     if (isError) {
-      return;
+      // return;
     }
 
     const form:HTMLElement = document.getElementById('login-form')!;
@@ -76,7 +78,7 @@ class LoginPage extends Block {
       void getUser().then( () => {
         if (window.store.getState().user?.id) {
           window.store.set({ isAuthorized: true });
-          appRouter.go('/profile');
+          appRouter.go('/chat');
         }
       });
     });

@@ -131,7 +131,7 @@ class RegisterPage extends Block {
         console.log('register getuser', resp);
         if (window.store.getState().user?.id) {
           window.store.set({ isAuthorized: true });
-          appRouter.go('/profile');
+          appRouter.go('/chat');
         }
       });
     });

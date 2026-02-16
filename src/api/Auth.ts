@@ -6,18 +6,18 @@ const authApi = new HTTPTransport();
 export default class AuthApi {
 
   async login(data: UserLoginForm): Promise<any> {
-    return authApi.post('/signin', { data });
+    return authApi.post('/auth/signin', { data });
   }
 
   async logout(): Promise<any> {
-    return authApi.post('/logout');
+    return authApi.post('/auth/logout');
   }
 
   async user(): Promise<any> {
-    return authApi.get('/user');
+    return authApi.get('/auth/user');
   }
 
   async register(data: UserLoginForm): Promise<any> {
-    return authApi.post('/signup', { data });
+    return authApi.post('/auth/signup', { data });
   }
 }

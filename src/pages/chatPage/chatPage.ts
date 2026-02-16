@@ -7,6 +7,10 @@ import { RoundButton } from '@/components/roundButton';
 import template from './chatPage.hbs?raw';
 import { appRouter } from '@/main';
 import { connect } from '@/framework/connect';
+import { getChats } from '@/controllers/ChatsController';
+
+import { chatContact } from '@/pages/chatPage/templateParts/chatContact';
+import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
 
 Handlebars.registerHelper('chatPageUserList', () => {
   return [
@@ -37,6 +41,9 @@ Handlebars.registerHelper('chatPageMessageList', () => {
     },
   ];
 });
+
+Handlebars.registerPartial('chatContact', chatContact);
+Handlebars.registerPartial('chatMessage', chatMessage);
 
 class ChatPage extends Block {
   init() {
@@ -81,7 +88,7 @@ class ChatPage extends Block {
     };
 
     super.init();
-
+    void getChats();
   }
 
   render(): string {

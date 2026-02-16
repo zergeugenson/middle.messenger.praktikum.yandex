@@ -40,7 +40,7 @@ export class HTTPTransport {
   );
 
   request(url: string, options: Options): Promise<XMLHttpRequest> {
-    const URL = 'https://ya-praktikum.tech/api/v2/auth' + url;
+    const URL = 'https://ya-praktikum.tech/api/v2' + url;
 
     const { method, data, headers, timeout = 5000 } = options;
 
