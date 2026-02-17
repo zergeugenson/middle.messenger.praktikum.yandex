@@ -5,7 +5,7 @@ import type { BlockProps } from '@/types';
 
 export class Link extends Block {
   constructor(props: BlockProps) {
-    super('template', {
+    super({
       ...props,
       events: {
         click: (e: Event) => {

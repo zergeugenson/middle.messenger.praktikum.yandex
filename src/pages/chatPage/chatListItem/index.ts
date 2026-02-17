@@ -4,7 +4,7 @@ import template from './chatListItem.hbs';
 
 export default class ChatContact extends Block {
   constructor(props: { [key: string]: string }) {
-    super('div', { ...props });
+    super({ ...props });
   }
 
   render() {

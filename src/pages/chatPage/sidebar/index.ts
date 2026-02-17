@@ -25,7 +25,7 @@ class Sidebar extends Block {
       placeholder: 'Поиск контактов',
     });
 
-    super('div', {
+    super({
       ...props,
       searchField,
       profileLink,

@@ -27,7 +27,7 @@ export default class Block {
 
   protected tagName: string;
 
-  constructor(tagName: string,  { ...propsWithChildren }) {
+  constructor({ ...propsWithChildren }, tagName = 'div') {
     this.id = nanoid();
     const eventBus = new EventBus();
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -37,7 +37,7 @@ export default class Block {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.ONINIT);
-    this.tagName = tagName ? tagName : 'div';
+    this.tagName = tagName;
   }
 
   private _getChildrenAndProps(propsWithChildren: any) {
@@ -162,12 +162,18 @@ export default class Block {
   private _render() {
     const fragment = this.render();
     const element = fragment.firstElementChild as HTMLElement;
+    if (element && this.props.attr) {
+      Object.entries(this.props.attr).forEach(([key, value]) => {
+        element.setAttribute(key, value);
+      });
+    }
     this._removeEvents();
     if (this._element) {
       this._element.innerHTML = '';
       this._element.replaceWith(element);
     }
     this._element = element;
+
     this._addEvents();
   }
 

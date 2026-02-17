@@ -10,9 +10,9 @@ export class InputField extends Block {
   public isError: boolean;
 
   constructor(props: BlockProps) {
-    super('div', {
+    super({
       ...props,
-      Input: new Input('div', {
+      Input: new Input({
         events: {
           blur: (e:Event) => this.doValidateAndCallback(e),
           input: (e:Event) => this.doValidateAndCallback(e),
@@ -26,7 +26,7 @@ export class InputField extends Block {
         skin: props.errorText,
         isdisabled: props.isdisabled || false,
       }),
-      ErrorLine: new ErrorLine('div', {
+      ErrorLine: new ErrorLine({
         errorText: props.errorText || '',
       }),
       isError: props.errorText,

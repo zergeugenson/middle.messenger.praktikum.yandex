@@ -5,7 +5,7 @@ import type { BlockProps } from '@/types';
 
 export class RoundButton extends Block {
   constructor(props: BlockProps) {
-    super('div', {
+    super({
       ...props,
       events: {
         click: (e: Event) => {

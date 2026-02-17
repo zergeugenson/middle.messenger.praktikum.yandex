@@ -53,7 +53,7 @@ class ChatPage extends Block {
       };
     };
 
-    super('template', { ...props, sidebar });
+    super({ ...props, sidebar });
     init();
     void getChats();
 

@@ -19,7 +19,7 @@ export default class Page5xx extends Block {
         },
       },
     });
-    super('template', { ...props, errorTitle, errorText, backButton });
+    super({ ...props, errorTitle, errorText, backButton });
   }
 
   render() {
