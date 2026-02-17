@@ -11,9 +11,10 @@ class Sidebar extends Block {
     const profileLink = new Link({
       href: '/profile',
       text: 'Профиль >>',
-      onClick: (event: Event) => {
-        event.preventDefault();
-        appRouter.go('/profile');
+      events: {
+        click: () => {
+          appRouter.go('/profile');
+        },
       },
     });
 

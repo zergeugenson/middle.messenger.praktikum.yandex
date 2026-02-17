@@ -9,8 +9,10 @@ export class RoundButton extends Block {
       ...props,
       events: {
         click: (e: Event) => {
-          if (typeof props.onClick === 'function') {
-            props.onClick(e);
+          if (typeof props?.events?.click === 'function') {
+            e.preventDefault();
+            e.stopPropagation();
+            props.events.click(e);
           }
         },
       },
