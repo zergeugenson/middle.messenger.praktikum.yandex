@@ -9,13 +9,13 @@ import * as Pages from '@/pages';
 import Block from '@/framework/Block';
 
 // 2DO удалить deleteme.ts
-import { iLink } from './components/iLink/deleteme';
-import { chatContact } from '@/pages/chatPage/templateParts/chatContact';
-import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
-import { revieverMenu } from '@/components/revieverMenu';
-Handlebars.registerPartial('chatContact', chatContact);
-Handlebars.registerPartial('chatMessage', chatMessage);
-Handlebars.registerPartial('iLink', iLink);
+// import { iLink } from './components/iLink/deleteme';
+// import { ChatContact } from '@/pages/chatPage/templateParts/chatContact';
+// import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
+// import { revieverMenu } from '@/components/revieverMenu';
+// Handlebars.registerPartial('ChatContact', ChatContact);
+// Handlebars.registerPartial('chatMessage', chatMessage);
+// Handlebars.registerPartial('iLink', iLink);
 
 export default class App extends Block {
 

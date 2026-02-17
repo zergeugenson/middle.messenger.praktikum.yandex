@@ -45,4 +45,15 @@ export interface UserData {
   [key: string]: string;
 }
 
+export interface ChatListItemProps {
+  id: string;
+  last_message: {
+    content: string;
+    time: string;
+  };
+  unread_count: string;
+  avatar: any;
+  title: string;
+}
+
 export type PageTypes = (typeof Pages)[keyof typeof Pages] | any;

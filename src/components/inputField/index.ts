@@ -1,5 +1,5 @@
 import './style.scss';
-import template from './inputField.hbs?raw';
+import template from './inputField.hbs';
 import Block from '@/framework/Block';
 import ErrorLine from './errorline';
 import Input from './inputelement';
@@ -10,9 +10,9 @@ export class InputField extends Block {
   public isError: boolean;
 
   constructor(props: BlockProps) {
-    super({
+    super('div', {
       ...props,
-      Input: new Input({
+      Input: new Input('div', {
         events: {
           blur: (e:Event) => this.doValidateAndCallback(e),
           input: (e:Event) => this.doValidateAndCallback(e),
@@ -26,7 +26,7 @@ export class InputField extends Block {
         skin: props.errorText,
         isdisabled: props.isdisabled || false,
       }),
-      ErrorLine: new ErrorLine({
+      ErrorLine: new ErrorLine('div', {
         errorText: props.errorText || '',
       }),
       isError: props.errorText,
@@ -56,7 +56,7 @@ export class InputField extends Block {
     // this.validate = this.validate.bind(this);
   }
 
-  render(): string {
-    return template;
+  render() {
+    return this.compile(template, this.props);
   }
 }

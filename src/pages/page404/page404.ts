@@ -1,36 +1,28 @@
-import './style.scss';
 import Block from '@/framework/Block';
+import error404Template from './page404.hbs';
 import { Link } from '@/components/iLink';
-import type { BlockProps } from '@/types';
-import page from './page404.hbs?raw';
 import { appRouter } from '@/main';
-import { connect } from '@/framework/connect';
 
 class Page404 extends Block {
-  constructor(props: BlockProps) {
-    super({
-      ...props,
-      LinkBack: new Link({
-        href: '/',
-        text: 'Назад на главную',
-        onClick: (event: Event) => {
-          event.preventDefault();
-          appRouter.go('/');
+  constructor(props: Record<string, any> = {}) {
+    const errorTitle = '404';
+    const errorText = 'Не туда попали';
+    const backButton = new Link({
+      text: 'Назад к чатам',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          appRouter.go('/chat');
         },
-        // onClick: (event: Event) => {
-        // const el = event.target as HTMLElement;
-        // console.log('CLICK', el?.getAttribute('data-page'));
-        // event.preventDefault();
-        // event.stopPropagation();
-        // eventBus.emit(Block.EVENTS.pageChange, el?.getAttribute('data-page'));
-        // },
-      }),
+      },
     });
+    super('template', { ...props, errorTitle, errorText, backButton });
   }
 
-  render(): string {
-    return page;
+  render() {
+    return this.compile(error404Template, this.props);
   }
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(Page404);
+export default Page404;

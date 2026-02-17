@@ -1,13 +1,12 @@
 import Block from '@/framework/Block';
 import './style.scss';
-import template from './roundButton.hbs?raw';
+import template from './roundButton.hbs';
 import type { BlockProps } from '@/types';
 
 export class RoundButton extends Block {
   constructor(props: BlockProps) {
-    super({
+    super('div', {
       ...props,
-      template,
       events: {
         click: (e: Event) => {
           if (typeof props.onClick === 'function') {
@@ -22,5 +21,9 @@ export class RoundButton extends Block {
         type: props.type || 'button',
       },
     });
+  }
+
+  render() {
+    return this.compile(template, this.props);
   }
 }
