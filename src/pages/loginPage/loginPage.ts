@@ -51,40 +51,43 @@ class LoginPage extends Block {
       });
 
 
-    // const onSubmit = (e: Event) => {
-    //   e.preventDefault();
-    //   const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
-    //
-    //   if (isError) {
-    //     // return;
-    //   }
-    //
-    //   const form:HTMLElement = document.getElementById('login-form')!;
-    //   const formData = new FormData(form as HTMLFormElement);
-    //   const data: { [key: string]: FormDataEntryValue } = {};
-    //   formData.forEach((value, key) => {
-    //     data[key] = value;
-    //   });
-    //   void doLogin(data).then( () => {
-    //     void getUser().then( () => {
-    //       if (window.store.getState().user?.id) {
-    //         window.store.set({ isAuthorized: true });
-    //         appRouter.go('/chat');
-    //       }
-    //     });
-    //   });
-    //
-    // }
-    // const init = () => {
-    //   props = {
-    //     ...props,
-    //     events: {
-    //       submit: onSubmit.bind(this),
-    //     },
-    //   };
-    // };
+    const onSubmit = (e: Event) => {
 
-    console.log("props", props)
+      e.preventDefault();
+      const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+
+      if (isError) {
+        // return;
+      }
+
+      const form:HTMLElement = document.getElementById('login-form')!;
+      const formData = new FormData(form as HTMLFormElement);
+      const data: { [key: string]: FormDataEntryValue } = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+      void doLogin(data).then( () => {
+        void getUser().then( () => {
+          if (window.store.getState().user?.id) {
+            window.store.set({ isAuthorized: true });
+            appRouter.go('/chat');
+          }
+        });
+      });
+
+    }
+
+    const init = () => {
+        props = {
+            ...props,
+            events: {
+              submit: onSubmit.bind(this),
+            },
+        };
+        this.setProps({ ...props });
+    };
+
+
 
     super({
       ...props,
@@ -93,7 +96,7 @@ class LoginPage extends Block {
       submitButton,
       linkBack,
     });
-    // init();
+    init();
   }
 
 
