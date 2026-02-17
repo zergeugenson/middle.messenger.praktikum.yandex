@@ -45,6 +45,10 @@ export default class Router {
 
   _onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
+
+
+
+
     if (this._currentRoute) {
       this._currentRoute.leave();
     }
@@ -55,7 +59,7 @@ export default class Router {
     const isProtectedPage =
         pathname !== ROUTES_PATHS.login && pathname !== ROUTES_PATHS.register;
 
-    if (!Object.values(ROUTES_PATHS).includes(pathname)) {
+    if (!route || !Object.values(ROUTES_PATHS).includes(pathname)) {
       // 404
       this.go(ROUTES_PATHS.error404);
     } else if (!isAuthorized && isProtectedPage) {

@@ -1,7 +1,7 @@
 import './style.scss';
 import Block from '@/framework/Block';
 import { InputField } from '@/components/inputField';
-import { RoundButton } from '@/components/roundButton';
+// import { RoundButton } from '@/components/roundButton';
 import template from './chatPage.hbs';
 import { connect } from '@/framework/connect';
 import { getChats } from '@/controllers/ChatsController';
@@ -27,22 +27,22 @@ class ChatPage extends Block {
       console.log('Form Data:', data);
     };
 
-    const messageField = new InputField({
-      id: 'message-field',
-      name: 'message',
-      type: 'text',
-      disabled: false,
-      placeholder: 'Сообщение',
-      pattern: /.+/,
-      errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-      value: '',
-    });
-
-    const roundButton = new RoundButton({
-      id: 'message-send',
-      type: 'submit',
-      disabled: false,
-    });
+    // const messageField = new InputField({
+    //   id: 'message-field',
+    //   name: 'message',
+    //   type: 'text',
+    //   disabled: false,
+    //   placeholder: 'Сообщение',
+    //   pattern: /.+/,
+    //   errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
+    //   value: '',
+    // });
+    //
+    // const roundButton = new RoundButton({
+    //   id: 'message-send',
+    //   type: 'submit',
+    //   disabled: false,
+    // });
 
     const init = () => {
       props = {

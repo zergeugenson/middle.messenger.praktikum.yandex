@@ -40,10 +40,14 @@ export default class Route {
 
   render(): void {
     this._block = new this._blockClass({});
-    const root = document.querySelector(this._props.rootQuery);
+    const root = document.querySelector(this._props.rootQuery)  as HTMLElement;
     if (root) {
       root.innerHTML = '';
       root?.append(this._block?.getContent() as Node);
     }
+    if(this._block) {
+      this._block.dispatchComponentDidMount();
+    }
+    return;
   }
 }

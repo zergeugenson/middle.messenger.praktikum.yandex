@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   appRouter
     .use('/', Pages.LoginPage)
     .use('/register', Pages.RegisterPage)
-    .use('/error500', Pages.Page5xx)
+    .use('/error5xx', Pages.Page5xx)
     .use('/error404', Pages.Page404)
     .use('/profile', Pages.ProfilePage)
     .use('/chat', Pages.ChatPage)

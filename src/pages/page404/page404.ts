@@ -1,5 +1,5 @@
 import Block from '@/framework/Block';
-import error404Template from './page404.hbs';
+import template from './page404.hbs';
 import { Link } from '@/components/iLink';
 import { appRouter } from '@/main';
 
@@ -21,7 +21,7 @@ class Page404 extends Block {
   }
 
   render() {
-    return this.compile(error404Template, this.props);
+    return this.compile(template, this.props);
   }
 }
 

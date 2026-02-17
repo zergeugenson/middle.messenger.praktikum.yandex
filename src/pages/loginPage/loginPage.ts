@@ -3,7 +3,7 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
-import template from './loginPage.hbs?raw';
+import template from './loginPage.hbs';
 import { connect } from '@/framework/connect';
 import { appRouter } from '@/main';
 import { doLogin, getUser } from '@/controllers/AuthController';
@@ -85,8 +85,8 @@ class LoginPage extends Block {
 
   }
 
-  render(): string {
-    return template;
+  render() {
+    return this.compile(template, this.props);
   }
 }
 
