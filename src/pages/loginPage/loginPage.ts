@@ -43,11 +43,14 @@ class LoginPage extends Block {
 
      const linkBack = new Link({
         text: 'Регистрация',
-        href: '/register',
-        onClick: (event: Event) => {
-          event.preventDefault();
-          appRouter.go('/register');
-        },
+        href: '#',
+         events: {
+             click: (e) => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 appRouter.go('/register');
+             },
+         },
       });
 
 
