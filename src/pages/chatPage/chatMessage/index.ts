@@ -1,8 +1,8 @@
 import './style.scss';
 import Block from '@/framework/Block';
-import template from './chatListItem.hbs';
+import template from './chatMessage.hbs';
 
-export default class ChatListItem extends Block {
+export default class ChatMessage extends Block {
   constructor(props: any) {
     super({ ...props });
   }

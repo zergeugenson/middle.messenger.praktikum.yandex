@@ -6,25 +6,5 @@
 			{{> ChatContact this }}
 		{{/ each }}
 	</div>
-	<div class="chat-page__right-column">
-		<div class="header-field">
-			<div class="header-field__avatar"></div>
-			<div class="header-field__name">Андрей</div>
-			<div class="header-field__actions">
-				<div class="actions-button"><img src="/images/three-dots.png" alt="Открыть меню" /></div>
-			</div>
-		</div>
-		<div class="messages-field">
-			{{# each (chatPageMessageList) }}
-				{{> chatMessage this }}
-			{{/ each }}
-		</div>
-		<div class="typing-field">
-			<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>
-			<form action="#" id="send-message-form">
-				{{{ messageField }}}
-				{{{ RoundButton }}}
-			</form>
-		</div>
-	</div>
+		{{{ activeChatWindow }}}
 </main>

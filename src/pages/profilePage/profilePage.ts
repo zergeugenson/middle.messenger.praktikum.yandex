@@ -93,10 +93,11 @@ class ProfilePage extends Block {
     const logoutLink = new Link({
       href: '#',
       text: 'Выйти',
-      onClick: (event: Event) => {
-        event.preventDefault();
-        void doLogout();
-        appRouter.go('/');
+      events: {
+        click: () => {
+          void doLogout();
+          appRouter.go('/');
+        },
       },
     });
     const deleteProfileLink = new Link({

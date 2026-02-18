@@ -51,9 +51,13 @@ export interface ChatListItemProps {
     content: string;
     time: string;
   };
-  unread_count: string;
+  chatMessage: string;
+  unread_count: number;
   avatar: any;
   title: string;
+  events?: {
+    click: () => void;
+  };
 }
 
 export type PageTypes = (typeof Pages)[keyof typeof Pages] | any;
