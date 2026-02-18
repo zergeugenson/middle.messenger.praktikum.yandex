@@ -44,8 +44,12 @@ class ChatPage extends Block {
                 chatID: item.id,
                 chatMessage: item.last_message?.content || '',
                 time: item.last_message?.time || '',
+                isSelectedChat: false,
                 events: {
                   click: () => {
+                    chatList.forEach(item => {
+                      item.setProps({ isSelectedChat: false});
+                    })
                     const { activeChatWindow } = this.children
                     activeChatWindow.setProps({
                       avatarImg: defaulAvatar,

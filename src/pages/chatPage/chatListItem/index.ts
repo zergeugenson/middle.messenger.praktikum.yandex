@@ -4,7 +4,16 @@ import template from './chatListItem.hbs';
 
 export default class ChatListItem extends Block {
   constructor(props: any) {
-    super({ ...props });
+    super({ ...props,
+      events: {
+        click: (e: Event) => {
+          if (typeof props?.events?.click === 'function') {
+            props.events.click(e);
+          }
+          this.setProps({ isSelectedChat: true});
+        },
+      },
+    });
   }
 
   render() {
