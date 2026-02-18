@@ -62,12 +62,12 @@ export default class Router {
     if (!route || !Object.values(ROUTES_PATHS).includes(pathname)) {
       // 404
       this.go(ROUTES_PATHS.error404);
-    // } else if (!isAuthorized && isProtectedPage) {
-    //   // не авторизован
-    //   this.go(ROUTES_PATHS.login);
-    // } else if (isAuthorized && isAuthorizedPage) {
-    //   // авторизован, но идет на логин
-    //   this.go(ROUTES_PATHS.profile);
+      // } else if (!isAuthorized && isProtectedPage) {
+      //   // не авторизован
+      //   this.go(ROUTES_PATHS.login);
+      // } else if (isAuthorized && isAuthorizedPage) {
+      //   // авторизован, но идет на логин
+      //   this.go(ROUTES_PATHS.profile);
 
     } else {
       this._currentRoute = route;

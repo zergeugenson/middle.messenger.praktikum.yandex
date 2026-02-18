@@ -3,7 +3,7 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import type { BlockProps } from '@/types';
 import { appRouter } from '@/main';
-import template from "./page5xx.hbs";
+import template from './page5xx.hbs';
 
 export default class Page5xx extends Block {
   constructor(props: BlockProps) {

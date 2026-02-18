@@ -45,7 +45,7 @@ export default class Route {
       root.innerHTML = '';
       root?.append(this._block?.getContent() as Node);
     }
-    if(this._block) {
+    if (this._block) {
       this._block.dispatchComponentDidMount();
     }
     return;

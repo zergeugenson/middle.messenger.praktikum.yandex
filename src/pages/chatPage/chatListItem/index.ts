@@ -10,7 +10,7 @@ export default class ChatListItem extends Block {
           if (typeof props?.events?.click === 'function') {
             props.events.click(e);
           }
-          this.setProps({ isSelectedChat: true});
+          this.setProps({ isSelectedChat: true });
         },
       },
     });

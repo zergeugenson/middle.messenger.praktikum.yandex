@@ -123,7 +123,7 @@ class RegisterPage extends Block {
           }
         });
       });
-    }
+    };
 
     const init = () => {
       props = {
@@ -145,7 +145,7 @@ class RegisterPage extends Block {
       passwordField,
       passwordRepeatField,
       submitButton,
-      linkBack
+      linkBack,
     });
     init();
   }

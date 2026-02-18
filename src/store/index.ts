@@ -11,6 +11,7 @@ export const initState: AppState = {
   messages: [],
   chats: [],
   isAuthorized: false,
+  chatToken: null,
 };
 
 export class Store<State extends Record<string, any>> extends EventBus {

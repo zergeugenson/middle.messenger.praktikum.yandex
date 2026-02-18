@@ -7,9 +7,9 @@
 		</div>
 	</div>
 	<div class="messages-field">
-		{{# each (chatPageMessageList) }}
-			{{> chatMessage this }}
-		{{/ each }}
+		{{#each messageList}}
+			{{{messageList}}}
+		{{/each}}
 	</div>
 	<div class="typing-field">
 		<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>

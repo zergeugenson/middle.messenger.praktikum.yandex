@@ -20,5 +20,12 @@ const getChats = async (): Promise<ChatListItemProps[]> => {
   return chats;
 };
 
+const getToken = async (id: number): Promise<string> => {
+  const response = await chatsApi.token(id);
 
-export { getChats };
+  const chatToken = response.token;
+  window.store.set({ chatToken });
+  return chatToken;
+};
+
+export { getChats, getToken };

@@ -2,11 +2,12 @@ import './style.scss';
 import template from './activeChatWindow.hbs';
 import Block from '@/framework/Block';
 import { InputField } from '@/components/inputField';
-import {RoundButton} from "@/components/roundButton";
+import { RoundButton } from '@/components/roundButton';
 
 class ActiveChatWindow extends Block {
   constructor(props: Record<string, any> = {}) {
 
+    // const messageList = [];
     const messageField = new InputField({
       id: 'message-field',
       name: 'message',
@@ -28,6 +29,7 @@ class ActiveChatWindow extends Block {
       ...props,
       messageField,
       sendButton,
+      // messageList,
     });
   }
 
@@ -36,4 +38,4 @@ class ActiveChatWindow extends Block {
   }
 }
 
-export default ActiveChatWindow
+export default ActiveChatWindow;

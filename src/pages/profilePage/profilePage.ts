@@ -44,7 +44,7 @@ class ProfilePage extends Block {
       pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
       value: credentials.email,
-    })
+    });
     const firstNameField = new InputField({
       id: 'profile-first_name',
       name: 'first_name',
@@ -62,7 +62,7 @@ class ProfilePage extends Block {
       pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
       errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
       value: credentials.second_name,
-    })
+    });
     const displayNameField = new InputField({
       id: 'profile-display_name',
       value: credentials.display_name,
@@ -78,7 +78,7 @@ class ProfilePage extends Block {
       pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
       errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
       value: credentials.phone,
-    })
+    });
     const changeDataLink = new SubmitButton({
       text: 'Изменить данные',
       type: 'submit',
@@ -127,7 +127,7 @@ class ProfilePage extends Block {
       pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
       errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
       value: 'AAArrrr66hdm',
-    })
+    });
 
     const onSubmit = (e: Event) => {
       e.preventDefault();
@@ -140,7 +140,7 @@ class ProfilePage extends Block {
         data[key] = value;
       });
       console.log('Form Data:', data);
-    }
+    };
 
     const init = () => {
       props = {
@@ -167,10 +167,10 @@ class ProfilePage extends Block {
       logoutLink,
       deleteProfileLink,
       passwordField,
-      passwordRepeatField
-    })
+      passwordRepeatField,
+    });
     init();
-  };
+  }
 
   render() {
     return this.compile(template, this.props);
