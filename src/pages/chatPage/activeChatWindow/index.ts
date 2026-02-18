@@ -7,7 +7,6 @@ import { RoundButton } from '@/components/roundButton';
 class ActiveChatWindow extends Block {
   constructor(props: Record<string, any> = {}) {
 
-    // const messageList = [];
     const messageField = new InputField({
       id: 'message-field',
       name: 'message',
@@ -25,14 +24,35 @@ class ActiveChatWindow extends Block {
       disabled: false,
     });
 
+    const init = () => {
+      props = {
+        ...props,
+        events: {
+          submit: this.onSubmit.bind(this),
+        },
+      };
+      this.setProps({ ...props });
+    };
+
     super({
       ...props,
       messageField,
       sendButton,
-      // messageList,
     });
+    init();
   }
 
+  onSubmit (e: Event) {
+    e.preventDefault();
+    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
+    if (isError) return;
+    const form:HTMLElement = document.getElementById('send-message-form')! as HTMLFormElement;
+    const formData = new FormData(form as HTMLFormElement);
+    const data: { [key: string]: FormDataEntryValue } = {};
+    formData.forEach((value, key) => data[key] = value);
+    const socket = window.store.getState().socket;
+      socket.sendMessage(data.message.toString());
+  }
   render() {
     return this.compile(template, this.props);
   }

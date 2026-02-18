@@ -47,10 +47,12 @@ class ChatWebSocket {
   }
 
   sendMessage(message: string) {
-    this.socket.send(JSON.stringify({
-      content: message,
-      type: 'message',
-    }));
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify({
+        content: message,
+        type: 'message',
+      }));
+    }
   }
 
   public closeConnect() {

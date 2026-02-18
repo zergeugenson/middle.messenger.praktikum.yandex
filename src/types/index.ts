@@ -15,14 +15,14 @@ interface Attributes {
 
 interface User {
   // [key: string]: string;
-  avatar: string;
-  display_name: string;
-  email: string;
-  first_name: string;
-  id: number;
-  login: string
-  phone: string;
-  second_name: string;
+  avatar?: string;
+  display_name?: string;
+  email?: string;
+  first_name?: string;
+  id?: number;
+  login?: string
+  phone?: string;
+  second_name?: string;
 }
 
 // 2DO разобраться с типами пропсов
@@ -44,6 +44,7 @@ export interface AppState {
   user: User;
   isAuthorized: boolean;
   chatToken: string | null;
+  socket?: any;
 }
 
 export interface UserLoginForm {
@@ -55,7 +56,7 @@ export interface UserData {
 }
 
 export interface ChatListItemProps {
-  id: string;
+  id: number;
   last_message: {
     content: string;
     time: string;

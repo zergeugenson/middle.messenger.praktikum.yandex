@@ -1,7 +1,6 @@
 import './style.scss';
 import Block from '@/framework/Block';
 import { ChatWebSocket } from '@/framework/ChatWebSocket';
-import { InputField } from '@/components/inputField';
 import template from './chatPage.hbs';
 import { connect } from '@/framework/connect';
 import { getChats, getToken } from '@/controllers/ChatsController';
@@ -23,9 +22,6 @@ class ChatPage extends Block {
     const init = () => {
       props = {
         ...props,
-        events: {
-          submit: this.onSubmit.bind(this),
-        },
       };
       void getChats().then(()=> {
         this.setChatsList();
@@ -79,9 +75,8 @@ class ChatPage extends Block {
           const { user } = window.store.getState();
           const userId = user.id;
           if (chatID && chatToken && userId) {
-            const socket = new ChatWebSocket(
-
-            );
+            const socket = new ChatWebSocket();
+          window.store.set({ socket: socket })
             socket.openConnect( userId, chatID, chatToken );
           }
         });
@@ -107,19 +102,6 @@ class ChatPage extends Block {
         })
       )) || []
     );
-  }
-
-  onSubmit(e: Event) {
-    e.preventDefault();
-    const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
-    if (isError) return;
-    const form:HTMLElement = document.getElementById('send-message-form')!;
-    const formData = new FormData(form as HTMLFormElement);
-    const data: { [key: string]: FormDataEntryValue } = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-    console.log('Form Data:', data);
   }
 
   render() {
