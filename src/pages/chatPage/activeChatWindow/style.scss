@@ -1,57 +1,8 @@
-.chat-page__right-column {
-  .header-field {
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    flex-grow: 0;
-    height: 90px;
-    padding: 15px;
-
-    &__avatar {
-      background-color: var(--border-color);
-      border-radius: 20px;
-      flex-grow: 0;
-      height: 40px;
-      width: 40px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      .avatar-active {
-        width: 45px;
-        height: 45px;
-        border: 0;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
-
-    &__name {
-      font-weight: 600;
-      margin-left: 15px;
-    }
-
-    &__actions {
-      display: flex;
-      flex-grow: 1;
-      justify-content: flex-end;
-      gap: 20px;
-      button {
-        width: auto;
-      }
-
-      .actions-button {
-        align-items: center;
-        background-color: var(--light-gray-color);
-        border-radius: 13px;
-        cursor: pointer;
-        display: flex;
-        height: 25px;
-        justify-content: center;
-        width: 25px;
-      }
-    }
-  }
-
+.active-chat-window {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 90px);
   .messages-field {
     flex-grow: 1;
     overflow: auto;
@@ -59,6 +10,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    height: calc(100% - 90px);
+    max-height: calc(100% - 90px);
+    justify-content: flex-end;
   }
 
   .typing-field {

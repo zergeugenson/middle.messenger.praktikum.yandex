@@ -3,7 +3,7 @@ import Block from '@/framework/Block';
 import { ChatWebSocket } from '@/framework/ChatWebSocket';
 import template from './chatPage.hbs';
 import { connect } from '@/framework/connect';
-import { getChats, getToken } from '@/controllers/ChatsController';
+import {addChat, getChats, getToken} from '@/controllers/ChatsController';
 import Sidebar from './sidebar';
 import ActiveChatWindow from './activeChatWindow';
 import ChatMessage from './chatMessage';
@@ -12,13 +12,82 @@ import ChatListItem from './chatListItem';
 import type { ChatListItemProps } from '@/types';
 import defaulAvatar from '@/assets/images/defaultUserAvatar.svg';
 import type { AppState } from '@/types';
-import { humanReadableTime } from '@/framework/utils';
+import {humanReadableTime, showPopup, getFormData, hidePopup} from '@/framework/utils';
+import {SubmitButton} from "@/components/submitButton";
+import {appRouter} from "@/main";
+import Popup from "@/components/popUp";
+import {InputField} from "@/components/inputField";
 
 
 class ChatPage extends Block {
   constructor(props: Record<string, any> = {}) {
+
+      const socket = new ChatWebSocket();
+      window.store.set({ socket: socket });
+
     const sidebar = new Sidebar();
+
     const activeChatWindow = new ActiveChatWindow();
+
+    const createChatButton = new SubmitButton({
+      class: 'create-chat',
+      text: 'Создать чат',
+      type: 'button',
+      events: {
+          click: () => {
+              showPopup({ popupId: 'add-chat-popup-id' });
+          },
+      },
+    });
+
+    const viewProfile = new SubmitButton({
+      class: 'user-profile',
+      text: 'Профиль',
+      type: 'button',
+      events: {
+          click: () => {
+              appRouter.go('/profile');
+          },
+      },
+    });
+
+    const addChatPopUp = new Popup({
+      formId: 'add-chat-form-id',
+      popupId: 'add-chat-popup-id',
+      title: 'Создать новый чат',
+      inputs: [
+          new InputField({
+              name: 'title',
+              placeholder: 'Название нового чата',
+          }),
+      ],
+      buttons: [
+          new SubmitButton({
+              text: 'Закрыть',
+              events: {
+                  click: () => hidePopup(this.children.addChatPopUp.element),
+              },
+          }),
+          new SubmitButton({
+              text: 'Создать',
+              events: {
+                  click: (e: Event) => this.doAddUser(e),
+              },
+          }),
+      ],
+    });
+
+
+
+
+
+
+
+
+
+
+
+
     const init = () => {
       props = {
         ...props,
@@ -27,7 +96,7 @@ class ChatPage extends Block {
         this.setChatsList();
       });
     };
-    super({ ...props, sidebar, activeChatWindow });
+    super({ ...props, createChatButton, viewProfile, addChatPopUp, sidebar, activeChatWindow });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
   }
@@ -52,7 +121,8 @@ class ChatPage extends Block {
                   contact.setProps({ isSelectedChat: false });
                 });
                 const { activeChatWindow } = this.children;
-                activeChatWindow.setProps({
+                console.log(activeChatWindow)
+                this.setProps({
                   avatarImg: defaulAvatar,
                   chatName: item.title,
                   chatId: item.id,
@@ -75,20 +145,35 @@ class ChatPage extends Block {
           const { user } = window.store.getState();
           const userId = user.id;
           if (chatID && chatToken && userId) {
-            const socket = new ChatWebSocket();
-            window.store.set({ socket: socket });
+            const socket = window.store.getState().socket
             socket.openConnect( userId, chatID, chatToken );
           }
         });
     }
   }
 
+    doAddUser(e:Event) {
+        e.preventDefault();
+        const popup = this.children.addChatPopUp.element;
+        const { title } = getFormData('add-chat-form-id');
+        if (title) {
+            void addChat({ title }).then( (result) => {
+                console.log("AddChatResult", result)
+                hidePopup(popup);
+                const formElement = document.getElementById('add-chat-form-id') as HTMLFormElement;
+                formElement.reset();
+            });
+        }
+    }
+
   onStoreUpdate() {
+      console.log("STOR UPDATED")
     const state = window.store.getState();
     const messageList = this.getMessageListFromProps(state);
     this.children.activeChatWindow.setProps({
       ...this.props,
       messageList: messageList.length > 0 ? messageList : [],
+        messagesListLen: messageList.length
     });
     document.getElementById('messages-field')?.scrollTo({ top: 10000 });
   }

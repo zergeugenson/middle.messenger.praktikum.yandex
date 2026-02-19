@@ -14,13 +14,11 @@ export const hidePopup = (popup: HTMLElement) => {
 };
 
 export const getFormData = (formId: string) => {
-  const dataObject: Record<string, any> = {};
-  const formElement = document.getElementById(formId) as HTMLFormElement;
-  const formData = new FormData(formElement);
-  for (const [name, value] of formData) {
-    dataObject[name] = value;
-  }
-  return dataObject;
+  const data: Record<string, any> = {};
+  const form:HTMLElement = document.getElementById(formId)! as HTMLFormElement;
+  const formData = new FormData(form as HTMLFormElement);
+  formData.forEach((value, key) => data[key] = value);
+  return data;
 };
 
 export function cloneDeep<T>(obj: T): T {

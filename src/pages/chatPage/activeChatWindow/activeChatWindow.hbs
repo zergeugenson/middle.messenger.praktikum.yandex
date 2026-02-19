@@ -1,17 +1,10 @@
-<div id="active-chat-window" class="chat-page__right-column">
-	<div class="header-field">
-<div class="header-field__avatar">{{#if avatarImg}}<img id="avatar" alt="avatar" class='avatar-active' src="{{avatarImg}}" />{{/if}}</div>
-		<div class="header-field__name">{{{chatName}}}</div>
-		<div class="header-field__actions">
-			{{#each activeChatButtons }}
-				{{{activeChatButtons}}}
-			{{/each}}
-		</div>
-	</div>
+<div id="active-chat-window" class="active-chat-window">
 	<div class="messages-field" id="messages-field">
-		{{#each messageList}}
-			{{{messageList}}}
-		{{/each}}
+		{{#if messagesListLen}}
+			{{#each messageList}}
+				{{{messageList}}}
+			{{/each}}
+		{{/if}}
 	</div>
 	<div class="typing-field">
 		<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>
@@ -19,8 +12,8 @@
 			{{{ messageField }}}
 			{{{ sendButton }}}
 		</form>
+		{{{addUserToChatPopUp}}}
+		{{{kickUserFromChatPopUp}}}
+		{{{deleteChatPopUp}}}
 	</div>
-	{{{addUserToChatPopUp}}}
-	{{{kickUserFromChatPopUp}}}
-	{{{deleteChatPopUp}}}
 </div>
