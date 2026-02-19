@@ -20,6 +20,11 @@ const getChats = async (): Promise<ChatListItemProps[]> => {
   return chats;
 };
 
+const addChat = async (form: any): Promise<any[]> => {
+  await chatsApi.createchat(form);
+  return getChats();
+};
+
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);
 
@@ -28,4 +33,4 @@ const getToken = async (id: number): Promise<string> => {
   return chatToken;
 };
 
-export { getChats, getToken };
+export { getChats, addChat, getToken };

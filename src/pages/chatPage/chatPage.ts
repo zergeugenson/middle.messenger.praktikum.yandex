@@ -94,7 +94,6 @@ class ChatPage extends Block {
   }
 
   getMessageListFromProps(props: AppState) {
-    console.log(window.store.getState());
     return (
       props.messages?.map((messageItem: any) => (
         new ChatMessage({

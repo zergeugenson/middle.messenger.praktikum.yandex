@@ -5,7 +5,17 @@
   max-width: 75%;
   padding: 15px 15px 30px;
   position: relative;
+  margin-bottom: 30px;
+  min-width: 40%;
 
+  &.my-message {
+    align-self: flex-end;
+    background: var(--light-blue-color);
+  }
+
+  &:last-child {
+    margin-bottom: 15px;
+  }
   .message-date {
     bottom: 15px;
     color: var(--disabled-color);

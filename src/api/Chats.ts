@@ -7,6 +7,10 @@ export default class ChatsApi {
     return chatsApi.get('/chats');
   }
 
+  async createchat(data: any): Promise<any> {
+    return chatsApi.post('/chats', { data });
+  }
+
   async token(id: number): Promise<any> {
     return chatsApi.post(`/chats/token/${id}`);
   }

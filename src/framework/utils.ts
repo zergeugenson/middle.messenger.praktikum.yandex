@@ -1,6 +1,26 @@
 export function humanReadableTime(time: string) {
   return `${new Date(time).toLocaleDateString()} ${new Date(time).getHours()}:${new Date(time).getMinutes()}`;
 }
+
+export const showPopup = ({ popupId }: { popupId: string }) => {
+  const avatar = document.getElementById(popupId) as HTMLElement;
+  avatar.classList.add('popup_opened');
+};
+
+export const hidePopup = (popup: HTMLElement) => {
+  popup.classList.remove('popup_opened');
+};
+
+export const getFormData = (formId: string) => {
+  const dataObject: Record<string, any> = {};
+  const formElement = document.getElementById(formId) as HTMLFormElement;
+  const formData = new FormData(formElement);
+  for (const [name, value] of formData) {
+    dataObject[name] = value;
+  }
+  return dataObject;
+};
+
 export function cloneDeep<T>(obj: T): T {
   if (obj === null || typeof obj !== 'object') {
     return obj;
