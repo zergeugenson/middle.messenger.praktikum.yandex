@@ -90,6 +90,7 @@ class ChatPage extends Block {
       ...this.props,
       messageList: messageList.length > 0 ? messageList : [],
     });
+    document.getElementById('messages-field')?.scrollTo({ top: 10000 });
   }
 
   getMessageListFromProps(props: AppState) {

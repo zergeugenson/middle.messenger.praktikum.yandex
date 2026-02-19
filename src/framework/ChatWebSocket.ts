@@ -25,7 +25,7 @@ class ChatWebSocket {
     this.socket.addEventListener('message', (event) => {
       const parsedData = JSON.parse(event.data);
       if (Array.isArray(parsedData)) {
-        window.store.set({ messages: parsedData });
+        window.store.set({ messages: parsedData.reverse() });
       } else {
         const previousMessages = window.store.getState().messages;
         if (Array.isArray(previousMessages) && parsedData.type === 'message') {
