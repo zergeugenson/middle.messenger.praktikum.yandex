@@ -13,6 +13,7 @@ export const initState: AppState = {
   isAuthorized: false,
   chatToken: null,
   socket: null,
+  selectedChat: 0,
 };
 
 export class Store<State extends Record<string, any>> extends EventBus {

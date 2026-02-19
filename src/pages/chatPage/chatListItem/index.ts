@@ -11,6 +11,8 @@ export default class ChatListItem extends Block {
             props.events.click(e);
           }
           this.setProps({ isSelectedChat: true });
+          window.store.set({ selectedChat: props.chatID })
+          console.log(props)
         },
       },
     });

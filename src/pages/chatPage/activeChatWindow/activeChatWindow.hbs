@@ -3,7 +3,9 @@
 <div class="header-field__avatar">{{#if avatarImg}}<img id="avatar" alt="avatar" class='avatar-active' src="{{avatarImg}}" />{{/if}}</div>
 		<div class="header-field__name">{{{chatName}}}</div>
 		<div class="header-field__actions">
-			<div class="actions-button"><img src="/images/three-dots.png" alt="Открыть меню" /></div>
+			{{#each activeChatButtons }}
+				{{{activeChatButtons}}}
+			{{/each}}
 		</div>
 	</div>
 	<div class="messages-field" id="messages-field">
@@ -18,4 +20,7 @@
 			{{{ sendButton }}}
 		</form>
 	</div>
+	{{{addUserToChatPopUp}}}
+	{{{kickUserFromChatPopUp}}}
+	{{{deleteChatPopUp}}}
 </div>

@@ -1,10 +1,10 @@
 import './style.scss';
 import sidebarTemplate from './sidebar.hbs';
 import Block from '@/framework/Block';
-import { InputField } from '@/components/inputField';
-import Popup from '@/components/popUp';
 import { appRouter } from '@/main';
+import { InputField } from '@/components/inputField';
 import { SubmitButton } from '@/components/submitButton';
+import Popup from '@/components/popUp';
 import { showPopup, getFormData, hidePopup } from '@/framework/utils';
 import { addChat } from '@/controllers/ChatsController';
 

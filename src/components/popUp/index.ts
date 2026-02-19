@@ -13,8 +13,8 @@ interface PopupProps {
   setFoundUsers?: boolean;
   foundUsers?: Block;
   title?: string;
-  buttons: unknown[];
-  inputs: unknown[];
+  buttons?: unknown[];
+  inputs?: unknown[];
 }
 
 interface Target {

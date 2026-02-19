@@ -45,6 +45,7 @@ export interface AppState {
   isAuthorized: boolean;
   chatToken: string | null;
   socket?: any;
+  selectedChat: number;
 }
 
 export interface UserLoginForm {

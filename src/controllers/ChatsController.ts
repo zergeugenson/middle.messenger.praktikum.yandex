@@ -21,9 +21,18 @@ const getChats = async (): Promise<ChatListItemProps[]> => {
 };
 
 const addChat = async (form: any): Promise<any[]> => {
-  await chatsApi.createchat(form);
+  await chatsApi.create(form);
   return getChats();
 };
+
+const getChatUsers = async (id: number): Promise<any[]> => {
+  return await chatsApi.users(id)
+}
+
+const deleteChat = async (data: any): Promise<any[]> => {
+  await chatsApi.delete(data)
+  return await getChats()
+}
 
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);
@@ -33,4 +42,4 @@ const getToken = async (id: number): Promise<string> => {
   return chatToken;
 };
 
-export { getChats, addChat, getToken };
+export { getChats, addChat, getChatUsers, deleteChat, getToken };
