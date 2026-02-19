@@ -76,7 +76,7 @@ class ChatPage extends Block {
           const userId = user.id;
           if (chatID && chatToken && userId) {
             const socket = new ChatWebSocket();
-          window.store.set({ socket: socket })
+            window.store.set({ socket: socket });
             socket.openConnect( userId, chatID, chatToken );
           }
         });
@@ -94,12 +94,14 @@ class ChatPage extends Block {
   }
 
   getMessageListFromProps(props: AppState) {
+    console.log(window.store.getState());
     return (
       props.messages?.map((messageItem: any) => (
         new ChatMessage({
           ...messageItem,
           user: props.user,
           time: humanReadableTime(messageItem.time),
+          mymessage: messageItem.user_id === window.store.getState()?.user?.id,
         })
       )) || []
     );

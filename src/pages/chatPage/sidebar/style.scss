@@ -4,4 +4,8 @@
   overflow-x: hidden;
   box-sizing: content-box;
   position: relative;
+  &__header {
+    text-align: right;
+    padding-bottom: 10px;
+  }
 }

@@ -42,17 +42,18 @@ class ActiveChatWindow extends Block {
     init();
   }
 
-  onSubmit (e: Event) {
+  onSubmit(e: Event) {
     e.preventDefault();
     const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
     if (isError) return;
     const form:HTMLElement = document.getElementById('send-message-form')! as HTMLFormElement;
     const formData = new FormData(form as HTMLFormElement);
-    const data: { [key: string]: FormDataEntryValue } = {};
-    formData.forEach((value, key) => data[key] = value);
+    const data: { [key: string]: string } = {};
+    formData.forEach((value, key) => data[key] = value.toString());
     const socket = window.store.getState().socket;
-      socket.sendMessage(data.message.toString());
+    socket.sendMessage(data.message);
   }
+
   render() {
     return this.compile(template, this.props);
   }

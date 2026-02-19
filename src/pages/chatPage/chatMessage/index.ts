@@ -11,6 +11,7 @@ interface ChatMessageProps {
   time: string
   type: string
   user_id: number;
+  mymessage?: boolean;
 }
 
 export default class ChatMessage extends Block {
