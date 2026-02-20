@@ -280,9 +280,10 @@ class ChatPage extends Block {
                   void getChats().then(()=> {
                     this.setChatsList();
                   });
-                  void this.doGetUserList(id);
-                  this.setProps({ ...this.props });
-                  console.log("Выполняется в контексте: ", this)
+                  this.doGetUserList(id).then(()=>{
+                    this.setProps({ ...this.props });
+                    console.log("Выполняется в контексте: ", this)
+                  })
                 },
               }),
           );

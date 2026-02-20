@@ -32,7 +32,7 @@
       flex-grow: 0;
       height: 90px;
       padding: 15px;
-
+      position: relative;
       &__avatar {
         background-color: var(--border-color);
         border-radius: 20px;
@@ -76,6 +76,18 @@
           width: 25px;
         }
       }
+    }
+    .users-field {
+      display: block;
+      width: 100%;
+      margin: 0;
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      top:91px;
+      background: white;
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
     }
 
   }

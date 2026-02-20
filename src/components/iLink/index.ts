@@ -1,10 +1,20 @@
 import Block from '@/framework/Block';
 import './style.scss';
 import iLink from './iLink.hbs';
-import type { BlockProps } from '@/types';
+
+interface LinkProps {
+  href?: string;
+  class?: string;
+  disabled?: Boolean;
+  events?: any;
+  datapage?: string;
+  text?: string;
+  image?: string;
+  alt?:string;
+}
 
 export class Link extends Block {
-  constructor(props: BlockProps) {
+  constructor(props: LinkProps) {
     super({
       ...props,
       events: {

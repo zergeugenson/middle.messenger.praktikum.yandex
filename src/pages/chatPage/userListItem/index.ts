@@ -16,10 +16,12 @@ interface UserListItemProps {
 
 export default class UserListItem extends Block {
   constructor(props: UserListItemProps) {
+    const notMe = window.store.getState().user.id !== props.userID;
     const deleteUser = new Link({
-      text: 'Уд',
+      image: '/images/delete.png',
+      alt: 'Выгнать',
       events: {
-        click: (e) => {
+        click: (e: Event) => {
           e.preventDefault();
           showPopup({ popupId: 'kick-user-popup-id' });
         },
@@ -48,7 +50,8 @@ export default class UserListItem extends Block {
     super({
       ...props,
       deleteUser,
-      kickUserFromChatPopUp
+      kickUserFromChatPopUp,
+      notMe
     });
   }
 

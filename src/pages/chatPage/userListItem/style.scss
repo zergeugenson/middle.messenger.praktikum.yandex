@@ -1,67 +1,25 @@
-.chat-contact {
-  background-color: var(--light-gray-color);
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  gap: 15px;
-  padding: 15px 0;
-  cursor: pointer;
-  justify-content: space-between;
-  &.selected {
-    background-color: var(--light-blue-color);
-    cursor: auto;
+
+.user-list-item-container {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 3px;
+  span {
+    display: inline-block;
   }
-
-  &__avatar {
-    background-color: var(--border-color);
-    border-radius: 20px;
-    flex-grow: 0;
-    height: 40px;
-    margin-left: 15px;
-    width: 40px;
-  }
-
-  &__body {
-    flex-grow: 1;
-    max-width: 168px;
-
-    .user-name {
-      font-weight: 600;
-      margin-bottom: 2px;
+  .user-list-item {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    a{
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0;
     }
-
-    .user-last-action {
-      color: var(--disabled-color);
-      font-size: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 100%;
+    img {
+      width: 18px;
     }
-  }
-
-  &__events {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 0;
-    justify-content: space-between;
-    margin-right: 15px;
-    align-items: flex-end;
-
-    .events-date {
-      color: var(--disabled-color);
-      font-size: 10px;
-    }
-
-    .events-count {
-      align-items: center;
-      background-color: var(--primary-color);
-      border-radius: 15px;
-      color: white;
-      display: flex;
-      font-size: 11px;
-      height: 25px;
-      justify-content: center;
-      width: 25px;
+    .user-name{
+      font-weight: 700;
     }
   }
 }

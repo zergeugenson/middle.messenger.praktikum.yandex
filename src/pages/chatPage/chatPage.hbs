@@ -6,7 +6,6 @@
 		{{{sidebar}}}
 	</div>
 	<div class="chat-page__right-column">
-		<div>
 			<div class="header-field">
 				<div class="header-field__avatar">{{#if avatarImg}}<img id="avatar" alt="avatar" class='avatar-active' src="{{avatarImg}}" />{{/if}}</div>
 				<div class="header-field__name">{{{chatName}}}</div>
@@ -15,13 +14,13 @@
 						{{{activeChatButtons}}}
 					{{/each}}
 				</div>
+				<div class="users-field">
+					<span>Пользователи в чате: </span>
+					{{#each userList}}
+						{{{userList}}}
+					{{/each}}
+				</div>
 			</div>
-		</div>
-		<div class="users-field">
-			{{#each userList}}
-				{{{userList}}}
-			{{/each}}
-		</div>
 		{{{ activeChatWindow }}}
 	</div>
 	{{{addChatPopUp}}}
