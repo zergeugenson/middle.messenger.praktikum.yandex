@@ -45,7 +45,7 @@ class LoginPage extends Block {
       text: 'Регистрация',
       href: '#',
       events: {
-        click: (e) => {
+        click: (e: Event) => {
           e.preventDefault();
           e.stopPropagation();
           appRouter.go('/register');

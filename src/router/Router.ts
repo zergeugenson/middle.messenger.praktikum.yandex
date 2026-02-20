@@ -5,15 +5,15 @@ import { ROUTES_PATHS } from '@/router/routes';
 type RouteType = any;
 
 export default class Router {
-  public routes: RouteType[] | undefined;
+  public routes: any[] | undefined;
 
   public history: History | undefined;
 
-  public _currentRoute: null | RouteType;
+  public _currentRoute: any;
 
   public _rootQuery: string | undefined;
 
-  public _instance: any; // Router?
+  public _instance: Router;
 
   constructor(rootQuery: string) {
     if (this._instance) {
@@ -62,12 +62,12 @@ export default class Router {
     if (!route || !Object.values(ROUTES_PATHS).includes(pathname)) {
       // 404
       this.go(ROUTES_PATHS.error404);
-      // } else if (!isAuthorized && isProtectedPage) {
-      //   // не авторизован
-      //   this.go(ROUTES_PATHS.login);
-      // } else if (isAuthorized && isAuthorizedPage) {
-      //   // авторизован, но идет на логин
-      //   this.go(ROUTES_PATHS.profile);
+    } else if (!isAuthorized && isProtectedPage) {
+      // не авторизован
+      this.go(ROUTES_PATHS.login);
+    } else if (isAuthorized && isAuthorizedPage) {
+      // авторизован, но идет на логин
+      this.go(ROUTES_PATHS.profile);
 
     } else {
       this._currentRoute = route;

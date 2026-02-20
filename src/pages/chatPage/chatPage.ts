@@ -11,7 +11,6 @@ import { StoreEvents } from '@/Store';
 import ChatListItem from './chatListItem';
 import UserListItem from './userListItem';
 import type { ChatListItemProps } from '@/types';
-import defaulAvatar from '@/assets/images/defaultUserAvatar.svg';
 import type { AppState } from '@/types';
 import { humanReadableTime, showPopup, getFormData, hidePopup } from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
@@ -125,7 +124,7 @@ class ChatPage extends Block {
       props = {
         ...props,
       };
-      getChats().then(()=> {
+      void getChats().then(()=> {
         this.setChatsList();
       });
       this.setProps({ ...props });
@@ -154,8 +153,12 @@ class ChatPage extends Block {
     const { sidebar } = this.children;
     chats?.forEach(
       (item: ChatListItemProps) => {
+        const avatar = item.avatar
+          ? `https://ya-praktikum.tech/api/v2/resources${item.avatar}`
+          : '/defaultUserAvatar.svg';
         chatList.push(
           new ChatListItem({
+            avatarUrl: avatar,
             title: item.title,
             unread_count: item.unread_count,
             chatID: item.id,
@@ -168,12 +171,12 @@ class ChatPage extends Block {
                   contact.setProps({ isSelectedChat: false });
                 });
                 this.setProps({
-                  avatarImg: defaulAvatar,
+                  avatarHeadUrl: avatar,
                   chatName: item.title,
                   chatId: item.id,
                 });
                 this.getChatMessages(item.id);
-                this.doGetUserList(item.id);
+                void this.doGetUserList(item.id);
               },
             },
           }),
@@ -255,26 +258,26 @@ class ChatPage extends Block {
 
   async doGetUserList(id:number) {
     const userList: any = [];
-    const res = await getChatUsers(id)
+    const res = await getChatUsers(id);
     res?.forEach(
-        (item: any) => {
-          userList.push(
-              new UserListItem({
-                userID: item.id,
-                userLogin: item.login,
-                userName: item.first_name,
-                onclick: ():void => {
-                  void getChats().then(()=> {
-                    this.setChatsList();
-                  });
-                  this.doGetUserList(id).then(()=>{
-                    this.setProps({ ...this.props });
-                    console.log("Выполняется в контексте: ", this)
-                  })
-                },
-              }),
-          );
-        });
+      (item: any) => {
+        userList.push(
+          new UserListItem({
+            userID: item.id,
+            userLogin: item.login,
+            userName: item.first_name,
+            onclick: ():void => {
+              void getChats().then(()=> {
+                this.setChatsList();
+              });
+              void this.doGetUserList(id).then(()=>{
+                this.setProps({ ...this.props });
+                console.log('Выполняется в контексте: ', this);
+              });
+            },
+          }),
+        );
+      });
     this.setProps({
       userList: userList,
     });

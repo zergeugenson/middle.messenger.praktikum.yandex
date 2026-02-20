@@ -1,5 +1,7 @@
 <div class="chat-contact{{#if isSelectedChat}} selected{{/if}}" id="chat-{{{chatID}}}">
-	<div class="chat-contact__avatar"></div>
+	<div class="chat-contact__avatar">
+		<img src="{{{avatarUrl}}}" />
+	</div>
 	<div class="chat-contact__body">
 		<div class="user-name">{{title}}</div>
 		<div class="user-last-action">{{chatMessage}}</div>

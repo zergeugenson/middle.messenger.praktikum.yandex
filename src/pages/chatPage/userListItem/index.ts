@@ -1,16 +1,16 @@
 import './style.scss';
 import Block from '@/framework/Block';
 import template from './userListItem.hbs';
-import {Link} from "@/components/iLink";
-import { kickUserFromChat } from "@/controllers/ChatsController";
-import Popup from "@/components/popUp";
-import {SubmitButton} from "@/components/submitButton";
-import {hidePopup, showPopup} from "@/framework/utils";
+import { Link } from '@/components/iLink';
+import { kickUserFromChat } from '@/controllers/ChatsController';
+import Popup from '@/components/popUp';
+import { SubmitButton } from '@/components/submitButton';
+import { hidePopup, showPopup } from '@/framework/utils';
 
 interface UserListItemProps {
   userLogin: string;
   userName: string;
-  onclick: Function;
+  onclick: () => void;
   userID: number;
 }
 
@@ -36,7 +36,7 @@ export default class UserListItem extends Block {
           text: 'Отменить',
           events: {
             click: () =>
-              hidePopup(this.children.kickUserFromChatPopUp.element)
+              hidePopup(this.children.kickUserFromChatPopUp.element),
           },
         }),
         new SubmitButton({
@@ -51,18 +51,18 @@ export default class UserListItem extends Block {
       ...props,
       deleteUser,
       kickUserFromChatPopUp,
-      notMe
+      notMe,
     });
   }
 
   doDeleteUser(props:UserListItemProps) {
     const { selectedChat } = window.store.getState();
-    kickUserFromChat({
+    void kickUserFromChat({
       chatId: selectedChat,
-      userId: props.userID
+      userId: props.userID,
     }).then(() => {
       props.onclick();
-    })
+    });
   }
 
   render() {

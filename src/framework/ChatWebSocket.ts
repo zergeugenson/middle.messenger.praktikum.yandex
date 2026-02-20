@@ -71,12 +71,6 @@ class ChatWebSocket {
       );
     }
   }
-
-  private error() {
-    this.socket.addEventListener('error', (event) => {
-      console.error('Ошибка', event);
-    });
-  }
 }
 
 export { ChatWebSocket };

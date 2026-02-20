@@ -35,11 +35,11 @@ const deleteChat = async (data: any): Promise<any[]> => {
 };
 
 const kickUserFromChat = async (data: any): Promise<void> => {
-    await chatsApi.remove({
-      users: [data.userId],
-      chatId: data.chatId
-    })
-}
+  await chatsApi.remove({
+    users: [data.userId],
+    chatId: data.chatId,
+  });
+};
 
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);

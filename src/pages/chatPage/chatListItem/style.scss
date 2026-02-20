@@ -11,13 +11,13 @@
     cursor: auto;
   }
 
-  &__avatar {
-    background-color: var(--border-color);
-    border-radius: 20px;
-    flex-grow: 0;
-    height: 40px;
-    margin-left: 15px;
-    width: 40px;
+  &__avatar img{
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: blue;
   }
 
   &__body {

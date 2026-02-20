@@ -5,7 +5,7 @@ import iLink from './iLink.hbs';
 interface LinkProps {
   href?: string;
   class?: string;
-  disabled?: Boolean;
+  disabled?: boolean;
   events?: any;
   datapage?: string;
   text?: string;
