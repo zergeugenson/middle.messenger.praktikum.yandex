@@ -41,6 +41,7 @@ export interface AppState {
   notValid: boolean;
   messages: any[];
   chats: any[];
+  userList: any[];
   user: User;
   isAuthorized: boolean;
   chatToken: string | null;

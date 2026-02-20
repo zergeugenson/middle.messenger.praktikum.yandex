@@ -9,6 +9,7 @@ import ActiveChatWindow from './activeChatWindow';
 import ChatMessage from './chatMessage';
 import { StoreEvents } from '@/Store';
 import ChatListItem from './chatListItem';
+import UserListItem from './userListItem';
 import type { ChatListItemProps } from '@/types';
 import defaulAvatar from '@/assets/images/defaultUserAvatar.svg';
 import type { AppState } from '@/types';
@@ -27,6 +28,9 @@ class ChatPage extends Block {
     const sidebar = new Sidebar();
 
     const activeChatWindow = new ActiveChatWindow();
+
+
+    // const userList = ['user', 'user2']
 
     const addChatButton = new SubmitButton({
       class: 'create-chat',
@@ -54,13 +58,13 @@ class ChatPage extends Block {
       new SubmitButton({
         text: 'Добавить пользователя',
         events: {
-          click: () => hidePopup(this.children.addChatPopUp.element),
+          click: () => showPopup({ popupId: 'add-user-popup-id' }),
         },
       }),
       new SubmitButton({
         text: 'Выгнать пользователя',
         events: {
-          click: () => hidePopup(this.children.addChatPopUp.element),
+          click: () => showPopup({ popupId: 'kick-user-popup-id' }),
         },
       }),
       new SubmitButton({
@@ -104,21 +108,12 @@ class ChatPage extends Block {
       formId: 'add-user-form-id',
       popupId: 'add-user-popup-id',
       title: 'Добавить пользователя?',
-      needPropsUpdate: true,
-    });
-
-    const kickUserFromChatPopUp = new Popup({
-      formId: 'kick-user-id',
-      popupId: 'kick-user-popup-id',
-      title: 'Выгнать пользователя?',
-      needPropsUpdate: true,
     });
 
     const deleteChatPopUp = new Popup({
       formId: 'delete-chat-form-id',
       popupId: 'delete-chat-popup-id',
       title: 'Удалить чат?',
-      needPropsUpdate: true,
       buttons: [
         new SubmitButton({
           text: 'Закрыть',
@@ -139,9 +134,10 @@ class ChatPage extends Block {
       props = {
         ...props,
       };
-      void getChats().then(()=> {
+      getChats().then(()=> {
         this.setChatsList();
       });
+      this.setProps({ ...props });
     };
     super({
       ...props,
@@ -152,8 +148,8 @@ class ChatPage extends Block {
       activeChatWindow,
       activeChatButtons,
       addUserToChatPopUp,
-      kickUserFromChatPopUp,
       deleteChatPopUp,
+      // userList,
     });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
@@ -189,11 +185,13 @@ class ChatPage extends Block {
                   chatId: item.id,
                 });
                 this.getChatMessages(item.id);
+                this.doGetUserList(item.id);
               },
             },
           }),
         );
       });
+    console.log("chatList", chatList)
     sidebar.setProps({
       chatList: chatList,
     });
@@ -268,34 +266,32 @@ class ChatPage extends Block {
  * Действия со списком пользователей
  */
 
-  doDeleteUser(e:Event) {
-    e.preventDefault();
-
-    console.log(window.store.getState().selectedChat);
-
-
-
-    const { selectedChat, user } = window.store.getState();
-
-
-
-
-    const userId = user.id;
-    if (selectedChat) {
-      getChatUsers(selectedChat).then((response) => {
-
-        console.log('resp', response);
-        return;
-        const foundUsers = JSON.parse(response.response);
-        const withoutСurrentUser = foundUsers.filter(
-          (user: any) => user.id !== userId,
-        );
-        window.store.set('foundUsersDelete', withoutСurrentUser);
-      });
-    }
-
-    showPopup({ popupId: 'delete-chat-popup-id' });
+  async doGetUserList(id:number) {
+    const userList: any = [];
+    const res = await getChatUsers(id)
+    res?.forEach(
+        (item: any) => {
+          userList.push(
+              new UserListItem({
+                userID: item.id,
+                userLogin: item.login,
+                userName: item.first_name,
+                onclick: ():void => {
+                  void getChats().then(()=> {
+                    this.setChatsList();
+                  });
+                  void this.doGetUserList(id);
+                  this.setProps({ ...this.props });
+                  console.log("Выполняется в контексте: ", this)
+                },
+              }),
+          );
+        });
+    this.setProps({
+      userList: userList,
+    });
   }
+
 
   render() {
     return this.compile(template, this.props);
@@ -303,4 +299,4 @@ class ChatPage extends Block {
 
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(ChatPage);
+export default connect(({ notValid, user, userList }) => ({ notValid, user, userList }))(ChatPage);

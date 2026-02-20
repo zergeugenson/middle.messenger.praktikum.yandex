@@ -3,7 +3,6 @@ import template from './popUp.hbs';
 import Block from '@/framework/Block';
 
 interface PopupProps {
-  needPropsUpdate?: boolean;
   formId: string;
   popupId: string;
   input?: Block;
@@ -23,7 +22,6 @@ interface Target {
 
 export default class Popup extends Block {
   constructor({
-    needPropsUpdate,
     formId,
     popupId,
     input,
@@ -35,7 +33,6 @@ export default class Popup extends Block {
   }: PopupProps) {
 
     super({
-      needPropsUpdate,
       formId,
       popupId,
       input,
@@ -52,9 +49,6 @@ export default class Popup extends Block {
           ) as HTMLFormElement;
           if (target.classList.contains('pop-up-window')) {
             avatar.classList.remove('popup_opened');
-            if (needPropsUpdate) {
-              this.setProps({ setFoundUsers: false });
-            }
           }
           formElement.reset();
         },

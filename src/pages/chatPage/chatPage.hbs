@@ -1,24 +1,30 @@
 <main class="chat-page">
 	<div class="chat-page__left-column">
 		<div class="sidebar__header">
-			{{{createChatButton}}}{{{viewProfile}}}
+			{{{addChatButton}}}{{{viewProfile}}}
 		</div>
 		{{{sidebar}}}
 	</div>
 	<div class="chat-page__right-column">
-		<div class="header-field">
-			<div class="header-field__avatar">{{#if avatarImg}}<img id="avatar" alt="avatar" class='avatar-active' src="{{avatarImg}}" />{{/if}}</div>
-			<div class="header-field__name">{{{chatName}}}</div>
-			<div class="header-field__actions">
-				{{#each activeChatButtons }}
-					{{{activeChatButtons}}}
-				{{/each}}
+		<div>
+			<div class="header-field">
+				<div class="header-field__avatar">{{#if avatarImg}}<img id="avatar" alt="avatar" class='avatar-active' src="{{avatarImg}}" />{{/if}}</div>
+				<div class="header-field__name">{{{chatName}}}</div>
+				<div class="header-field__actions">
+					{{#each activeChatButtons }}
+						{{{activeChatButtons}}}
+					{{/each}}
+				</div>
 			</div>
+		</div>
+		<div class="users-field">
+			{{#each userList}}
+				{{{userList}}}
+			{{/each}}
 		</div>
 		{{{ activeChatWindow }}}
 	</div>
 	{{{addChatPopUp}}}
 	{{{addUserToChatPopUp}}}
-	{{{kickUserFromChatPopUp}}}
 	{{{deleteChatPopUp}}}
 </main>

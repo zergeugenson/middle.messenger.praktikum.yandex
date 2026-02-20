@@ -8,6 +8,7 @@ export enum StoreEvents {
 export const initState: AppState = {
   notValid: false,
   user: {},
+  userList: [],
   messages: [],
   chats: [],
   isAuthorized: false,
