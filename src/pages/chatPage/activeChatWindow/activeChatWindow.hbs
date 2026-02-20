@@ -1,10 +1,12 @@
 <div id="active-chat-window" class="active-chat-window">
 	<div class="messages-field" id="messages-field">
+		<div class="messages-field-container" id="messages-field-container">
 		{{#if messagesListLen}}
 			{{#each messageList}}
 				{{{messageList}}}
 			{{/each}}
 		{{/if}}
+		</div>
 	</div>
 	<div class="typing-field">
 		<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>
