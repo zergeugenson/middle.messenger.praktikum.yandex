@@ -26,13 +26,13 @@ const addChat = async (form: any): Promise<any[]> => {
 };
 
 const getChatUsers = async (id: number): Promise<any[]> => {
-  return await chatsApi.users(id)
-}
+  return chatsApi.users(id);
+};
 
 const deleteChat = async (data: any): Promise<any[]> => {
-  await chatsApi.delete(data)
-  return await getChats()
-}
+  await chatsApi.delete(data);
+  return getChats();
+};
 
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);

@@ -3,7 +3,7 @@ import Block from '@/framework/Block';
 import { ChatWebSocket } from '@/framework/ChatWebSocket';
 import template from './chatPage.hbs';
 import { connect } from '@/framework/connect';
-import {addChat, getChats, getToken} from '@/controllers/ChatsController';
+import { addChat, deleteChat, getChats, getChatUsers, getToken } from '@/controllers/ChatsController';
 import Sidebar from './sidebar';
 import ActiveChatWindow from './activeChatWindow';
 import ChatMessage from './chatMessage';
@@ -12,31 +12,30 @@ import ChatListItem from './chatListItem';
 import type { ChatListItemProps } from '@/types';
 import defaulAvatar from '@/assets/images/defaultUserAvatar.svg';
 import type { AppState } from '@/types';
-import {humanReadableTime, showPopup, getFormData, hidePopup} from '@/framework/utils';
-import {SubmitButton} from "@/components/submitButton";
-import {appRouter} from "@/main";
-import Popup from "@/components/popUp";
-import {InputField} from "@/components/inputField";
-
+import { humanReadableTime, showPopup, getFormData, hidePopup } from '@/framework/utils';
+import { SubmitButton } from '@/components/submitButton';
+import { appRouter } from '@/main';
+import Popup from '@/components/popUp';
+import { InputField } from '@/components/inputField';
 
 class ChatPage extends Block {
   constructor(props: Record<string, any> = {}) {
 
-      const socket = new ChatWebSocket();
-      window.store.set({ socket: socket });
+    const socket = new ChatWebSocket();
+    window.store.set({ socket: socket });
 
     const sidebar = new Sidebar();
 
     const activeChatWindow = new ActiveChatWindow();
 
-    const createChatButton = new SubmitButton({
+    const addChatButton = new SubmitButton({
       class: 'create-chat',
       text: 'Создать чат',
       type: 'button',
       events: {
-          click: () => {
-              showPopup({ popupId: 'add-chat-popup-id' });
-          },
+        click: () => {
+          showPopup({ popupId: 'add-chat-popup-id' });
+        },
       },
     });
 
@@ -45,48 +44,96 @@ class ChatPage extends Block {
       text: 'Профиль',
       type: 'button',
       events: {
-          click: () => {
-              appRouter.go('/profile');
-          },
+        click: () => {
+          appRouter.go('/profile');
+        },
       },
     });
+
+    const activeChatButtons = [
+      new SubmitButton({
+        text: 'Добавить пользователя',
+        events: {
+          click: () => hidePopup(this.children.addChatPopUp.element),
+        },
+      }),
+      new SubmitButton({
+        text: 'Выгнать пользователя',
+        events: {
+          click: () => hidePopup(this.children.addChatPopUp.element),
+        },
+      }),
+      new SubmitButton({
+        text: 'Удалить чат',
+        events: {
+          click: () => {
+            if (!window.store.getState().selectedChat) return;
+            showPopup({ popupId: 'delete-chat-popup-id' });
+          },
+        },
+      }),
+    ];
 
     const addChatPopUp = new Popup({
       formId: 'add-chat-form-id',
       popupId: 'add-chat-popup-id',
       title: 'Создать новый чат',
       inputs: [
-          new InputField({
-              name: 'title',
-              placeholder: 'Название нового чата',
-          }),
+        new InputField({
+          name: 'title',
+          placeholder: 'Название нового чата',
+        }),
       ],
       buttons: [
-          new SubmitButton({
-              text: 'Закрыть',
-              events: {
-                  click: () => hidePopup(this.children.addChatPopUp.element),
-              },
-          }),
-          new SubmitButton({
-              text: 'Создать',
-              events: {
-                  click: (e: Event) => this.doAddUser(e),
-              },
-          }),
+        new SubmitButton({
+          text: 'Закрыть',
+          events: {
+            click: () => hidePopup(this.children.addChatPopUp.element),
+          },
+        }),
+        new SubmitButton({
+          text: 'Создать',
+          events: {
+            click: () => this.doAddChat(),
+          },
+        }),
       ],
     });
 
+    const addUserToChatPopUp = new Popup({
+      formId: 'add-user-form-id',
+      popupId: 'add-user-popup-id',
+      title: 'Добавить пользователя?',
+      needPropsUpdate: true,
+    });
 
+    const kickUserFromChatPopUp = new Popup({
+      formId: 'kick-user-id',
+      popupId: 'kick-user-popup-id',
+      title: 'Выгнать пользователя?',
+      needPropsUpdate: true,
+    });
 
-
-
-
-
-
-
-
-
+    const deleteChatPopUp = new Popup({
+      formId: 'delete-chat-form-id',
+      popupId: 'delete-chat-popup-id',
+      title: 'Удалить чат?',
+      needPropsUpdate: true,
+      buttons: [
+        new SubmitButton({
+          text: 'Закрыть',
+          events: {
+            click: () => hidePopup(this.children.deleteChatPopUp.element),
+          },
+        }),
+        new SubmitButton({
+          text: 'Удалить',
+          events: {
+            click: () => this.doDeleteChat(),
+          },
+        }),
+      ],
+    });
 
     const init = () => {
       props = {
@@ -96,11 +143,25 @@ class ChatPage extends Block {
         this.setChatsList();
       });
     };
-    super({ ...props, createChatButton, viewProfile, addChatPopUp, sidebar, activeChatWindow });
+    super({
+      ...props,
+      addChatButton,
+      viewProfile,
+      addChatPopUp,
+      sidebar,
+      activeChatWindow,
+      activeChatButtons,
+      addUserToChatPopUp,
+      kickUserFromChatPopUp,
+      deleteChatPopUp,
+    });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
   }
 
+  /**
+ * Действия со списком чатов
+ */
   setChatsList() {
     const chatList: any[] = [];
     const { chats } = window.store.getState();
@@ -121,7 +182,7 @@ class ChatPage extends Block {
                   contact.setProps({ isSelectedChat: false });
                 });
                 const { activeChatWindow } = this.children;
-                console.log(activeChatWindow)
+                console.log(activeChatWindow);
                 this.setProps({
                   avatarImg: defaulAvatar,
                   chatName: item.title,
@@ -138,6 +199,33 @@ class ChatPage extends Block {
     });
   }
 
+  doAddChat() {
+    const popup = this.children.addChatPopUp.element;
+    const { title } = getFormData('add-chat-form-id');
+    if (title) {
+      void addChat({ title }).then( (result) => {
+        console.log('AddChatResult', result, this.children);
+        hidePopup(popup);
+        const formElement = document.getElementById('add-chat-form-id') as HTMLFormElement;
+        formElement.reset();
+        this.setChatsList();
+      });
+    }
+  }
+
+  doDeleteChat() {
+    const { selectedChat } = window.store.getState();
+    void deleteChat({ chatId: selectedChat }).then(()=>{
+      this.setProps({ selectedChat: 0 });
+      hidePopup(this.children.deleteChatPopUp.element);
+      this.setChatsList();
+    });
+  }
+
+  /**
+ * Действия со списком сообщений
+ */
+
   getChatMessages(chatID: number) {
     if (chatID) {
       void getToken(chatID)
@@ -145,35 +233,20 @@ class ChatPage extends Block {
           const { user } = window.store.getState();
           const userId = user.id;
           if (chatID && chatToken && userId) {
-            const socket = window.store.getState().socket
+            const socket = window.store.getState().socket;
             socket.openConnect( userId, chatID, chatToken );
           }
         });
     }
   }
 
-    doAddUser(e:Event) {
-        e.preventDefault();
-        const popup = this.children.addChatPopUp.element;
-        const { title } = getFormData('add-chat-form-id');
-        if (title) {
-            void addChat({ title }).then( (result) => {
-                console.log("AddChatResult", result)
-                hidePopup(popup);
-                const formElement = document.getElementById('add-chat-form-id') as HTMLFormElement;
-                formElement.reset();
-            });
-        }
-    }
-
   onStoreUpdate() {
-      console.log("STOR UPDATED")
     const state = window.store.getState();
     const messageList = this.getMessageListFromProps(state);
     this.children.activeChatWindow.setProps({
       ...this.props,
       messageList: messageList.length > 0 ? messageList : [],
-        messagesListLen: messageList.length
+      messagesListLen: messageList.length,
     });
     document.getElementById('messages-field-container')?.scrollTo({ top: 10000 });
   }
@@ -189,6 +262,39 @@ class ChatPage extends Block {
         })
       )) || []
     );
+  }
+
+  /**
+ * Действия со списком пользователей
+ */
+
+  doDeleteUser(e:Event) {
+    e.preventDefault();
+
+    console.log(window.store.getState().selectedChat);
+
+
+
+    const { selectedChat, user } = window.store.getState();
+
+
+
+
+    const userId = user.id;
+    if (selectedChat) {
+      getChatUsers(selectedChat).then((response) => {
+
+        console.log('resp', response);
+        return;
+        const foundUsers = JSON.parse(response.response);
+        const withoutСurrentUser = foundUsers.filter(
+          (user: any) => user.id !== userId,
+        );
+        window.store.set('foundUsersDelete', withoutСurrentUser);
+      });
+    }
+
+    showPopup({ popupId: 'delete-chat-popup-id' });
   }
 
   render() {
