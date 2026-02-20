@@ -29,9 +29,6 @@ class ChatPage extends Block {
 
     const activeChatWindow = new ActiveChatWindow();
 
-
-    // const userList = ['user', 'user2']
-
     const addChatButton = new SubmitButton({
       class: 'create-chat',
       text: 'Создать чат',
@@ -59,12 +56,6 @@ class ChatPage extends Block {
         text: 'Добавить пользователя',
         events: {
           click: () => showPopup({ popupId: 'add-user-popup-id' }),
-        },
-      }),
-      new SubmitButton({
-        text: 'Выгнать пользователя',
-        events: {
-          click: () => showPopup({ popupId: 'kick-user-popup-id' }),
         },
       }),
       new SubmitButton({
@@ -149,7 +140,6 @@ class ChatPage extends Block {
       activeChatButtons,
       addUserToChatPopUp,
       deleteChatPopUp,
-      // userList,
     });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
@@ -177,8 +167,6 @@ class ChatPage extends Block {
                 chatList.forEach(contact => {
                   contact.setProps({ isSelectedChat: false });
                 });
-                const { activeChatWindow } = this.children;
-                console.log(activeChatWindow);
                 this.setProps({
                   avatarImg: defaulAvatar,
                   chatName: item.title,
@@ -191,7 +179,6 @@ class ChatPage extends Block {
           }),
         );
       });
-    console.log("chatList", chatList)
     sidebar.setProps({
       chatList: chatList,
     });
