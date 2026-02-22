@@ -88,9 +88,31 @@
       background: white;
       padding: 10px;
       border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 8px #0003;
+      &__users-search{
+        margin-top: 15px;
+        .users-search__controls {
+          display: flex;
+          align-items: center;
+          .input-field {
+            flex-grow: 1;
+          }
+          .round-button {
+            margin: 0 0 17px 5px;
+          }
+        }
+      }
+      &__results {
+        display: inline-flex;
+        gap: 10px;
+        row-gap: 2px;
+        max-width: 100%;
+        flex-wrap: wrap;
+      }
     }
 
   }
 }
+
 
 

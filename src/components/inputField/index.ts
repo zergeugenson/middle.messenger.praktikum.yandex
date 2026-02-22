@@ -34,10 +34,6 @@ export class InputField extends Block {
     this._init();
   }
 
-  get flagError() {
-    return this.isError;
-  }
-
   public doValidateAndCallback(e: Event | undefined, init = false): boolean {
     if (!this.props.pattern || !this.props.errorMessage) return false;
     const regExp = new RegExp(this?.props?.pattern as string || '');

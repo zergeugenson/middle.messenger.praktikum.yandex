@@ -35,11 +35,24 @@ const deleteChat = async (data: any): Promise<any[]> => {
 };
 
 const kickUserFromChat = async (data: any): Promise<void> => {
+  const { userId, chatId } = data;
   await chatsApi.remove({
-    users: [data.userId],
-    chatId: data.chatId,
+    users: [userId],
+    chatId: chatId,
   });
 };
+
+const userSearch = async (data: any): Promise<any> => {
+  return await chatsApi.search(data)
+}
+
+const addUserToChat = async (data: any): Promise<void> => {
+  const { userId, chatId } = data;
+  await chatsApi.add({
+    users: [userId],
+    chatId: chatId
+  })
+}
 
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);
@@ -49,4 +62,4 @@ const getToken = async (id: number): Promise<string> => {
   return chatToken;
 };
 
-export { getChats, addChat, getChatUsers, deleteChat, kickUserFromChat, getToken };
+export { getChats, addChat, getChatUsers, deleteChat, kickUserFromChat, userSearch, addUserToChat, getToken };

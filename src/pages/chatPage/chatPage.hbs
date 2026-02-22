@@ -19,6 +19,16 @@
 					{{#each userList}}
 						{{{userList}}}
 					{{/each}}
+					<div class="users-field__users-search">
+						<form class="users-search__controls" id="users-search-form">
+								{{{searchForUserField}}} {{{searchForUserButton}}}
+						</form>
+						<ul class="users-search__results">
+						{{#each listOfUsers}}
+							{{{listOfUsers}}}
+						{{/each}}
+						</ul>
+					</div>
 				</div>
 			</div>
 		{{{ activeChatWindow }}}

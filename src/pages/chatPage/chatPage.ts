@@ -3,7 +3,15 @@ import Block from '@/framework/Block';
 import { ChatWebSocket } from '@/framework/ChatWebSocket';
 import template from './chatPage.hbs';
 import { connect } from '@/framework/connect';
-import { addChat, deleteChat, getChats, getChatUsers, getToken } from '@/controllers/ChatsController';
+import {
+  addChat,
+  deleteChat,
+  getChats,
+  getChatUsers,
+  getToken,
+  addUserToChat,
+  userSearch
+} from '@/controllers/ChatsController';
 import Sidebar from './sidebar';
 import ActiveChatWindow from './activeChatWindow';
 import ChatMessage from './chatMessage';
@@ -17,6 +25,8 @@ import { SubmitButton } from '@/components/submitButton';
 import { appRouter } from '@/main';
 import Popup from '@/components/popUp';
 import { InputField } from '@/components/inputField';
+import { RoundButton } from '@/components/roundButton';
+import ListOfUsers from "@/pages/chatPage/listOfUsers";
 
 class ChatPage extends Block {
   constructor(props: Record<string, any> = {}) {
@@ -52,12 +62,6 @@ class ChatPage extends Block {
 
     const activeChatButtons = [
       new SubmitButton({
-        text: 'Добавить пользователя',
-        events: {
-          click: () => showPopup({ popupId: 'add-user-popup-id' }),
-        },
-      }),
-      new SubmitButton({
         text: 'Удалить чат',
         events: {
           click: () => {
@@ -67,6 +71,21 @@ class ChatPage extends Block {
         },
       }),
     ];
+
+    const searchForUserField = new InputField({
+      name: 'username',
+      placeholder: 'Введите часть имени пользователя',
+      value: 'string'
+    });
+
+    const searchForUserButton = new RoundButton({
+      type: 'button',
+      events: {
+        click: (e: Event) => {
+          void this.doAddUserToChat(e);
+        },
+      },
+    });
 
     const addChatPopUp = new Popup({
       formId: 'add-chat-form-id',
@@ -92,12 +111,6 @@ class ChatPage extends Block {
           },
         }),
       ],
-    });
-
-    const addUserToChatPopUp = new Popup({
-      formId: 'add-user-form-id',
-      popupId: 'add-user-popup-id',
-      title: 'Добавить пользователя?',
     });
 
     const deleteChatPopUp = new Popup({
@@ -137,8 +150,9 @@ class ChatPage extends Block {
       sidebar,
       activeChatWindow,
       activeChatButtons,
-      addUserToChatPopUp,
       deleteChatPopUp,
+      searchForUserButton,
+      searchForUserField,
     });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
@@ -270,7 +284,8 @@ class ChatPage extends Block {
               void getChats().then(()=> {
                 this.setChatsList();
               });
-              void this.doGetUserList(id).then(()=>{
+              const { selectedChat } = window.store.getState();
+              void this.doGetUserList(selectedChat).then(()=>{
                 this.setProps({ ...this.props });
                 console.log('Выполняется в контексте: ', this);
               });
@@ -281,6 +296,37 @@ class ChatPage extends Block {
     this.setProps({
       userList: userList,
     });
+  }
+
+  async doAddUserToChat() {
+    const { username } = getFormData('users-search-form') || '';
+    if (username === "") return [];
+    await userSearch({ login: username }).then((res)=>{
+      console.log("res", res, this)
+      const listOfUsers: any = [];
+      res?.forEach(
+          (item: any) => {
+            listOfUsers.push(
+                new ListOfUsers({
+                  userID: item.id,
+                  userLogin: item.login,
+                  userName: item.first_name,
+                  callback: (): void => {
+                    const { selectedChat } = window.store.getState();
+                    void addUserToChat({
+                      chatId: selectedChat,
+                      userId: item.id,
+                    }).then(()=>{
+                      void this.doGetUserList(selectedChat);
+                    });
+                  }
+                }),
+            );
+          });
+      this.setProps({
+        listOfUsers: listOfUsers,
+      });
+    })
   }
 
 

@@ -1,0 +1,21 @@
+.user-item {
+  width: 30%;
+  padding-right: 15px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  span {
+    margin-bottom: 3px;
+  }
+  &__user-name {
+    font-weight: 700;
+  }
+  &__add-button {
+    display: inline-block;
+    margin-left: 3px;
+    img {
+      width: 18px;
+    }
+  }
+}

@@ -42,7 +42,7 @@ export default class UserListItem extends Block {
         new SubmitButton({
           text: 'Выгнать',
           events: {
-            click: () => this.doDeleteUser(props),
+            click: () => this.doKickUser(props),
           },
         }),
       ],
@@ -55,7 +55,7 @@ export default class UserListItem extends Block {
     });
   }
 
-  doDeleteUser(props:UserListItemProps) {
+  doKickUser(props:UserListItemProps) {
     const { selectedChat } = window.store.getState();
     void kickUserFromChat({
       chatId: selectedChat,

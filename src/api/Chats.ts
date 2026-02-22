@@ -27,6 +27,10 @@ export default class ChatsApi {
     return chatsApi.delete('/chats/users', { data });
   }
 
+  async search(data: any): Promise<any> {
+    return await chatsApi.post('/user/search', { data })
+  }
+
   async token(id: number): Promise<any> {
     return chatsApi.post(`/chats/token/${id}`);
   }
