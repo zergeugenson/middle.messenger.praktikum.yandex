@@ -12,7 +12,7 @@ export default class Page5xx extends Block {
     const backButton = new Link({
       text: 'Назад к чатам',
       events: {
-        click: (e) => {
+        click: (e: Event) => {
           e.preventDefault();
           e.stopPropagation();
           appRouter.go('/chat');

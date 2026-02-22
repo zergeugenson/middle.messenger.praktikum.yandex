@@ -8,10 +8,17 @@
     text-align: right;
     padding-bottom: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    .create-chat {
+      margin-right: 10px;
+    }
+    img {
+      width: 32px;
+    }
     button {
       display: inline-block;
       width: auto;
+
     }
   }
 }

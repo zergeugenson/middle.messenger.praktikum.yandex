@@ -10,9 +10,7 @@ class Page404 extends Block {
     const backButton = new Link({
       text: 'Назад к чатам',
       events: {
-        click: (e) => {
-          e.preventDefault();
-          e.stopPropagation();
+        click: () => {
           appRouter.go('/chat');
         },
       },

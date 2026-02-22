@@ -92,7 +92,7 @@ class RegisterPage extends Block {
       href: '#',
       text: 'Войти',
       events: {
-        click: (e) => {
+        click: (e: Event) => {
           e.preventDefault();
           e.stopPropagation();
           appRouter.go('/');

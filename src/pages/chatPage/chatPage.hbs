@@ -14,7 +14,7 @@
 						{{{activeChatButtons}}}
 					{{/each}}
 				</div>
-				<div class="users-field">
+				<div class="users-field" id="user-field" style="display:none;">
 					<span>Пользователи в чате: </span>
 					{{#each userList}}
 						{{{userList}}}
@@ -23,11 +23,7 @@
 						<form class="users-search__controls" id="users-search-form">
 								{{{searchForUserField}}} {{{searchForUserButton}}}
 						</form>
-						<ul class="users-search__results">
-						{{#each listOfUsers}}
-							{{{listOfUsers}}}
-						{{/each}}
-						</ul>
+						{{{foundUsersList}}}
 					</div>
 				</div>
 			</div>

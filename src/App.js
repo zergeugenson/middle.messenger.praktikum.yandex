@@ -12,7 +12,6 @@ import Block from '@/framework/Block';
 // import { iLink } from './components/iLink/deleteme';
 // import { ChatContact } from '@/pages/chatPage/templateParts/chatContact';
 // import { chatMessage } from '@/pages/chatPage/templateParts/chatMessage';
-// import { revieverMenu } from '@/components/revieverMenu';
 // Handlebars.registerPartial('ChatContact', ChatContact);
 // Handlebars.registerPartial('chatMessage', chatMessage);
 // Handlebars.registerPartial('iLink', iLink);
@@ -26,12 +25,9 @@ export default class App extends Block {
     }
     ;
     this.appElement = document.getElementById('app');
-    this.menuElement = document.getElementById('reviever-menu');
   }
 
   renderPage() {
-    const menuTemplate = Handlebars.compile(revieverMenu);
-    this.menuElement.innerHTML = menuTemplate({});
 
     this.appElement.remove();
     const newApp = document.createElement('div');

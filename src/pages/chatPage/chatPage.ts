@@ -22,11 +22,13 @@ import type { ChatListItemProps } from '@/types';
 import type { AppState } from '@/types';
 import { humanReadableTime, showPopup, getFormData, hidePopup } from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
+import { Link } from '@/components/iLink';
 import { appRouter } from '@/main';
 import Popup from '@/components/popUp';
 import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
 import ListOfUsers from "@/pages/chatPage/listOfUsers";
+import FoundUsersList from "@/pages/chatPage/foundUsersList";
 
 class ChatPage extends Block {
   constructor(props: Record<string, any> = {}) {
@@ -35,13 +37,15 @@ class ChatPage extends Block {
     window.store.set({ socket: socket });
 
     const sidebar = new Sidebar();
+    const foundUsersList = new FoundUsersList({});
 
     const activeChatWindow = new ActiveChatWindow();
 
-    const addChatButton = new SubmitButton({
+    const addChatButton =       new Link({
       class: 'create-chat',
       text: 'Создать чат',
-      type: 'button',
+      image: '/images/add_circle.png',
+      alt: 'Добавить в чат',
       events: {
         click: () => {
           showPopup({ popupId: 'add-chat-popup-id' });
@@ -49,20 +53,31 @@ class ChatPage extends Block {
       },
     });
 
-    const viewProfile = new SubmitButton({
+    const viewProfile = new Link({
+      image: '/images/account_circle.png',
       class: 'user-profile',
-      text: 'Профиль',
-      type: 'button',
+      alt: 'Удалить чат',
       events: {
         click: () => {
           appRouter.go('/profile');
         },
       },
-    });
+    })
 
     const activeChatButtons = [
-      new SubmitButton({
-        text: 'Удалить чат',
+      new Link({
+        image: '/images/add_circle.png',
+        alt: 'Добавить в чат',
+        events: {
+          click: () => {
+            const userFieldWindow = document.getElementById('user-field') as HTMLElement;
+            userFieldWindow.style.display = userFieldWindow.style.display === 'none' ? 'block' : 'none';
+          },
+        },
+      }),
+      new Link({
+        image: '/images/delete.png',
+        alt: 'Удалить чат',
         events: {
           click: () => {
             if (!window.store.getState().selectedChat) return;
@@ -81,8 +96,9 @@ class ChatPage extends Block {
     const searchForUserButton = new RoundButton({
       type: 'button',
       events: {
-        click: (e: Event) => {
-          void this.doAddUserToChat(e);
+        click: async (e: Event) => {
+          e.preventDefault();
+          await this.doAddUserToChat();
         },
       },
     });
@@ -153,6 +169,7 @@ class ChatPage extends Block {
       deleteChatPopUp,
       searchForUserButton,
       searchForUserField,
+      foundUsersList,
     });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
@@ -302,6 +319,9 @@ class ChatPage extends Block {
     const { username } = getFormData('users-search-form') || '';
     if (username === "") return [];
     await userSearch({ login: username }).then((res)=>{
+
+      const userFieldWindow = document.getElementById('user-field') as HTMLElement;
+      console.log("userFieldWindow.style.display", userFieldWindow.style.display)
       console.log("res", res, this)
       const listOfUsers: any = [];
       res?.forEach(
@@ -323,7 +343,7 @@ class ChatPage extends Block {
                 }),
             );
           });
-      this.setProps({
+      this.children.foundUsersList.setProps({
         listOfUsers: listOfUsers,
       });
     })

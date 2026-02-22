@@ -61,8 +61,8 @@
         flex-grow: 1;
         justify-content: flex-end;
         gap: 20px;
-        button {
-          width: auto;
+        img {
+          width: 18px;
         }
 
         .actions-button {
@@ -78,7 +78,7 @@
       }
     }
     .users-field {
-      display: block;
+      display: none;
       width: 100%;
       margin: 0;
       position: absolute;

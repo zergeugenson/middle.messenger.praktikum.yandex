@@ -46,6 +46,7 @@ export interface AppState {
   chatToken: string | null;
   socket?: any;
   selectedChat: number;
+  isUserSearchWindowOpen: Boolean;
 }
 
 export interface UserLoginForm {
