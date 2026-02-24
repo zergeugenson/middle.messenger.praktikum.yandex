@@ -56,7 +56,7 @@ export class InputField extends Block {
   }
 
   public doValidateAndCallback(e: Event | undefined, init = false): boolean {
-    if (!this.props.pattern || !this.props.errorMessage) return false;
+    if (!this.props.pattern || !this.props.errorMessage || this.props.isdisabled) return false;
     const regExp = new RegExp(this?.props?.pattern as string || '');
     const res = regExp.test((this.children.Input.element as HTMLInputElement).value);
     this.children.ErrorLine.setProps({

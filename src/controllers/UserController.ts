@@ -17,8 +17,7 @@ const changeUserAvatar = async (file: File): Promise<void> => {
 };
 
 const changeUserPassword = async (data: any): Promise<void> => {
-  const user = await userApi.password(data);
-  window.store.set({ user });
+  return await userApi.password(data);
 };
 
 export { changeUserProfile, changeUserAvatar, changeUserPassword };

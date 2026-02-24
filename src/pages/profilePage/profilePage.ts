@@ -138,10 +138,6 @@ class ProfilePage extends Block {
           });
           this.children.changeDataLink.setProps({ class: 'hidden' });
           this.children.saveDataLink.setProps({ class: '' });
-          const passwordsContainer = document.getElementById('passwords-container') as HTMLElement;
-          const userdataContainer = document.getElementById('userdata-container') as HTMLElement;
-          passwordsContainer.style.display = 'none';
-          userdataContainer.style.display = 'block';
         },
       },
     });
@@ -168,22 +164,20 @@ class ProfilePage extends Block {
 
     const passwordDataFields = [
       new InputField({
-        label: 'Новый пароль',
-        name: 'password',
+        label: 'Старый пароль',
+        name: 'oldpassword',
         type: 'password',
-        isdisabled: false,
-        placeholder: 'Введите пароль',
+        isdisabled: true,
+        placeholder: 'Старый пароль',
         class: '',
-        pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
-        errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
         value: props.user.password, //'AAArrrr66hdm',
       }),
       new InputField({
-        label: 'Повторите пароль',
-        name: 'password_repeat',
+        label: 'Новый пароль',
+        name: 'newpassword',
         type: 'password',
-        isdisabled: false,
-        placeholder: 'Повторите пароль',
+        isdisabled: true,
+        placeholder: 'Новый пароль',
         class: '',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
@@ -198,13 +192,9 @@ class ProfilePage extends Block {
       disabled: false,
       events: {
         click: () => {
-          userDataFields.forEach((item)=>{
+          passwordDataFields.forEach((item)=>{
             item.setProps({ isdisabled: false });
           });
-          const passwordsContainer = document.getElementById('passwords-container') as HTMLElement;
-          const userdataContainer = document.getElementById('userdata-container') as HTMLElement;
-          passwordsContainer.style.display = 'block';
-          userdataContainer.style.display = 'none';
           this.children.changePasswordLink.setProps({ class: 'hidden' });
           this.children.savePasswordLink.setProps({ class: '' });
         },
@@ -218,26 +208,17 @@ class ProfilePage extends Block {
       disabled: false,
       events: {
         click: async () => {
-          const { display_name, email, first_name, login, phone, second_name } = getFormData("change-profile-form");
-          await changeUserProfile({
-            display_name,
-            email,
-            first_name,
-            login,
-            phone,
-            second_name,
-          }).then(() => {
-            const user = window.store.getState().user;
-            this.setProps({ user: user });
+          const { oldpassword, newpassword } = getFormData("change-password-form");
+          await changeUserPassword({
+            oldPassword: oldpassword,
+            newPassword: newpassword
+          }).then((res: any) => {
             passwordDataFields.forEach((item)=>{
-              this.children.changeDataLink.setProps({ class: '' });
-              this.children.saveDataLink.setProps({ class: 'hidden' });
-              const el = item.element.children[0].querySelector('input');
-              if (el) {
-                el.disabled = true;
-                el.classList.add('disabled');
-              }
+              item.setProps({ isdisabled: true });
             });
+            this.children.changePasswordLink.setProps({ class: '' });
+            this.children.savePasswordLink.setProps({ class: 'hidden' });
+            if(res !== 'OK') console.error('Password not changed', res.reason)
           });
         },
       },
