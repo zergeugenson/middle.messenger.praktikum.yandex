@@ -1,4 +1,4 @@
-import ChatsApi from '@/api/chats';
+import ChatsApi from '@/api/Chats';
 import type { ChatListItemProps } from '@/types';
 
 const chatsApi = new ChatsApi();

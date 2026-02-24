@@ -1,5 +1,5 @@
 import type { AppState } from '@/types';
-import { StoreEvents } from '@/Store';
+import { StoreEvents } from '@/store';
 import { isEqual } from './utils';
 
 export function connect(

@@ -1,4 +1,4 @@
-import * as Pages from '@/Pages';
+import * as Pages from '@/pages';
 import Router from '@/router/Router';
 import { Store } from '@/store';
 import type { AppState } from '@/types';

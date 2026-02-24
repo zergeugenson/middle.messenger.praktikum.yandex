@@ -3,7 +3,7 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
-import ProfileAvatar from './ProfileAvatar';
+import ProfileAvatar from './profileAvatar';
 import ChangePassword from './changePassword';
 import template from './profilePage.hbs';
 import { appRouter } from '@/main';

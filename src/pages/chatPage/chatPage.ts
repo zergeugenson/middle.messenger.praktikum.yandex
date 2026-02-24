@@ -15,7 +15,7 @@ import {
 import Sidebar from './sidebar';
 import ActiveChatWindow from './activeChatWindow';
 import ChatMessage from './chatMessage';
-import { StoreEvents } from '@/Store';
+import { StoreEvents } from '@/store';
 import ChatListItem from './chatListItem';
 import UserListItem from './userListItem';
 import type { ChatListItemProps } from '@/types';
