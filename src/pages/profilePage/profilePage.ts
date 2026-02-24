@@ -96,7 +96,7 @@ class ProfilePage extends Block {
         name: 'first_name',
         type: 'text',
         isdisabled: true,
-        value: props.user.first_name,
+        value: props.user.firstName,
       }),
       new InputField({
         label: 'Фамилия',
@@ -104,12 +104,12 @@ class ProfilePage extends Block {
         name: 'second_name',
         type: 'text',
         isdisabled: true,
-        value: props.user.second_name,
+        value: props.user.secondName,
       }),
       new InputField({
         label: 'Псевдоним',
         id: 'profile-display_name',
-        value: props.user.display_name,
+        value: props.user.displayName,
         name: 'display_name',
         type: 'text',
         isdisabled: true,
@@ -148,14 +148,14 @@ class ProfilePage extends Block {
       disabled: false,
       events: {
         click: async () => {
-          const { display_name, email, first_name, login, phone, second_name } = getFormData('change-profile-form');
+          const data = getFormData('change-profile-form');
           await changeUserProfile({
-            display_name,
-            email,
-            first_name,
-            login,
-            phone,
-            second_name,
+            displayName: data.display_name,
+            email: data.email,
+            firstName: data.first_name,
+            login: data.login,
+            phone: data.phone,
+            secondName: data.second_name,
           }).then(() => this.saveData(userDataFields));
         },
       },

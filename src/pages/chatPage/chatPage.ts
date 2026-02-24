@@ -38,7 +38,7 @@ class ChatPage extends Block {
 
     const sidebar = new Sidebar();
 
-    const userName = props.user.display_name;
+    const userName = props.user.displayName;
 
     const searchField = new InputField({
       name: 'filter',
@@ -312,7 +312,7 @@ class ChatPage extends Block {
           new UserListItem({
             userID: item.id,
             userLogin: item.login,
-            userName: item.first_name,
+            userName: item.firstName,
             onclick: ():void => {
               void getChats().then(()=> {
                 this.setChatsList();
@@ -342,7 +342,7 @@ class ChatPage extends Block {
             new ListOfUsers({
               userID: item.id,
               userLogin: item.login,
-              userName: item.first_name,
+              userName: item.firstName,
               callback: (): void => {
                 const { selectedChat } = window.store.getState();
                 void addUserToChat({

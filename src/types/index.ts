@@ -14,13 +14,13 @@ interface Attributes {
 
 interface User {
   avatar?: string;
-  display_name?: string;
+  displayName?: string;
   email?: string;
-  first_name?: string;
+  firstName?: string;
   id?: number;
   login?: string
   phone?: string;
-  second_name?: string;
+  secondName?: string;
 }
 
 // 2DO разобраться с типами пропсов
