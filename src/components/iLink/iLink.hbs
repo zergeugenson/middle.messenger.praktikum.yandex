@@ -4,5 +4,5 @@
 	data-page="{{datapage}}"
 	{{# if disabled }}data-disabled="disabled"{{/ if }}
 >
-	{{text}}
+{{#if image }}<img src="{{image}}" alt="{{alt}}" title="{{alt}}"/>{{else}}{{text}}{{/if}}
 </a>

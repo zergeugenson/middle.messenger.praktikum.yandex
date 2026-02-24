@@ -12,7 +12,6 @@ interface Attributes {
   [key: string]: string;
 }
 
-// 2DO разобраться с типами пропсов
 export interface BlockProps {
   events?: EventMap;
   attr?: Attributes | false;
@@ -23,3 +22,47 @@ export interface BlockProps {
   class?: string;
   [key:string]: unknown;
 }
+
+export interface User {
+  avatar?: string;
+  displayName?: string;
+  email?: string;
+  firstName?: string;
+  id?: number;
+  login?: string
+  phone?: string;
+  secondName?: string;
+}
+
+export interface AppState {
+  messages: any[];
+  chats: any[];
+  userList: any[];
+  user: User;
+  isAuthorized: boolean;
+  chatToken: string | null;
+  socket?: any;
+  selectedChat: number;
+  usersInChat?: { id: number, name: string }[] | [];
+}
+
+export interface UserLoginForm {
+  [key: string]: FormDataEntryValue;
+}
+
+export interface ChatListItemProps {
+  id: number;
+  last_message: {
+    content: string;
+    time: string;
+  };
+  chatMessage: string;
+  unread_count: number;
+  avatar: any;
+  title: string;
+  events?: {
+    click: () => void;
+  };
+}
+
+export type PageTypes = any;

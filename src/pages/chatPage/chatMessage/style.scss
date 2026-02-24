@@ -1,0 +1,32 @@
+/* 2DO: скин для авторских мессаджей */
+.chat-messsage {
+  background-color: var(--light-gray-color);
+  border-radius: 8px;
+  margin-bottom: 30px;
+  max-width: 90%;
+  min-width: 40%;
+  padding: 15px 15px 30px;
+  position: relative;
+
+  .user-name {
+    font-weight: 700;
+  }
+
+  &.my-message {
+    align-self: flex-end;
+    background: var(--light-blue-color);
+  }
+
+  &:last-child {
+    margin-bottom: 15px;
+  }
+
+  .message-date {
+    bottom: 15px;
+    color: var(--disabled-color);
+    font-size: 10px;
+    position: absolute;
+    right: 15px;
+  }
+}
+

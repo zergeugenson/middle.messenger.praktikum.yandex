@@ -1,0 +1,13 @@
+<div class="chat-contact{{#if isSelectedChat}} selected{{/if}}{{#if title}} visible{{/if}}" id="chat-{{{chatID}}}">
+	<div class="chat-contact__body">
+		<div class="user-avatar avatar-letter">{{{avatarLetter}}}</div>
+		<div class="user-name">
+			{{title}}
+			<div class="user-last-action">{{chatMessage}}</div>
+		</div>
+	</div>
+	<div class="chat-contact__events">
+		<div class="events-date">{{time}}</div>
+		<div class="events-count">{{unread_count}}+</div>
+	</div>
+</div>

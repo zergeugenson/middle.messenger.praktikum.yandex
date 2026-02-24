@@ -1,0 +1,18 @@
+<div id={{popupId}} class="pop-up-window{{#if skin}} {{{ skin }}}{{/if}}">
+  <div class="pop-up-window__content">
+	<h2>{{{title}}}</h2>
+		{{#if message}}
+		  <h4>{{{message}}}</h4>
+		{{/if}}
+		<form id={{formId}}>
+			{{#each inputs}}
+			  {{{inputs}}}
+			{{/each}}
+		    <div class="pop-up-window__content-buttons">
+		        {{#each buttons}}
+			        {{{buttons}}}
+		        {{/each}}
+		    </div>
+		</form>
+  </div>
+</div>
