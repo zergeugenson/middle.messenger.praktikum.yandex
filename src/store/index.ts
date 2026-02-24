@@ -14,7 +14,7 @@ export const initState: AppState = {
   chatToken: null,
   socket: null,
   selectedChat: 0,
-  usersInChat: []
+  usersInChat: [],
 };
 
 export class Store<State extends Record<string, any>> extends EventBus {

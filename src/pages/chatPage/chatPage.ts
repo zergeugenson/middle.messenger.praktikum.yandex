@@ -213,7 +213,7 @@ class ChatPage extends Block {
             isSelectedChat: selectedChat ? item.id === selectedChat : false,
             events: {
               click: () => {
-                window.store.set({messages:[], chatToken: null, selectedChat: 0})
+                window.store.set({ messages:[], chatToken: null, selectedChat: 0 });
                 chatsList.forEach(contact => {
                   contact.setProps({ isSelectedChat: false });
                 });
@@ -251,7 +251,12 @@ class ChatPage extends Block {
   doDeleteChat() {
     const { selectedChat } = window.store.getState();
     void deleteChat({ chatId: selectedChat }).then(()=>{
-      this.setProps({ selectedChat: 0 });
+      window.store.set({ messages:[], chatToken: null, selectedChat: 0 });
+      this.setProps({
+        selectedChat: 0,
+        avatarLetter: '',
+        chatName: '',
+      });
       hidePopup(this.children.deleteChatPopUp.element);
       this.setChatsList();
     });
@@ -307,10 +312,10 @@ class ChatPage extends Block {
     const userList: any = [];
     const users: { id: number, name: string }[] = [];
     const res = await getChatUsers(id);
-    window.store.set({usersInChat: []});
+    window.store.set({ usersInChat: [] });
     res?.forEach(
       (item: any) => {
-        users.push({ id: item.id, name: item.first_name})
+        users.push({ id: item.id, name: item.first_name });
         userList.push(
           new UserListItem({
             userID: item.id,
@@ -328,7 +333,7 @@ class ChatPage extends Block {
           }),
         );
       });
-    window.store.set({usersInChat: users});
+    window.store.set({ usersInChat: users });
     this.setProps({
       userList: userList,
     });

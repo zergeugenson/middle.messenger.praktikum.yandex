@@ -3,7 +3,7 @@ import type { UserLoginForm, User } from '@/types';
 
 const authApi = new AuthApi();
 
-const doLogin = async (data: {login: string, password: string}): Promise<boolean> => {
+const doLogin = async (data: { login: string, password: string }): Promise<boolean> => {
   return authApi.login(data);
 };
 
@@ -28,10 +28,10 @@ const getUser = async (): Promise<User> => {
     login: userdata.login,
     phone: userdata.phone,
     secondName: userdata.second_name,
-  }
+  };
   if (user?.id) {
     window.store.set({ isAuthorized: true });
-    window.store.set({user});
+    window.store.set({ user });
   }
   return user;
 };

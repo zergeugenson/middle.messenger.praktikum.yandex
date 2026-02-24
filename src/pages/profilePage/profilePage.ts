@@ -149,7 +149,7 @@ class ProfilePage extends Block {
       events: {
         click: async () => {
           const data = getFormData('change-profile-form');
-          console.log("data", data)
+          console.log('data', data);
           await changeUserProfile({
             display_name: data.display_name,
             email: data.email,
@@ -177,7 +177,7 @@ class ProfilePage extends Block {
     });
 
     const init = () => {
-      console.log("window.store.getState().user", window.store.getState().user)
+      console.log('window.store.getState().user', window.store.getState().user);
       props = {
         ...props,
         user: window.store.getState().user,

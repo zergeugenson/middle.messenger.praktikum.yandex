@@ -49,8 +49,10 @@ class ActiveChatWindow extends Block {
     const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
     if (isError) return;
     const data = getFormData('send-message-form');
+    const formElement = document.getElementById('send-message-form') as HTMLFormElement;
     const socket = window.store.getState().socket;
     socket.sendMessage(data.message.toString());
+    formElement.reset();
   }
 
   render() {
