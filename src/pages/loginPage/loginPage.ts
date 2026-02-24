@@ -51,14 +51,14 @@ class LoginPage extends Block {
       const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
 
       if (isError) {
-        // return;
+        return;
       }
 
       const form:HTMLElement = document.getElementById('login-form')!;
       const formData = new FormData(form as HTMLFormElement);
       const data: { [key: string]: FormDataEntryValue } = {};
       formData.forEach((value, key) => {
-        data[key] = value;
+        data[key] = value as string;
       });
       void doLogin(data).then( () => {
         void getUser().then( () => {
