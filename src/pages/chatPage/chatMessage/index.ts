@@ -16,7 +16,9 @@ interface ChatMessageProps {
 
 export default class ChatMessage extends Block {
   constructor(props: ChatMessageProps) {
-    super({ ...props });
+    const usersInChat = window.store.getState().usersInChat;
+    const userName = usersInChat?.filter((item: { id:number, name:string })=> item.id === props.user_id)[0].name || '';
+    super({ ...props, userName });
   }
 
   render() {

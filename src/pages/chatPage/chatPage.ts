@@ -213,6 +213,7 @@ class ChatPage extends Block {
             isSelectedChat: selectedChat ? item.id === selectedChat : false,
             events: {
               click: () => {
+                window.store.set({messages:[], chatToken: null, selectedChat: 0})
                 chatsList.forEach(contact => {
                   contact.setProps({ isSelectedChat: false });
                 });
@@ -304,14 +305,17 @@ class ChatPage extends Block {
 
   async doGetUserList(id:number) {
     const userList: any = [];
+    const users: { id: number, name: string }[] = [];
     const res = await getChatUsers(id);
+    window.store.set({usersInChat: []});
     res?.forEach(
       (item: any) => {
+        users.push({ id: item.id, name: item.first_name})
         userList.push(
           new UserListItem({
             userID: item.id,
             userLogin: item.login,
-            userName: item.firstName,
+            userName: item.first_name,
             onclick: ():void => {
               void getChats().then(()=> {
                 this.setChatsList();
@@ -319,12 +323,12 @@ class ChatPage extends Block {
               const { selectedChat } = window.store.getState();
               void this.doGetUserList(selectedChat).then(()=>{
                 this.setProps({ ...this.props });
-                console.log('Выполняется в контексте: ', this);
               });
             },
           }),
         );
       });
+    window.store.set({usersInChat: users});
     this.setProps({
       userList: userList,
     });

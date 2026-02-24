@@ -43,6 +43,7 @@ export interface AppState {
   chatToken: string | null;
   socket?: any;
   selectedChat: number;
+  usersInChat?: { id: number, name: string }[] | [];
 }
 
 export interface UserLoginForm {
