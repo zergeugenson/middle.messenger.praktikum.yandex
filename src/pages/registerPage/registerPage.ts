@@ -6,7 +6,7 @@ import { InputField } from '@/components/inputField';
 import template from './registerPage.hbs';
 import { connect } from '@/framework/connect';
 import { appRouter } from '@/main';
-import { doRegister, getUser } from '@/controllers/AuthController';
+import { doRegister, getUser } from '@/controllers/authController';
 
 class RegisterPage extends Block {
   constructor(props: Record<string, any> = {}) {

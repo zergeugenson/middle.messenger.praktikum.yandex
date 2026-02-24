@@ -6,7 +6,7 @@ import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs';
 import { connect } from '@/framework/connect';
 import { appRouter } from '@/main';
-import { doLogin, getUser } from '@/controllers/AuthController';
+import { doLogin, getUser } from '@/controllers/authController';
 
 class LoginPage extends Block {
   constructor(props: Record<string, any> = {}) {

@@ -2,7 +2,7 @@ import './style.scss';
 import Block from '@/framework/Block';
 import template from './userListItem.hbs';
 import { Link } from '@/components/iLink';
-import { kickUserFromChat } from '@/controllers/ChatsController';
+import { kickUserFromChat } from '@/controllers/chatsController';
 import Popup from '@/components/popUp';
 import { SubmitButton } from '@/components/submitButton';
 import { hidePopup, showPopup } from '@/framework/utils';

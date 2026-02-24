@@ -11,7 +11,7 @@ import {
   getToken,
   addUserToChat,
   userSearch,
-} from '@/controllers/ChatsController';
+} from '@/controllers/chatsController';
 import Sidebar from './sidebar';
 import ActiveChatWindow from './activeChatWindow';
 import ChatMessage from './chatMessage';

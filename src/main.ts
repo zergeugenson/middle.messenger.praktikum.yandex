@@ -3,7 +3,7 @@ import Router from '@/router/Router';
 import { Store } from '@/store';
 import type { AppState } from '@/types';
 import { initState } from '@/store';
-import { getUser } from '@/controllers/AuthController';
+import { getUser } from '@/controllers/authController';
 
 declare global {
   interface Window {

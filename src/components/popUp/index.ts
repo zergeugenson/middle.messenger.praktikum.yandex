@@ -1,4 +1,4 @@
-import './popup.scss';
+import './style.scss';
 import template from './popUp.hbs';
 import Block from '@/framework/Block';
 

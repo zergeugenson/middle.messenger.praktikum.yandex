@@ -3,7 +3,7 @@ import Block from '@/framework/Block';
 import { InputField } from '@/components/inputField';
 import { Link } from '@/components/iLink';
 import { getFormData, hidePopup, showPopup } from '@/framework/utils';
-import { changeUserPassword } from '@/controllers/UserController';
+import { changeUserPassword } from '@/controllers/userController';
 import Popup from '@/components/popUp';
 import { SubmitButton } from '@/components/submitButton';
 
