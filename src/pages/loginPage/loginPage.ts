@@ -11,27 +11,21 @@ import { doLogin, getUser } from '@/controllers/AuthController';
 class LoginPage extends Block {
   constructor(props: Record<string, any> = {}) {
     const loginField = new InputField({
-      id: 'log-login',
       name: 'login',
       type: 'text',
-      isdisabled: false,
       placeholder: 'Введите логин',
       pattern: /^[a-zA-Z0-9_-]{3,20}$/,
-      errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-      // value: 'caesar',
-      value: 'string',
+      errorMessage: '3-20 символов латиницей, без пробелов',
+      value: '',
     });
 
     const passwordField = new InputField({
-      id: 'log-password',
       name: 'password',
       type: 'password',
-      isdisabled: false,
       placeholder: 'Введите пароль',
       pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
-      errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-      // value: 'Caesar100',
-      value: 'string',
+      errorMessage: '8-40 символов, заглавная буква и цифра',
+      value: '',
     });
 
     const submitButton = new SubmitButton({
@@ -44,9 +38,7 @@ class LoginPage extends Block {
       text: 'Регистрация',
       href: '#',
       events: {
-        click: (e: Event) => {
-          e.preventDefault();
-          e.stopPropagation();
+        click: () => {
           appRouter.go('/register');
         },
       },
@@ -86,7 +78,7 @@ class LoginPage extends Block {
           submit: onSubmit.bind(this),
         },
       };
-      this.setProps({ ...props });
+      this.setProps(props);
     };
 
 

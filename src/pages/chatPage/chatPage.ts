@@ -196,19 +196,15 @@ class ChatPage extends Block {
  * Действия со списком чатов
  */
   setChatsList() {
-    const chatList: any[] = [];
+    const chatsList: any[] = [];
     const { chats, selectedChat } = window.store.getState();
     const { sidebar } = this.children;
     const { filter } = getFormData('sidebar-search-user')
     chats?.forEach(
       (item: ChatListItemProps) => {
-        if(!item.title.includes(filter)) return
-        const avatar = item.avatar
-          ? `https://ya-praktikum.tech/api/v2/resources${item.avatar}`
-          : '/defaultUserAvatar.svg';
-        chatList.push(
+        if(filter?.length && !item.title.includes(filter)) return false;
+        chatsList.push(
           new ChatListItem({
-            avatarUrl: avatar,
             title: item.title,
             unread_count: item.unread_count,
             chatID: item.id,
@@ -217,7 +213,7 @@ class ChatPage extends Block {
             isSelectedChat: selectedChat ? item.id === selectedChat : false,
             events: {
               click: () => {
-                chatList.forEach(contact => {
+                chatsList.forEach(contact => {
                   contact.setProps({ isSelectedChat: false });
                 });
                 this.setProps({
@@ -232,9 +228,10 @@ class ChatPage extends Block {
           }),
         );
       });
-    sidebar.setProps({
-      chatList: chatList,
-    });
+    if(!chatsList.length) {
+      chatsList.push(new ChatListItem({}))
+    }
+    sidebar.setProps({ chatList: chatsList });
   }
 
   doAddChat() {

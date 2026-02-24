@@ -1,19 +1,29 @@
 .chat-contact {
   background-color: var(--light-gray-color);
   border-top: 1px solid var(--border-color);
-  display: flex;
+
   gap: 15px;
   padding: 15px 0;
   cursor: pointer;
   justify-content: space-between;
+  display: none;
   &.selected {
     background-color: var(--light-blue-color);
     cursor: auto;
   }
+  &.visible {
+    display: flex;
+  }
 
   &__body {
+    display: flex;
     flex-grow: 1;
-    max-width: 168px;
+    gap: 10px;
+
+    .user-avatar{
+      min-width: 32px;
+      margin-left: 5px;
+    }
 
     .user-name {
       font-weight: 600;
@@ -27,6 +37,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
+      max-width: 150px;
     }
   }
 
@@ -37,6 +48,8 @@
     justify-content: space-between;
     margin-right: 15px;
     align-items: flex-end;
+    max-width: 100px;
+    overflow: hidden;
 
     .events-date {
       color: var(--disabled-color);
