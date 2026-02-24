@@ -13,7 +13,6 @@ interface Attributes {
 }
 
 interface User {
-  // [key: string]: string;
   avatar?: string;
   display_name?: string;
   email?: string;
@@ -46,7 +45,7 @@ export interface AppState {
   chatToken: string | null;
   socket?: any;
   selectedChat: number;
-  isUserSearchWindowOpen: Boolean;
+  isUserSearchWindowOpen: boolean;
 }
 
 export interface UserLoginForm {

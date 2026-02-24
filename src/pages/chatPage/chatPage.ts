@@ -10,7 +10,7 @@ import {
   getChatUsers,
   getToken,
   addUserToChat,
-  userSearch
+  userSearch,
 } from '@/controllers/ChatsController';
 import Sidebar from './sidebar';
 import ActiveChatWindow from './activeChatWindow';
@@ -27,8 +27,8 @@ import { appRouter } from '@/main';
 import Popup from '@/components/popUp';
 import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
-import ListOfUsers from "@/pages/chatPage/listOfUsers";
-import FoundUsersList from "@/pages/chatPage/foundUsersList";
+import ListOfUsers from '@/pages/chatPage/listOfUsers';
+import FoundUsersList from '@/pages/chatPage/foundUsersList';
 
 class ChatPage extends Block {
   constructor(props: Record<string, any> = {}) {
@@ -62,7 +62,7 @@ class ChatPage extends Block {
           appRouter.go('/profile');
         },
       },
-    })
+    });
 
     const activeChatButtons = [
       new Link({
@@ -90,15 +90,15 @@ class ChatPage extends Block {
     const searchForUserField = new InputField({
       name: 'username',
       placeholder: 'Введите часть имени пользователя',
-      value: 'string'
+      value: 'string',
     });
 
     const searchForUserButton = new RoundButton({
       type: 'button',
       events: {
-        click: async (e: Event) => {
+        click: (e: Event) => {
           e.preventDefault();
-          await this.doAddUserToChat();
+          void this.doAddUserToChat();
         },
       },
     });
@@ -317,36 +317,32 @@ class ChatPage extends Block {
 
   async doAddUserToChat() {
     const { username } = getFormData('users-search-form') || '';
-    if (username === "") return [];
+    if (username === '') return [];
     await userSearch({ login: username }).then((res)=>{
-
-      const userFieldWindow = document.getElementById('user-field') as HTMLElement;
-      console.log("userFieldWindow.style.display", userFieldWindow.style.display)
-      console.log("res", res, this)
       const listOfUsers: any = [];
       res?.forEach(
-          (item: any) => {
-            listOfUsers.push(
-                new ListOfUsers({
-                  userID: item.id,
-                  userLogin: item.login,
-                  userName: item.first_name,
-                  callback: (): void => {
-                    const { selectedChat } = window.store.getState();
-                    void addUserToChat({
-                      chatId: selectedChat,
-                      userId: item.id,
-                    }).then(()=>{
-                      void this.doGetUserList(selectedChat);
-                    });
-                  }
-                }),
-            );
-          });
+        (item: any) => {
+          listOfUsers.push(
+            new ListOfUsers({
+              userID: item.id,
+              userLogin: item.login,
+              userName: item.first_name,
+              callback: (): void => {
+                const { selectedChat } = window.store.getState();
+                void addUserToChat({
+                  chatId: selectedChat,
+                  userId: item.id,
+                }).then(()=>{
+                  void this.doGetUserList(selectedChat);
+                });
+              },
+            }),
+          );
+        });
       this.children.foundUsersList.setProps({
         listOfUsers: listOfUsers,
       });
-    })
+    });
   }
 
 

@@ -9,9 +9,10 @@ import { appRouter } from '@/main';
 import { connect } from '@/framework/connect';
 import { doLogout } from '@/controllers/AuthController';
 import { getFormData } from '@/framework/utils';
-import { changeUserProfile, changeUserAvatar, changeUserPassword }from '@/controllers/UserController';
-import Input from "@/components/inputField/inputelement";
-import {SubmitButton} from "@/components/submitButton";
+import { changeUserProfile, changeUserAvatar, changeUserPassword } from '@/controllers/UserController';
+import Input from '@/components/inputField/inputelement';
+import { SubmitButton } from '@/components/submitButton';
+import { RESOURSES } from '@/lib/constants';
 
 
 class ProfilePage extends Block {
@@ -41,25 +42,23 @@ class ProfilePage extends Block {
     });
 
     const profileAvatar = new ProfileAvatar({
-      class: 'i-link rotate',
-      profileAvatarUrl: props.user.avatar ? `https://ya-praktikum.tech/api/v2/resources${props.user.avatar}` : '/images/default-avatar.png',
+      profileAvatarUrl: props.user.avatar ? `${RESOURSES}${props.user.avatar}` : '/images/default-avatar.png',
       events: {
         click: (e:Event) => {
           e.preventDefault();
-          const avatarImage = document.getElementById(
-              "avatar-container"
-          ) as HTMLImageElement;
+          const avatarImage = document.getElementById('avatar-container') as HTMLImageElement;
           const fileInput = document.getElementsByClassName('profile-avatar-input')[0] as HTMLFormElement;
           const fileButton = document.getElementsByClassName('profile-avatar-button')[0];
-          if(fileInput && fileButton) {
+          if (fileInput && fileButton) {
             fileInput.addEventListener('change', () => {
               if (fileInput.files.length > 0) {
                 void changeUserAvatar(fileInput.files[0]).then((res:any) => {
-                  if (res.status === 200) {
+                  if (res.avatar) {
                     avatarImage.src = URL.createObjectURL(fileInput.files[0]);
+                    this.children.profileAvatar.setProps({ profileAvatarUrl: `${RESOURSES}${res.avatar}` });
+                  } else {
+                    console.error('Изображение не загрузилось');
                   }
-                  console.log("res", res)
-                  this.children.profileAvatar.setProps({profileAvatarUrl: 'https://ya-praktikum.tech/api/v2/resources' + res.avatar})
                 });
               }
             });
@@ -68,7 +67,6 @@ class ProfilePage extends Block {
         },
       },
     });
-
 
     const userDataFields = [
       new InputField({
@@ -127,21 +125,7 @@ class ProfilePage extends Block {
       }),
 
     ];
-    const changePasswordLink = new Link({
-      href: '/profile',
-      text: 'Изменить пароль',
-      disabled: true,
-    });
-    const logoutLink = new Link({
-      href: '#',
-      text: 'Выйти',
-      events: {
-        click: () => {
-          void doLogout();
-          appRouter.go('/');
-        },
-      },
-    });
+
     const changeDataLink = new Link({
       class: '',
       href: '#',
@@ -150,15 +134,14 @@ class ProfilePage extends Block {
       events: {
         click: () => {
           userDataFields.forEach((item)=>{
-            item.setProps({isdisabled: false})
-          })
-          this.children.changeDataLink.setProps({class: 'hidden'})
-          this.children.saveDataLink.setProps({class: ''})
-
-          console.log("this.props.", this, this.props)
-        }
-      }
+            item.setProps({ isdisabled: false });
+          });
+          this.children.changeDataLink.setProps({ class: 'hidden' });
+          this.children.saveDataLink.setProps({ class: '' });
+        },
+      },
     });
+
     const saveDataLink = new Link({
       class: 'hidden',
       href: '#',
@@ -167,7 +150,7 @@ class ProfilePage extends Block {
       events: {
         click: async () => {
           const { display_name, email, first_name, login, phone, second_name } = getFormData("change-profile-form");
-            await changeUserProfile({
+          await changeUserProfile({
             display_name,
             email,
             first_name,
@@ -175,20 +158,20 @@ class ProfilePage extends Block {
             phone,
             second_name,
           }).then(() => {
-            const user = window.store.getState().user
-              this.setProps({ user: user })
+            const user = window.store.getState().user;
+            this.setProps({ user: user });
             userDataFields.forEach((item)=>{
-              this.children.changeDataLink.setProps({class: ''})
-              this.children.saveDataLink.setProps({class: 'hidden'})
-              const el = item.element.children[0].querySelector('input')
-              if(el) {
+              this.children.changeDataLink.setProps({ class: '' });
+              this.children.saveDataLink.setProps({ class: 'hidden' });
+              const el = item.element.children[0].querySelector('input');
+              if (el) {
                 el.disabled = true;
-                el.classList.add("disabled");
+                el.classList.add('disabled');
               }
-            })
-          })
-        }
-      }
+            });
+          });
+        },
+      },
     });
 
     const passwordField = new InputField({
@@ -202,6 +185,7 @@ class ProfilePage extends Block {
       errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
       value: 'AAArrrr66hdm',
     });
+
     const passwordRepeatField = new InputField({
       id: 'profile-password_repeat',
       name: 'password_repeat',
@@ -212,6 +196,23 @@ class ProfilePage extends Block {
       pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
       errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
       value: 'AAArrrr66hdm',
+    });
+
+    const changePasswordLink = new Link({
+      href: '#',
+      text: 'Изменить пароль',
+    });
+
+    const logoutLink = new Link({
+      href: '#',
+      text: 'Выйти',
+      events: {
+        click: () => {
+          void doLogout().then(()=>{
+            appRouter.go('/');
+          });
+        },
+      },
     });
 
     const init = () => {
@@ -234,7 +235,7 @@ class ProfilePage extends Block {
       saveDataLink,
       profileAvatar,
       avatarField,
-      avatarUploadButton
+      avatarUploadButton,
     });
     init();
   }

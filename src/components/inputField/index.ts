@@ -73,7 +73,7 @@ export class InputField extends Block {
   }
 
   protected componentDidUpdate(): boolean {
-    this.children.Input.setProps(this.props)
+    this.children.Input.setProps(this.props);
     return true;
   }
 

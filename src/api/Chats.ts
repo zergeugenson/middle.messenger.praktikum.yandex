@@ -28,7 +28,7 @@ export default class ChatsApi {
   }
 
   async search(data: any): Promise<any> {
-    return await chatsApi.post('/user/search', { data })
+    return chatsApi.post('/user/search', { data });
   }
 
   async token(id: number): Promise<any> {

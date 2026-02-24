@@ -43,16 +43,16 @@ const kickUserFromChat = async (data: any): Promise<void> => {
 };
 
 const userSearch = async (data: any): Promise<any> => {
-  return await chatsApi.search(data)
-}
+  return chatsApi.search(data);
+};
 
 const addUserToChat = async (data: any): Promise<void> => {
   const { userId, chatId } = data;
   await chatsApi.add({
     users: [userId],
-    chatId: chatId
-  })
-}
+    chatId: chatId,
+  });
+};
 
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);

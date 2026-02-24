@@ -32,10 +32,9 @@ class RegisterPage extends Block {
       value: 'caesar',
     });
     const firstNameField = new InputField({
-      id: 'reg-first_name',
       name: 'first_name',
       type: 'text',
-      disabled: false,
+      isdisabled: false,
       placeholder: 'Имя',
       pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
       errorMessage: 'от 3 до 20 символов, латиница, без пробелов',

@@ -1,7 +1,7 @@
-import "./style.scss";
-import template from "./listOfUsers.hbs";
-import Block from "@/framework/Block";
-import {Link} from "@/components/iLink";
+import './style.scss';
+import template from './listOfUsers.hbs';
+import Block from '@/framework/Block';
+import { Link } from '@/components/iLink';
 
 interface ListOfUsersProps {
   userID: string,
@@ -20,14 +20,14 @@ export default class ListOfUsers extends Block {
       alt: 'Добавить в чат',
       events: {
         click: (e: Event) => {
-          if(typeof this.props.callback === 'function') {
+          if (typeof this.props.callback === 'function') {
             this.props.callback();
           }
           e.preventDefault();
         },
       },
     });
-    super({...props, addFoundUserToChat});
+    super({ ...props, addFoundUserToChat });
   }
 
   render() {
