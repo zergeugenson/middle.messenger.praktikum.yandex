@@ -2,6 +2,10 @@ export function humanReadableTime(time: string) {
   return `${new Date(time).toLocaleDateString()} ${new Date(time).getHours()}:${new Date(time).getMinutes()}`;
 }
 
+export const ucFirst = (str: string) => {
+  if (!str) return str;
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
+}
 export const showPopup = ({ popupId }: { popupId: string }) => {
 
   const avatar = document.getElementById(popupId) as HTMLElement;
@@ -81,22 +85,3 @@ export function isEqual(lhs: PlainObject, rhs: PlainObject) {
   return true;
 }
 
-export function trim(string: string, chars: string) {
-  const str = ' ' + string + ' ';
-
-  if (str && chars === undefined) {
-    return string.trim();
-  }
-
-  if (!str || !chars) {
-    return (string || '');
-  }
-
-  const regFirst = new RegExp(` ${chars}`, 'gi');
-  const regSecond = new RegExp(`${chars} `, 'gi');
-
-  return str
-    .replace(regFirst, '')
-    .replace(regSecond, '')
-    .trim();
-}

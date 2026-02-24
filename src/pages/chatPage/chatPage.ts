@@ -37,6 +37,21 @@ class ChatPage extends Block {
     window.store.set({ socket: socket });
 
     const sidebar = new Sidebar();
+
+    const userName = props.user.display_name;
+
+    const searchField = new InputField({
+        name: 'filter',
+        type: 'text',
+        placeholder: 'Поиск контактов',
+        value: '',
+        events: {
+          input: () => {
+            this.setChatsList();
+          }
+        }
+      })
+
     const foundUsersList = new FoundUsersList({});
 
     const activeChatWindow = new ActiveChatWindow();
@@ -160,6 +175,7 @@ class ChatPage extends Block {
     };
     super({
       ...props,
+      userName,
       addChatButton,
       viewProfile,
       addChatPopUp,
@@ -170,6 +186,7 @@ class ChatPage extends Block {
       searchForUserButton,
       searchForUserField,
       foundUsersList,
+      searchField,
     });
     window.store.on(StoreEvents.Updated, this.onStoreUpdate.bind(this));
     init();
@@ -182,8 +199,10 @@ class ChatPage extends Block {
     const chatList: any[] = [];
     const { chats } = window.store.getState();
     const { sidebar } = this.children;
+    const { filter } = getFormData('sidebar-search-user')
     chats?.forEach(
       (item: ChatListItemProps) => {
+        if(!item.title.includes(filter)) return
         const avatar = item.avatar
           ? `https://ya-praktikum.tech/api/v2/resources${item.avatar}`
           : '/defaultUserAvatar.svg';
