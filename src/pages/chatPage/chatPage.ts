@@ -197,7 +197,7 @@ class ChatPage extends Block {
  */
   setChatsList() {
     const chatList: any[] = [];
-    const { chats } = window.store.getState();
+    const { chats, selectedChat } = window.store.getState();
     const { sidebar } = this.children;
     const { filter } = getFormData('sidebar-search-user')
     chats?.forEach(
@@ -214,7 +214,7 @@ class ChatPage extends Block {
             chatID: item.id,
             chatMessage: item.last_message?.content || '',
             time: item.last_message?.time || '',
-            isSelectedChat: false,
+            isSelectedChat: selectedChat ? item.id === selectedChat : false,
             events: {
               click: () => {
                 chatList.forEach(contact => {
