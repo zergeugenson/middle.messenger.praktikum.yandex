@@ -4,12 +4,13 @@ import { Link } from '@/components/iLink';
 import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
 import ProfileAvatar from './ProfileAvatar';
+import ChangePassword from './changePassword';
 import template from './profilePage.hbs';
 import { appRouter } from '@/main';
 import { connect } from '@/framework/connect';
 import { doLogout } from '@/controllers/AuthController';
 import { getFormData } from '@/framework/utils';
-import { changeUserProfile, changeUserAvatar, changeUserPassword } from '@/controllers/UserController';
+import { changeUserProfile, changeUserAvatar } from '@/controllers/UserController';
 import Input from '@/components/inputField/inputelement';
 import { SubmitButton } from '@/components/submitButton';
 import { RESOURSES } from '@/lib/constants';
@@ -162,67 +163,7 @@ class ProfilePage extends Block {
       },
     });
 
-    const passwordDataFields = [
-      new InputField({
-        label: 'Старый пароль',
-        name: 'oldpassword',
-        type: 'password',
-        isdisabled: true,
-        placeholder: 'Старый пароль',
-        class: '',
-        value: props.user.password, //'AAArrrr66hdm',
-      }),
-      new InputField({
-        label: 'Новый пароль',
-        name: 'newpassword',
-        type: 'password',
-        isdisabled: true,
-        placeholder: 'Новый пароль',
-        class: '',
-        pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
-        errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-        value: '',
-      })
-    ]
-
-    const changePasswordLink = new Link({
-      class: '',
-      href: '#',
-      text: 'Изменить пароль',
-      disabled: false,
-      events: {
-        click: () => {
-          passwordDataFields.forEach((item)=>{
-            item.setProps({ isdisabled: false });
-          });
-          this.children.changePasswordLink.setProps({ class: 'hidden' });
-          this.children.savePasswordLink.setProps({ class: '' });
-        },
-      },
-    });
-
-    const savePasswordLink = new Link({
-      class: 'hidden',
-      href: '#',
-      text: 'Сохранить пароль',
-      disabled: false,
-      events: {
-        click: async () => {
-          const { oldpassword, newpassword } = getFormData("change-password-form");
-          await changeUserPassword({
-            oldPassword: oldpassword,
-            newPassword: newpassword
-          }).then((res: any) => {
-            passwordDataFields.forEach((item)=>{
-              item.setProps({ isdisabled: true });
-            });
-            this.children.changePasswordLink.setProps({ class: '' });
-            this.children.savePasswordLink.setProps({ class: 'hidden' });
-            if(res !== 'OK') console.error('Password not changed', res.reason)
-          });
-        },
-      },
-    });
+    const changePassword = new ChangePassword();
 
     const logoutLink = new Link({
       href: '#',
@@ -248,15 +189,13 @@ class ProfilePage extends Block {
       ...props,
       roundButton,
       userDataFields,
-      changePasswordLink,
-      savePasswordLink,
       logoutLink,
       changeDataLink,
-      passwordDataFields,
       saveDataLink,
       profileAvatar,
       avatarField,
       avatarUploadButton,
+      changePassword,
     });
     init();
   }

@@ -18,21 +18,10 @@
 					<li class="actions__item">{{{ changeDataLink }}}{{{ saveDataLink }}}</li>
 				</ul>
 			</form>
-			<form name="profile-form" id="change-password-form">
-				<ul class="profile__userdata-container">
-					{{#each passwordDataFields}}
-						<li class="userdata__item">
-							<div class="userdata__item-field">{{{passwordDataFields}}}</div>
-						</li>
-					{{/each}}
-				</ul>
-				<ul class="profile__actions-container">
-					<li class="actions__item">{{{ changePasswordLink }}}{{{ savePasswordLink }}}</li>
-				</ul>
-				<ul class="profile__actions-container">
-					<li class="actions__item">{{{ logoutLink }}}</li>
-				</ul>
-			</form>
+			{{{changePassword}}}
+			<ul class="profile__actions-container">
+				<li class="actions__item">{{{ logoutLink }}}</li>
+			</ul>
 		</div>
 	</div>
 </main>

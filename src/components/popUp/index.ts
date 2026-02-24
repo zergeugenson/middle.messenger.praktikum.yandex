@@ -3,17 +3,14 @@ import template from './popUp.hbs';
 import Block from '@/framework/Block';
 
 interface PopupProps {
-  formId: string;
+  formId?: string;
   popupId: string;
   input?: Block;
-  popupFormButtonAdd?: Block;
-  popupFormButtonSearch?: Block;
-  popupFormButtonSave?: Block;
-  setFoundUsers?: boolean;
-  foundUsers?: Block;
-  title?: string;
+  message?: string;
   buttons?: unknown[];
   inputs?: unknown[];
+  skin?: string,
+  title?: string;
 }
 
 interface Target {
@@ -25,32 +22,32 @@ export default class Popup extends Block {
     formId,
     popupId,
     input,
-    setFoundUsers,
-    foundUsers,
     title,
     buttons,
     inputs,
+    message,
+    skin,
   }: PopupProps) {
 
     super({
       formId,
       popupId,
       input,
-      setFoundUsers,
-      foundUsers,
       title,
       buttons,
       inputs,
+      message,
+      skin,
       events: {
         click: ({ target }: Target): void => {
           const avatar = document.getElementById(popupId) as HTMLElement;
-          const formElement = document.getElementById(
-            formId,
-          ) as HTMLFormElement;
+          if(formId) {
+            const formElement = document.getElementById(formId) as HTMLFormElement;
+            formElement.reset();
+          }
           if (target.classList.contains('pop-up-window')) {
             avatar.classList.remove('popup_opened');
           }
-          formElement.reset();
         },
       },
     });

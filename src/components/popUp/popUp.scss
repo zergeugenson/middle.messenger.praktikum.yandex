@@ -21,7 +21,7 @@
     position: relative;
     box-sizing: border-box;
     padding: 50px 45px;
-    h2 {
+    h2, h4 {
       margin-bottom: 20px;
     }
   }
@@ -36,6 +36,11 @@
   &.popup_opened {
     visibility: visible;
     opacity: 1;
+  }
+  &.error {
+    h2 {
+      color: var(--danger-color)
+    }
   }
 }
 
