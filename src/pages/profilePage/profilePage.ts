@@ -149,13 +149,14 @@ class ProfilePage extends Block {
       events: {
         click: async () => {
           const data = getFormData('change-profile-form');
+          console.log("data", data)
           await changeUserProfile({
-            displayName: data.display_name,
+            display_name: data.display_name,
             email: data.email,
-            firstName: data.first_name,
+            first_name: data.first_name,
             login: data.login,
             phone: data.phone,
-            secondName: data.second_name,
+            second_name: data.second_name,
           }).then(() => this.saveData(userDataFields));
         },
       },
@@ -176,6 +177,7 @@ class ProfilePage extends Block {
     });
 
     const init = () => {
+      console.log("window.store.getState().user", window.store.getState().user)
       props = {
         ...props,
         user: window.store.getState().user,

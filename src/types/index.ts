@@ -12,18 +12,6 @@ interface Attributes {
   [key: string]: string;
 }
 
-interface User {
-  avatar?: string;
-  displayName?: string;
-  email?: string;
-  firstName?: string;
-  id?: number;
-  login?: string
-  phone?: string;
-  secondName?: string;
-}
-
-// 2DO разобраться с типами пропсов
 export interface BlockProps {
   events?: EventMap;
   attr?: Attributes | false;
@@ -33,6 +21,17 @@ export interface BlockProps {
   onBlur?: (event: Event) => void;
   class?: string;
   [key:string]: unknown;
+}
+
+export interface User {
+  avatar?: string;
+  displayName?: string;
+  email?: string;
+  firstName?: string;
+  id?: number;
+  login?: string
+  phone?: string;
+  secondName?: string;
 }
 
 export interface AppState {
@@ -48,10 +47,6 @@ export interface AppState {
 
 export interface UserLoginForm {
   [key: string]: FormDataEntryValue;
-}
-
-export interface UserData {
-  [key: string]: string;
 }
 
 export interface ChatListItemProps {
