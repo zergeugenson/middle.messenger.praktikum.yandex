@@ -26,7 +26,7 @@ const addChat = async (form: any): Promise<any[]> => {
 };
 
 const getChatUsers = async (id: number): Promise<any[]> => {
-  return chatsApi.users(id);
+  return await chatsApi.users(id);
 };
 
 const deleteChat = async (data: any): Promise<any[]> => {
@@ -43,7 +43,7 @@ const kickUserFromChat = async (data: any): Promise<void> => {
 };
 
 const userSearch = async (data: any): Promise<any> => {
-  return chatsApi.search(data);
+  return await chatsApi.search(data);
 };
 
 const addUserToChat = async (data: any): Promise<void> => {
