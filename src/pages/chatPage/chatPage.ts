@@ -4,7 +4,7 @@ import { ChatWebSocket } from '@/framework/ChatWebSocket';
 import template from './chatPage.hbs';
 import { connect } from '@/framework/connect';
 import {
-  addChat,
+  createChat,
   deleteChat,
   getChats,
   getChatUsers,
@@ -56,14 +56,14 @@ class ChatPage extends Block {
 
     const activeChatWindow = new ActiveChatWindow();
 
-    const addChatButton =       new Link({
+    const createChatButton = new Link({
       class: 'create-chat',
       text: 'Создать чат',
       image: '/images/add_circle.png',
-      alt: 'Добавить в чат',
+      alt: 'Создать чат',
       events: {
         click: () => {
-          showPopup({ popupId: 'add-chat-popup-id' });
+          showPopup({ popupId: 'create-chat-popup-id' });
         },
       },
     });
@@ -118,9 +118,9 @@ class ChatPage extends Block {
       },
     });
 
-    const addChatPopUp = new Popup({
+    const createChatPopUp = new Popup({
       formId: 'add-chat-form-id',
-      popupId: 'add-chat-popup-id',
+      popupId: 'create-chat-popup-id',
       title: 'Создать новый чат',
       inputs: [
         new InputField({
@@ -132,13 +132,13 @@ class ChatPage extends Block {
         new SubmitButton({
           text: 'Закрыть',
           events: {
-            click: () => hidePopup(this.children.addChatPopUp.element),
+            click: () => hidePopup(this.children.createChatPopUp.element),
           },
         }),
         new SubmitButton({
           text: 'Создать',
           events: {
-            click: () => this.doAddChat(),
+            click: () => this.doCreateChat(),
           },
         }),
       ],
@@ -176,9 +176,9 @@ class ChatPage extends Block {
     super({
       ...props,
       userName,
-      addChatButton,
+      createChatButton,
       viewProfile,
-      addChatPopUp,
+      createChatPopUp,
       sidebar,
       activeChatWindow,
       activeChatButtons,
@@ -234,12 +234,11 @@ class ChatPage extends Block {
     sidebar.setProps({ chatList: chatsList });
   }
 
-  doAddChat() {
-    const popup = this.children.addChatPopUp.element;
+  doCreateChat() {
+    const popup = this.children.createChatPopUp.element;
     const { title } = getFormData('add-chat-form-id');
     if (title) {
-      void addChat({ title }).then( (result) => {
-        console.log('AddChatResult', result, this.children);
+      void createChat({ title }).then( () => {
         hidePopup(popup);
         const formElement = document.getElementById('add-chat-form-id') as HTMLFormElement;
         formElement.reset();

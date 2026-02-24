@@ -1,18 +1,18 @@
 import ChatsApi from '@/api/Chats';
 import type { ChatListItemProps } from '@/types';
+import { humanReadableTime } from '@/framework/utils';
+
 
 const chatsApi = new ChatsApi();
 
 const getChats = async (): Promise<ChatListItemProps[]> => {
   const chatsRaw = await chatsApi.chats();
-
   const chats = chatsRaw.map((i: any) => ({
     ...i,
-    last_message: i?.last_message
-      ? {
-        ...i?.last_message,
-        time: new Date(i?.last_message?.time)?.toLocaleString?.(),
-      }
+    last_message: i?.last_message ? {
+      ...i?.last_message,
+      time: humanReadableTime(i?.last_message?.time),
+    }
       : undefined,
   }));
 
@@ -20,7 +20,7 @@ const getChats = async (): Promise<ChatListItemProps[]> => {
   return chats;
 };
 
-const addChat = async (form: any): Promise<any[]> => {
+const createChat = async (form: any): Promise<any[]> => {
   await chatsApi.create(form);
   return getChats();
 };
@@ -58,10 +58,9 @@ const addUserToChat = async (data: any): Promise<void> => {
 
 const getToken = async (id: number): Promise<string> => {
   const response = await chatsApi.token(id);
-
   const chatToken = response.token;
   window.store.set({ chatToken });
   return chatToken;
 };
 
-export { getChats, addChat, getChatUsers, deleteChat, kickUserFromChat, userSearch, addUserToChat, getToken };
+export { getChats, createChat, getChatUsers, deleteChat, kickUserFromChat, userSearch, addUserToChat, getToken };
