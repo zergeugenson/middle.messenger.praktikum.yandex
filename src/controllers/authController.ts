@@ -3,7 +3,7 @@ import type { UserLoginForm, User } from '@/types';
 
 const authApi = new AuthApi();
 
-const doLogin = async (data: {[key: string]: FormDataEntryValue}): Promise<boolean> => {
+const doLogin = async (data: { [key: string]: FormDataEntryValue }): Promise<boolean> => {
   return authApi.login(data);
 };
 
