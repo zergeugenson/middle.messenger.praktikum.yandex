@@ -9,9 +9,9 @@
     cursor: text;
     display: flex;
     flex-flow: row nowrap;
-    overflow: hidden;
     padding: 12px;
     width: 100%;
+    position: relative;
 
     .input-element{
       background-color: transparent;
@@ -25,6 +25,15 @@
       outline: none;
       padding: 0;
       width: 100%;
+      &.disabled {
+        color: #888888;
+      }
+    }
+    .label {
+      position: absolute;
+      left: -200px;
+      z-index: 100;
+      font-size: 14px;
     }
   }
 

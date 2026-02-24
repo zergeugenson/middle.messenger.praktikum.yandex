@@ -3,15 +3,19 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import { RoundButton } from '@/components/roundButton';
 import { InputField } from '@/components/inputField';
+import ProfileAvatar from './ProfileAvatar';
 import template from './profilePage.hbs';
-import { SubmitButton } from '@/components/submitButton';
 import { appRouter } from '@/main';
 import { connect } from '@/framework/connect';
 import { doLogout } from '@/controllers/AuthController';
+import { getFormData } from '@/framework/utils';
+import { changeUserProfile, changeUserAvatar, changeUserPassword }from '@/controllers/UserController';
+import Input from "@/components/inputField/inputelement";
+import {SubmitButton} from "@/components/submitButton";
+
 
 class ProfilePage extends Block {
   constructor(props: Record<string, any> = {}) {
-    const credentials = window.store.getState().user;
     const roundButton = new RoundButton({
       class: 'i-link rotate',
       events: {
@@ -20,71 +24,109 @@ class ProfilePage extends Block {
         },
       },
     });
-    const avatarField = new InputField({
-      id: 'profile-avatar-field',
+
+    const avatarField = new Input({
+      id: 'profile-avatar-input',
       name: 'avatar',
       type: 'file',
-      disabled: false,
-      class: 'hidden',
+      isdisabled: false,
+      class: 'profile-avatar-input hidden',
     });
-    const loginField = new InputField({
-      id: 'profile-login',
-      name: 'login',
-      type: 'text',
-      disabled: false,
-      pattern: /^[a-zA-Z0-9_-]{3,20}$/,
-      errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-      value: credentials.login,
-    });
-    const mailField = new InputField({
-      id: 'profile-mail',
-      name: 'email',
-      type: 'text',
-      disabled: false,
-      pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-      value: credentials.email,
-    });
-    const firstNameField = new InputField({
-      id: 'profile-first_name',
-      name: 'first_name',
-      type: 'text',
-      disabled: false,
-      pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
-      errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-      value: credentials.first_name,
-    });
-    const secondNameField = new InputField({
-      id: 'profile-second_name',
-      name: 'second_name',
-      type: 'text',
-      disabled: false,
-      pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яё\-]*$/,
-      errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-      value: credentials.second_name,
-    });
-    const displayNameField = new InputField({
-      id: 'profile-display_name',
-      value: credentials.display_name,
-      name: 'display_name',
-      type: 'text',
-      disabled: false,
-    });
-    const phoneField = new InputField({
-      id: 'profile-phone',
-      name: 'phone',
-      type: 'phone',
-      disabled: false,
-      pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
-      errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
-      value: credentials.phone,
-    });
-    const changeDataLink = new SubmitButton({
-      text: 'Изменить данные',
+    const avatarUploadButton = new SubmitButton({
+      id: 'profile-avatar-button',
+      name: 'avatar',
       type: 'submit',
-      disabled: false,
-      class: 'profile-submit-button',
+      isdisabled: false,
+      class: 'profile-avatar-button hidden',
     });
+
+    const profileAvatar = new ProfileAvatar({
+      class: 'i-link rotate',
+      profileAvatarUrl: props.user.avatar ? `https://ya-praktikum.tech/api/v2/resources${props.user.avatar}` : '/images/default-avatar.png',
+      events: {
+        click: (e:Event) => {
+          e.preventDefault();
+          const avatarImage = document.getElementById(
+              "avatar-container"
+          ) as HTMLImageElement;
+          const fileInput = document.getElementsByClassName('profile-avatar-input')[0] as HTMLFormElement;
+          const fileButton = document.getElementsByClassName('profile-avatar-button')[0];
+          if(fileInput && fileButton) {
+            fileInput.addEventListener('change', () => {
+              if (fileInput.files.length > 0) {
+                void changeUserAvatar(fileInput.files[0]).then((res:any) => {
+                  if (res.status === 200) {
+                    avatarImage.src = URL.createObjectURL(fileInput.files[0]);
+                  }
+                  console.log("res", res)
+                  this.children.profileAvatar.setProps({profileAvatarUrl: 'https://ya-praktikum.tech/api/v2/resources' + res.avatar})
+                });
+              }
+            });
+            fileInput.click();
+          }
+        },
+      },
+    });
+
+
+    const userDataFields = [
+      new InputField({
+        label: 'Логин',
+        id: 'profile-login',
+        name: 'login',
+        type: 'text',
+        isdisabled: true,
+        pattern: /^[a-zA-Z0-9_-]{3,20}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: props.user.login,
+      }),
+      new InputField({
+        label: 'E-mail',
+        id: 'profile-mail',
+        name: 'email',
+        type: 'text',
+        isdisabled: true,
+        pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: props.user.email,
+      }),
+      new InputField({
+        label: 'Имя',
+        id: 'profile-first_name',
+        name: 'first_name',
+        type: 'text',
+        isdisabled: true,
+        value: props.user.first_name,
+      }),
+      new InputField({
+        label: 'Фамилия',
+        id: 'profile-second_name',
+        name: 'second_name',
+        type: 'text',
+        isdisabled: true,
+        value: props.user.second_name,
+      }),
+      new InputField({
+        label: 'Псевдоним',
+        id: 'profile-display_name',
+        value: props.user.display_name,
+        name: 'display_name',
+        type: 'text',
+        isdisabled: true,
+      }),
+      new InputField({
+        label: 'Телефон',
+        id: 'profile-phone',
+        name: 'phone',
+        type: 'phone',
+        isdisabled: true,
+        pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: props.user.phone,
+      }),
+
+    ];
     const changePasswordLink = new Link({
       href: '/profile',
       text: 'Изменить пароль',
@@ -100,17 +142,60 @@ class ProfilePage extends Block {
         },
       },
     });
-    const deleteProfileLink = new Link({
+    const changeDataLink = new Link({
+      class: '',
       href: '#',
-      text: 'Удалить профиль',
-      datapage: 'LoginPage',
-      disabled: true,
+      text: 'Изменить профиль',
+      disabled: false,
+      events: {
+        click: () => {
+          userDataFields.forEach((item)=>{
+            item.setProps({isdisabled: false})
+          })
+          this.children.changeDataLink.setProps({class: 'hidden'})
+          this.children.saveDataLink.setProps({class: ''})
+
+          console.log("this.props.", this, this.props)
+        }
+      }
     });
+    const saveDataLink = new Link({
+      class: 'hidden',
+      href: '#',
+      text: 'Сохранить профиль',
+      disabled: false,
+      events: {
+        click: async () => {
+          const { display_name, email, first_name, login, phone, second_name } = getFormData("change-profile-form");
+            await changeUserProfile({
+            display_name,
+            email,
+            first_name,
+            login,
+            phone,
+            second_name,
+          }).then(() => {
+            const user = window.store.getState().user
+              this.setProps({ user: user })
+            userDataFields.forEach((item)=>{
+              this.children.changeDataLink.setProps({class: ''})
+              this.children.saveDataLink.setProps({class: 'hidden'})
+              const el = item.element.children[0].querySelector('input')
+              if(el) {
+                el.disabled = true;
+                el.classList.add("disabled");
+              }
+            })
+          })
+        }
+      }
+    });
+
     const passwordField = new InputField({
       id: 'profile-password',
       name: 'password',
       type: 'password',
-      disabled: false,
+      isdisabled: false,
       placeholder: 'Введите пароль',
       class: 'hidden',
       pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
@@ -121,7 +206,7 @@ class ProfilePage extends Block {
       id: 'profile-password_repeat',
       name: 'password_repeat',
       type: 'password',
-      disabled: false,
+      isdisabled: false,
       placeholder: 'Повторите пароль',
       class: 'hidden',
       pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
@@ -129,45 +214,27 @@ class ProfilePage extends Block {
       value: 'AAArrrr66hdm',
     });
 
-    const onSubmit = (e: Event) => {
-      e.preventDefault();
-      const isError = Object.values(this.children).filter(child=>(child instanceof InputField)).some(child=>child.isError);
-      if (isError) return;
-      const form:HTMLElement = document.getElementById('change-profile-form')!;
-      const formData = new FormData(form as HTMLFormElement);
-      const data: { [key: string]: FormDataEntryValue } = {};
-      formData.forEach((value, key) => {
-        data[key] = value;
-      });
-      console.log('Form Data:', data);
-    };
-
     const init = () => {
       props = {
         ...props,
-        events: {
-          submit: onSubmit.bind(this),
-        },
+        user: window.store.getState().user,
       };
-      this.setProps({ ...props });
+      this.setProps(props);
     };
 
     super({
       ...props,
       roundButton,
-      avatarField,
-      loginField,
-      mailField,
-      firstNameField,
-      secondNameField,
-      displayNameField,
-      phoneField,
-      changeDataLink,
+      userDataFields,
       changePasswordLink,
       logoutLink,
-      deleteProfileLink,
+      changeDataLink,
       passwordField,
       passwordRepeatField,
+      saveDataLink,
+      profileAvatar,
+      avatarField,
+      avatarUploadButton
     });
     init();
   }

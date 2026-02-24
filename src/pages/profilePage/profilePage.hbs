@@ -3,46 +3,25 @@
 		{{{ roundButton }}}
 	</div>
 	<div class="profile-page__right-column">
-		<form name="profile-form" id="change-profile-form">
-		<div class="profile__avatar-container">
-			<div class="avatar"><img src="/images/default-avatar.png" alt="Аватар по умолчанию" /></div>
-			<span>{{ credentials.display_name }}</span>
-			{{{avatarField}}}
+		<div class="change-profile-form">
+			{{{profileAvatar}}}
+			{{{avatarField}}}{{{avatarUploadButton}}}
+			<form name="profile-form" id="change-profile-form">
+				<ul class="profile__userdata-container">
+					{{#each userDataFields}}
+						<li class="userdata__item">
+							<div class="userdata__item-field">{{{userDataFields}}}</div>
+						</li>
+					{{/each}}
+				</ul>
+				<ul class="profile__actions-container">
+					<li class="actions__item">{{{ changeDataLink }}}{{{ saveDataLink }}}</li>
+					<li class="actions__item">{{{ changePasswordLink }}}</li>
+					<li class="actions__item">{{{ logoutLink }}}</li>
+				</ul>
+				{{{passwordField}}}
+				{{{passwordRepeatField}}}
+			</form>
 		</div>
-		<ul class="profile__userdata-container">
-			<li class="userdata__item">
-				<div class="userdata__item-label">Логин</div>
-				<div class="userdata__item-field">{{{loginField}}}</div>
-			</li>
-			<li class="userdata__item">
-				<div class="userdata__item-label">E-mail</div>
-				<div class="userdata__item-field">{{{mailField}}}</div>
-			</li>
-			<li class="userdata__item">
-				<div class="userdata__item-label">Имя</div>
-				<div class="userdata__item-field">{{{ firstNameField }}}</div>
-			</li>
-			<li class="userdata__item">
-				<div class="userdata__item-label">Фамилия</div>
-				<div class="userdata__item-field">{{{ secondNameField }}}</div>
-			</li>
-			<li class="userdata__item">
-				<div class="userdata__item-label">Псевдоним</div>
-				<div class="userdata__item-field">{{{ displayNameField }}}</div>
-			</li>
-			<li class="userdata__item">
-				<div class="userdata__item-label">Телефон</div>
-				<div class="userdata__item-field">{{{ phoneField }}}</div>
-			</li>
-		</ul>
-		<ul class="profile__actions-container">
-			<li class="actions__item">{{{ changeDataLink }}}</li>
-			<li class="actions__item">{{{ changePasswordLink }}}</li>
-			<li class="actions__item">{{{ logoutLink }}}</li>
-			<li class="actions__item">{{{ deleteProfileLink }}}</li>
-		</ul>
-			{{{passwordField}}}
-			{{{passwordRepeatField}}}
-		</form>
 	</div>
 </main>

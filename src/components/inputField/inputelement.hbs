@@ -5,6 +5,6 @@
 		name="{{ name }}"
 		value="{{value}}"
 		autocomplete="off"
-		class="input-element"
+		class="input-element{{#if isdisabled}} disabled{{/if}}{{#if class}} {{{class}}}{{/if}}"
 	{{# if isdisabled }} disabled{{/ if }}
 />

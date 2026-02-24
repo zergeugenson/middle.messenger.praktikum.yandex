@@ -1,0 +1,31 @@
+.profile__avatar-container {
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  background: var(--light-gray-color);
+  margin: 0 auto 20px;
+  border-radius: 75px;
+  border: 1px solid var(--background-color);
+  position: relative;
+  img {
+    min-width: 130px;
+    min-height: 130px;
+  }
+  &:after {
+    content: "";
+    opacity: 0;
+    background: #ffffff url('/images/edit.png') 50% / 32px 32px no-repeat;
+    transition: opacity .2s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  &:hover::after {
+    opacity: 0.6;
+  }
+}
+

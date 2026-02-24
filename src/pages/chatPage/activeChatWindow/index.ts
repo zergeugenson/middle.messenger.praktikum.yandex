@@ -13,7 +13,7 @@ class ActiveChatWindow extends Block {
       id: 'message-field',
       name: 'message',
       type: 'text',
-      disabled: false,
+      isdisabled: false,
       placeholder: 'Сообщение',
       pattern: /.+/,
       errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',

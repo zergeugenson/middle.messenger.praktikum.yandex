@@ -24,36 +24,15 @@
     justify-content: center;
     overflow: auto;
 
-    .profile__avatar-container {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 15px;
 
-      .avatar{
-        align-items: center;
-        background-color: var(--background-color);
-        border-radius: 65px;
-        display: flex;
-        height: 130px;
-        justify-content: center;
-        margin-bottom: 15px;
-        width: 130px;
-      }
 
-      span {
-        font-weight: 500;
-      }
-    }
-
-    #change-profile-form {
+    .change-profile-form {
       width: 510px;
 
       ul.profile__userdata-container {
         margin-bottom: 30px;
 
         li.userdata__item {
-          // border-bottom: 1px solid var(--border-color);
           display: flex;
           font-size: 16px;
           padding: 6px 0;

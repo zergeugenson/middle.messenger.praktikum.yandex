@@ -3,13 +3,34 @@ import template from './inputField.hbs';
 import Block from '@/framework/Block';
 import ErrorLine from './errorline';
 import Input from './inputelement';
-import type { BlockProps } from '@/types';
+
+interface InputFieldProps {
+  events?: {
+    click?: () => void;
+    input?: () => void;
+    ficus?: () => void;
+    blur?: () => void;
+  };
+  type?: string,
+  label?: string,
+  name?: string,
+  value?: string | number | null | undefined,
+  class?: string,
+  id?: string | number,
+  placeholder?: string,
+  skin?: string,
+  isdisabled?: boolean,
+  errorText?: string
+  pattern?: unknown;
+  errorMessage?: string;
+}
+
 
 export class InputField extends Block {
 
   public isError: boolean;
 
-  constructor(props: BlockProps) {
+  constructor(props: InputFieldProps) {
     super({
       ...props,
       Input: new Input({
@@ -23,7 +44,7 @@ export class InputField extends Block {
         class: props.class || '',
         id: props.id,
         placeholder: props.placeholder,
-        skin: props.errorText,
+        skin: props.skin,
         isdisabled: props.isdisabled || false,
       }),
       ErrorLine: new ErrorLine({
@@ -49,10 +70,15 @@ export class InputField extends Block {
 
   protected _init(): void {
     this.doValidateAndCallback(undefined, true);
-    // this.validate = this.validate.bind(this);
+  }
+
+  protected componentDidUpdate(): boolean {
+    this.children.Input.setProps(this.props)
+    return true;
   }
 
   render() {
+
     return this.compile(template, this.props);
   }
 }
