@@ -18,6 +18,7 @@ import { RESOURSES } from '@/lib/constants';
 
 class ProfilePage extends Block {
   constructor(props: Record<string, any> = {}) {
+
     const roundButton = new RoundButton({
       class: 'i-link rotate',
       events: {
@@ -41,7 +42,6 @@ class ProfilePage extends Block {
       isdisabled: false,
       class: 'profile-avatar-button hidden',
     });
-
     const profileAvatar = new ProfileAvatar({
       profileAvatarUrl: props.user.avatar ? `${RESOURSES}${props.user.avatar}` : '/images/default-avatar.png',
       events: {
@@ -126,7 +126,6 @@ class ProfilePage extends Block {
       }),
 
     ];
-
     const changeDataLink = new Link({
       class: '',
       href: '#',
@@ -142,7 +141,6 @@ class ProfilePage extends Block {
         },
       },
     });
-
     const saveDataLink = new Link({
       class: 'hidden',
       href: '#',
