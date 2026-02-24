@@ -71,7 +71,7 @@ class ChatPage extends Block {
     const viewProfile = new Link({
       image: '/images/account_circle.png',
       class: 'user-profile',
-      alt: 'Удалить чат',
+      alt: 'Перейти в профиль',
       events: {
         click: () => {
           appRouter.go('/profile');
