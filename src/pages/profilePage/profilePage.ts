@@ -148,7 +148,7 @@ class ProfilePage extends Block {
       disabled: false,
       events: {
         click: async () => {
-          const { display_name, email, first_name, login, phone, second_name } = getFormData("change-profile-form");
+          const { display_name, email, first_name, login, phone, second_name } = getFormData('change-profile-form');
           await changeUserProfile({
             display_name,
             email,
@@ -198,7 +198,7 @@ class ProfilePage extends Block {
     init();
   }
 
-  saveData(targetObj: any){
+  saveData(targetObj: any) {
     const user = window.store.getState().user;
     this.setProps({ user: user });
     targetObj.forEach((item: any)=>{

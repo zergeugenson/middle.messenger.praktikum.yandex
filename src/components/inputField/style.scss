@@ -10,8 +10,8 @@
     display: flex;
     flex-flow: row nowrap;
     padding: 12px;
-    width: 100%;
     position: relative;
+    width: 100%;
 
     .input-element{
       background-color: transparent;
@@ -25,15 +25,17 @@
       outline: none;
       padding: 0;
       width: 100%;
+
       &.disabled {
-        color: #888888;
+        color: #888;
       }
     }
+
     .label {
-      position: absolute;
-      left: -178px;
-      z-index: 2;
       font-size: 14px;
+      left: -178px;
+      position: absolute;
+      z-index: 2;
     }
   }
 

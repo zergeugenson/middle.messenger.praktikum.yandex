@@ -20,7 +20,7 @@ import ChatListItem from './chatListItem';
 import UserListItem from './userListItem';
 import type { ChatListItemProps } from '@/types';
 import type { AppState } from '@/types';
-import {humanReadableTime, showPopup, getFormData, hidePopup, ucFirst} from '@/framework/utils';
+import { humanReadableTime, showPopup, getFormData, hidePopup, ucFirst } from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
 import { Link } from '@/components/iLink';
 import { appRouter } from '@/main';
@@ -41,16 +41,16 @@ class ChatPage extends Block {
     const userName = props.user.display_name;
 
     const searchField = new InputField({
-        name: 'filter',
-        type: 'text',
-        placeholder: 'Поиск контактов',
-        value: '',
-        events: {
-          input: () => {
-            this.setChatsList();
-          }
-        }
-      })
+      name: 'filter',
+      type: 'text',
+      placeholder: 'Поиск контактов',
+      value: '',
+      events: {
+        input: () => {
+          this.setChatsList();
+        },
+      },
+    });
 
     const foundUsersList = new FoundUsersList({});
 
@@ -199,10 +199,10 @@ class ChatPage extends Block {
     const chatsList: any[] = [];
     const { chats, selectedChat } = window.store.getState();
     const { sidebar } = this.children;
-    const { filter } = getFormData('sidebar-search-user')
+    const { filter } = getFormData('sidebar-search-user');
     chats?.forEach(
       (item: ChatListItemProps) => {
-        if(filter?.length && !item.title.includes(filter)) return false;
+        if (filter?.length && !item.title.includes(filter)) return false;
         chatsList.push(
           new ChatListItem({
             title: item.title,
@@ -228,8 +228,8 @@ class ChatPage extends Block {
           }),
         );
       });
-    if(!chatsList.length) {
-      chatsList.push(new ChatListItem({}))
+    if (!chatsList.length) {
+      chatsList.push(new ChatListItem({}));
     }
     sidebar.setProps({ chatList: chatsList });
   }

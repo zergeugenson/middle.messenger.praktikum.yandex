@@ -41,7 +41,7 @@ export default class Popup extends Block {
       events: {
         click: ({ target }: Target): void => {
           const avatar = document.getElementById(popupId) as HTMLElement;
-          if(formId) {
+          if (formId) {
             const formElement = document.getElementById(formId) as HTMLFormElement;
             formElement.reset();
           }

@@ -1,16 +1,17 @@
 .chat-contact {
   background-color: var(--light-gray-color);
   border-top: 1px solid var(--border-color);
-
-  gap: 15px;
-  padding: 15px 0;
   cursor: pointer;
-  justify-content: space-between;
   display: none;
+  gap: 15px;
+  justify-content: space-between;
+  padding: 15px 0;
+
   &.selected {
     background-color: var(--light-blue-color);
     cursor: auto;
   }
+
   &.visible {
     display: flex;
   }
@@ -21,8 +22,8 @@
     gap: 10px;
 
     .user-avatar{
-      min-width: 32px;
       margin-left: 5px;
+      min-width: 32px;
     }
 
     .user-name {
@@ -33,21 +34,21 @@
     .user-last-action {
       color: var(--disabled-color);
       font-size: 12px;
+      max-width: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
-      max-width: 150px;
     }
   }
 
   &__events {
+    align-items: flex-end;
     display: flex;
     flex-direction: column;
     flex-grow: 0;
     justify-content: space-between;
     margin-right: 15px;
-    align-items: flex-end;
     max-width: 100px;
     overflow: hidden;
 

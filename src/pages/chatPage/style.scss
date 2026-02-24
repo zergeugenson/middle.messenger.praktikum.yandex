@@ -22,8 +22,8 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    width: 75%;
     max-height: 100vh;
+    width: 75%;
 
     .header-field {
       align-items: center;
@@ -42,8 +42,9 @@
       &__actions {
         display: flex;
         flex-grow: 1;
-        justify-content: flex-end;
         gap: 20px;
+        justify-content: flex-end;
+
         img {
           width: 18px;
         }
@@ -60,37 +61,43 @@
         }
       }
     }
+
     .users-field {
-      display: none;
-      width: 100%;
-      margin: 0;
-      position: absolute;
-      z-index: 2;
-      left: 0;
-      top:91px;
       background: white;
-      padding: 10px;
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 4px 8px #0003;
+      display: none;
+      left: 0;
+      margin: 0;
+      padding: 10px;
+      position: absolute;
+      top:91px;
+      width: 100%;
+      z-index: 2;
+
       &__users-search{
         margin-top: 15px;
+
         .users-search__controls {
-          display: flex;
           align-items: center;
+          display: flex;
+
           .input-field {
             flex-grow: 1;
           }
+
           .round-button {
             margin: 0 0 17px 5px;
           }
         }
       }
+
       &__results {
         display: inline-flex;
-        gap: 10px;
-        row-gap: 2px;
-        max-width: 100%;
         flex-wrap: wrap;
+        gap: 10px;
+        max-width: 100%;
+        row-gap: 2px;
       }
     }
 

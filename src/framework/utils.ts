@@ -5,7 +5,7 @@ export function humanReadableTime(time: string) {
 export const ucFirst = (str: string) :string => {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1).toLowerCase();
-}
+};
 export const showPopup = ({ popupId }: { popupId: string }) => {
 
   const avatar = document.getElementById(popupId) as HTMLElement;

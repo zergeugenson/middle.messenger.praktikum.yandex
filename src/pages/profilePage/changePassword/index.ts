@@ -1,11 +1,11 @@
 import template from './changePassword.hbs';
 import Block from '@/framework/Block';
-import {InputField} from "@/components/inputField";
-import {Link} from "@/components/iLink";
-import {getFormData, hidePopup, showPopup} from "@/framework/utils";
-import { changeUserPassword } from "@/controllers/UserController";
-import Popup from "@/components/popUp";
-import {SubmitButton} from "@/components/submitButton";
+import { InputField } from '@/components/inputField';
+import { Link } from '@/components/iLink';
+import { getFormData, hidePopup, showPopup } from '@/framework/utils';
+import { changeUserPassword } from '@/controllers/UserController';
+import Popup from '@/components/popUp';
+import { SubmitButton } from '@/components/submitButton';
 
 export default class ChangePassword extends Block {
   constructor(props: Record<string, any> = {}) {
@@ -31,8 +31,8 @@ export default class ChangePassword extends Block {
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
         errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
         value: '',
-      })
-    ]
+      }),
+    ];
 
     const changePasswordLink = new Link({
       class: '',
@@ -57,20 +57,20 @@ export default class ChangePassword extends Block {
       disabled: false,
       events: {
         click: async () => {
-          const { oldpassword, newpassword } = getFormData("change-password-form");
+          const { oldpassword, newpassword } = getFormData('change-password-form');
           await changeUserPassword({
             oldPassword: oldpassword,
-            newPassword: newpassword
+            newPassword: newpassword,
           }).then((res: any) => {
             passwordDataFields.forEach((item)=>{
               item.setProps({ isdisabled: true });
             });
             this.children.changePasswordLink.setProps({ class: '' });
             this.children.savePasswordLink.setProps({ class: 'hidden' });
-            if(res !== 'OK') {
-              this.children.passwordErrorPopUp.setProps({ message: res.reason as string })
+            if (res !== 'OK') {
+              this.children.passwordErrorPopUp.setProps({ message: res.reason as string });
               showPopup({ popupId: 'password-error-popup-id' });
-              console.error('Password not changed', res.reason)
+              console.error('Password not changed', res.reason);
             }
           });
         },
