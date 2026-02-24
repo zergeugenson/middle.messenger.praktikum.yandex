@@ -138,6 +138,10 @@ class ProfilePage extends Block {
           });
           this.children.changeDataLink.setProps({ class: 'hidden' });
           this.children.saveDataLink.setProps({ class: '' });
+          const passwordsContainer = document.getElementById('passwords-container') as HTMLElement;
+          const userdataContainer = document.getElementById('userdata-container') as HTMLElement;
+          passwordsContainer.style.display = 'none';
+          userdataContainer.style.display = 'block';
         },
       },
     });
@@ -157,10 +161,75 @@ class ProfilePage extends Block {
             login,
             phone,
             second_name,
+          }).then(() => this.saveData(userDataFields));
+        },
+      },
+    });
+
+    const passwordDataFields = [
+      new InputField({
+        label: 'Новый пароль',
+        name: 'password',
+        type: 'password',
+        isdisabled: false,
+        placeholder: 'Введите пароль',
+        class: '',
+        pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+        errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
+        value: props.user.password, //'AAArrrr66hdm',
+      }),
+      new InputField({
+        label: 'Повторите пароль',
+        name: 'password_repeat',
+        type: 'password',
+        isdisabled: false,
+        placeholder: 'Повторите пароль',
+        class: '',
+        pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+        errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
+        value: '',
+      })
+    ]
+
+    const changePasswordLink = new Link({
+      class: '',
+      href: '#',
+      text: 'Изменить пароль',
+      disabled: false,
+      events: {
+        click: () => {
+          userDataFields.forEach((item)=>{
+            item.setProps({ isdisabled: false });
+          });
+          const passwordsContainer = document.getElementById('passwords-container') as HTMLElement;
+          const userdataContainer = document.getElementById('userdata-container') as HTMLElement;
+          passwordsContainer.style.display = 'block';
+          userdataContainer.style.display = 'none';
+          this.children.changePasswordLink.setProps({ class: 'hidden' });
+          this.children.savePasswordLink.setProps({ class: '' });
+        },
+      },
+    });
+
+    const savePasswordLink = new Link({
+      class: 'hidden',
+      href: '#',
+      text: 'Сохранить пароль',
+      disabled: false,
+      events: {
+        click: async () => {
+          const { display_name, email, first_name, login, phone, second_name } = getFormData("change-profile-form");
+          await changeUserProfile({
+            display_name,
+            email,
+            first_name,
+            login,
+            phone,
+            second_name,
           }).then(() => {
             const user = window.store.getState().user;
             this.setProps({ user: user });
-            userDataFields.forEach((item)=>{
+            passwordDataFields.forEach((item)=>{
               this.children.changeDataLink.setProps({ class: '' });
               this.children.saveDataLink.setProps({ class: 'hidden' });
               const el = item.element.children[0].querySelector('input');
@@ -172,35 +241,6 @@ class ProfilePage extends Block {
           });
         },
       },
-    });
-
-    const passwordField = new InputField({
-      id: 'profile-password',
-      name: 'password',
-      type: 'password',
-      isdisabled: false,
-      placeholder: 'Введите пароль',
-      class: 'hidden',
-      pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
-      errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-      value: 'AAArrrr66hdm',
-    });
-
-    const passwordRepeatField = new InputField({
-      id: 'profile-password_repeat',
-      name: 'password_repeat',
-      type: 'password',
-      isdisabled: false,
-      placeholder: 'Повторите пароль',
-      class: 'hidden',
-      pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
-      errorMessage: 'от 8 до 40 символов, + одна заглавная буква и цифра.',
-      value: 'AAArrrr66hdm',
-    });
-
-    const changePasswordLink = new Link({
-      href: '#',
-      text: 'Изменить пароль',
     });
 
     const logoutLink = new Link({
@@ -228,16 +268,30 @@ class ProfilePage extends Block {
       roundButton,
       userDataFields,
       changePasswordLink,
+      savePasswordLink,
       logoutLink,
       changeDataLink,
-      passwordField,
-      passwordRepeatField,
+      passwordDataFields,
       saveDataLink,
       profileAvatar,
       avatarField,
       avatarUploadButton,
     });
     init();
+  }
+
+  saveData(targetObj: any){
+    const user = window.store.getState().user;
+    this.setProps({ user: user });
+    targetObj.forEach((item: any)=>{
+      this.children.changeDataLink.setProps({ class: '' });
+      this.children.saveDataLink.setProps({ class: 'hidden' });
+      const el = item.element.children[0].querySelector('input');
+      if (el) {
+        el.disabled = true;
+        el.classList.add('disabled');
+      }
+    });
   }
 
   render() {
