@@ -11,15 +11,6 @@
     cursor: auto;
   }
 
-  &__avatar img{
-      width: 45px;
-      height: 45px;
-      border: none;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: blue;
-  }
-
   &__body {
     flex-grow: 1;
     max-width: 168px;

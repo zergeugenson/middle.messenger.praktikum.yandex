@@ -2,7 +2,7 @@ export function humanReadableTime(time: string) {
   return `${new Date(time).toLocaleDateString()} ${new Date(time).getHours()}:${new Date(time).getMinutes()}`;
 }
 
-export const ucFirst = (str: string) => {
+export const ucFirst = (str: string) :string => {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1).toLowerCase();
 }

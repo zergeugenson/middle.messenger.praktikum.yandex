@@ -38,7 +38,6 @@ class LoginPage extends Block {
       id: 'signin-button',
       text: 'Войти',
       type: 'submit',
-      disabled: window.store.getState().notValid,
     });
 
     const linkBack = new Link({
@@ -110,4 +109,4 @@ class LoginPage extends Block {
   }
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(LoginPage);
+export default connect(({ user }) => ({ user }))(LoginPage);

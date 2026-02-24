@@ -218,4 +218,4 @@ class ProfilePage extends Block {
 
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(ProfilePage);
+export default connect(({ user }) => ({ user }))(ProfilePage);

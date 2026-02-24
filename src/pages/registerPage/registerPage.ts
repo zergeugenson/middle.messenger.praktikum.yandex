@@ -155,4 +155,4 @@ class RegisterPage extends Block {
 
 }
 
-export default connect(({ notValid, user }) => ({ notValid, user }))(RegisterPage);
+export default connect(({ user }) => ({ user }))(RegisterPage);

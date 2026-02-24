@@ -20,7 +20,7 @@ import ChatListItem from './chatListItem';
 import UserListItem from './userListItem';
 import type { ChatListItemProps } from '@/types';
 import type { AppState } from '@/types';
-import { humanReadableTime, showPopup, getFormData, hidePopup } from '@/framework/utils';
+import {humanReadableTime, showPopup, getFormData, hidePopup, ucFirst} from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
 import { Link } from '@/components/iLink';
 import { appRouter } from '@/main';
@@ -221,7 +221,7 @@ class ChatPage extends Block {
                   contact.setProps({ isSelectedChat: false });
                 });
                 this.setProps({
-                  avatarHeadUrl: avatar,
+                  avatarLetter: ucFirst(item.title)[0],
                   chatName: item.title,
                   chatId: item.id,
                 });
@@ -371,4 +371,4 @@ class ChatPage extends Block {
 
 }
 
-export default connect(({ notValid, user, userList }) => ({ notValid, user, userList }))(ChatPage);
+export default connect(({ user, userList }) => ({ user, userList }))(ChatPage);

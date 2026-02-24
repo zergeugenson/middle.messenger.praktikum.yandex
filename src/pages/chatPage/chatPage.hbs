@@ -11,7 +11,9 @@
 	</div>
 	<div class="chat-page__right-column">
 			<div class="header-field">
-				<div class="header-field__avatar">{{#if avatarHeadUrl}}<img id="avatar" alt="avatar" class='avatar-active' src="{{avatarHeadUrl}}" />{{/if}}</div>
+				{{#if chatName}}
+					<div class="header-field__avatar avatar-letter">{{{avatarLetter}}}</div>
+				{{/if}}
 				<div class="header-field__name">{{{chatName}}}</div>
 				<div class="header-field__actions">
 					{{#each activeChatButtons }}

@@ -36,7 +36,6 @@ export interface BlockProps {
 }
 
 export interface AppState {
-  notValid: boolean;
   messages: any[];
   chats: any[];
   userList: any[];
@@ -45,7 +44,6 @@ export interface AppState {
   chatToken: string | null;
   socket?: any;
   selectedChat: number;
-  isUserSearchWindowOpen: boolean;
 }
 
 export interface UserLoginForm {
