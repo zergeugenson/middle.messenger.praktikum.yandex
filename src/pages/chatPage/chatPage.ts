@@ -29,7 +29,7 @@ import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
 import ListOfUsers from '@/pages/chatPage/listOfUsers';
 import FoundUsersList from '@/pages/chatPage/foundUsersList';
-import { BlockProps, User } from '@/types';
+import {BlockProps, Chats, User, UserDataRequest} from '@/types';
 
 interface ChatPageProps extends BlockProps {
   user: User;
@@ -210,7 +210,7 @@ class ChatPage extends Block {
     const { sidebar } = this.children;
     const { filter } = getFormData('sidebar-search-user');
     chats?.forEach(
-      (item: any) => {
+      (item: Chats) => {
         if (filter?.length && item.title && !item.title.includes(filter)) return false;
         chatsList.push(
           new ChatListItem({
@@ -320,17 +320,17 @@ class ChatPage extends Block {
 
   async doGetUserList(id:number) {
     const userList: Block[] = [];
-    const users: { id: number, name: string }[] = [];
+    const users: { id: number, name: string  }[] = [];
     const res = await getChatUsers(id) as ChatListItemProps[];
     window.store.set({ usersInChat: [] });
     res?.forEach(
-      (item: any) => {
-        users.push({ id: item.id, name: item.first_name });
+      (item: UserDataRequest) => {
+        users.push({ id: item.id, name: item.first_name || '' });
         userList.push(
           new UserListItem({
             userID: item.id,
-            userLogin: item.login,
-            userName: item.first_name,
+            userLogin: item.login || '',
+            userName: item.first_name || '',
             onclick: ():void => {
               void getChats().then(()=> {
                 this.setChatsList();
@@ -355,12 +355,12 @@ class ChatPage extends Block {
     await userSearch({ login: username }).then((res:ChatListItemProps[])=>{
       const listOfUsers: Block[] = [];
       res?.forEach(
-        (item: any) => {
+        (item: User) => {
           listOfUsers.push(
             new ListOfUsers({
               userID: item.id,
               userLogin: item.login,
-              userName: item.firstName,
+              userName: item.firstName || '',
               callback: (): void => {
                 const { selectedChat } = window.store.getState();
                 void addUserToChat({

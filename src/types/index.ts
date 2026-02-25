@@ -29,22 +29,36 @@ export interface User {
   displayName?: string;
   email?: string;
   firstName?: string;
-  id?: number;
-  login?: string
+  id: number;
+  login: string
   phone?: string;
   secondName?: string;
 }
 
+export interface Chats {
+  avatar: string;
+  created_by: number;
+  id: number
+  last_message?: {
+    content: string;
+    time: string;
+  };
+  user: User;
+  title: string;
+  unread_count: number;
+}
+
+
 export interface AppState {
   messages: any[];
-  chats: any[];
+  chats: Chats[];
   userList: any[];
   user: User;
   isAuthorized: boolean;
   chatToken: string | null;
   socket?: any;
   selectedChat: number;
-  usersInChat?: { id: number, name: string }[] | [];
+  usersInChat: { id: number, name: string }[] | [];
 }
 
 export interface UserLoginForm {
@@ -74,7 +88,7 @@ export interface UserDataRequest {
   display_name?: string;
   email?: string;
   first_name?: string;
-  id?: number;
+  id: number;
   login?: string
   phone?: string;
   second_name?: string;
