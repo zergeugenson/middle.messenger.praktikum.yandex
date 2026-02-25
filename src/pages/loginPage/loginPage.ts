@@ -5,15 +5,18 @@ import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
 import template from './loginPage.hbs';
 import { connect } from '@/framework/connect';
-import { appRouter } from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import { doLogin, getUser } from '@/controllers/authController';
+import { BlockProps } from '@/types';
 
 class LoginPage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps | object = {}) {
     const loginField = new InputField({
       name: 'login',
       type: 'text',
-      placeholder: 'Введите логин',
+      placeholder: 'Вв' +
+          '' +
+          'едите логин',
       pattern: /^[a-zA-Z0-9_-]{3,20}$/,
       errorMessage: '3-20 символов латиницей, без пробелов',
       value: '',
@@ -29,6 +32,7 @@ class LoginPage extends Block {
     });
 
     const submitButton = new SubmitButton({
+      class: 'submit-button',
       id: 'signin-button',
       text: 'Войти',
       type: 'submit',
@@ -39,7 +43,7 @@ class LoginPage extends Block {
       href: '#',
       events: {
         click: () => {
-          appRouter.go('/register');
+          appRouter.go(appRoutes.SignUp);
         },
       },
     });
@@ -64,7 +68,7 @@ class LoginPage extends Block {
         void getUser().then( () => {
           if (window.store.getState().user?.id) {
             window.store.set({ isAuthorized: true });
-            appRouter.go('/chat');
+            appRouter.go(appRoutes.Messenger);
           }
         });
       });

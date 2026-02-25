@@ -5,11 +5,12 @@ import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
 import template from './registerPage.hbs';
 import { connect } from '@/framework/connect';
-import { appRouter } from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import { doRegister, getUser } from '@/controllers/authController';
+import { BlockProps } from '@/types';
 
 class RegisterPage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
     const emailField = new InputField({
       name: 'email',
       placeholder: 'Электронная почта',
@@ -62,13 +63,14 @@ class RegisterPage extends Block {
       id: 'signup-button',
       text: 'Зарегистрироваться',
       type: 'submit',
+      class: 'submit-button',
     });
     const linkBack = new Link({
       href: '#',
       text: 'Войти',
       events: {
         click: () => {
-          appRouter.go('/');
+          appRouter.go(appRoutes.SignIn);
         },
       },
     });
@@ -89,7 +91,7 @@ class RegisterPage extends Block {
         void getUser().then( () => {
           if (window.store.getState().user?.id) {
             window.store.set({ isAuthorized: true });
-            appRouter.go('/chat');
+            appRouter.go(appRoutes.Messenger);
           }
         });
       });

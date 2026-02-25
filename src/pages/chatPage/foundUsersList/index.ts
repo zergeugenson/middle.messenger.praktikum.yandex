@@ -1,9 +1,10 @@
 import './style.scss';
 import template from './foundUsersList.hbs';
 import Block from '@/framework/Block';
+import { BlockProps } from '@/types';
 
 export default class ListOfUsers extends Block {
-  constructor(props:any) {
+  constructor(props:BlockProps) {
     super({ ...props });
   }
 

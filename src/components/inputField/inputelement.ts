@@ -8,7 +8,6 @@ export default class Input extends Block {
   }
 
   protected componentDidUpdate(): boolean {
-    // console.log("отдались в инпут", this.props)
     return true;
   }
 

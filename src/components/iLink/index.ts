@@ -6,7 +6,9 @@ interface LinkProps {
   href?: string;
   class?: string;
   disabled?: boolean;
-  events?: any;
+  events?: {
+    [key: string]: EventListenerOrEventListenerObject;
+  };
   datapage?: string;
   text?: string;
   image?: string;

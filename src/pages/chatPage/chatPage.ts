@@ -18,27 +18,32 @@ import ChatMessage from './chatMessage';
 import { StoreEvents } from '@/store';
 import ChatListItem from './chatListItem';
 import UserListItem from './userListItem';
-import type { ChatListItemProps } from '@/types';
+import type { ChatListItemProps, ChatMessageProps } from '@/types';
 import type { AppState } from '@/types';
 import { humanReadableTime, showPopup, getFormData, hidePopup, ucFirst } from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
 import { Link } from '@/components/iLink';
-import { appRouter } from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import Popup from '@/components/popUp';
 import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
 import ListOfUsers from '@/pages/chatPage/listOfUsers';
 import FoundUsersList from '@/pages/chatPage/foundUsersList';
+import { BlockProps, User } from '@/types';
+
+interface ChatPageProps extends BlockProps {
+  user: User;
+}
 
 class ChatPage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: ChatPageProps) {
 
     const socket = new ChatWebSocket();
     window.store.set({ socket: socket });
 
     const sidebar = new Sidebar();
 
-    const userName = props.user.displayName;
+    const userName = props.user.firstName;
 
     const searchField = new InputField({
       name: 'filter',
@@ -74,7 +79,7 @@ class ChatPage extends Block {
       alt: 'Перейти в профиль',
       events: {
         click: () => {
-          appRouter.go('/profile');
+          appRouter.go(appRoutes.Settings);
         },
       },
     });
@@ -105,11 +110,11 @@ class ChatPage extends Block {
     const searchForUserField = new InputField({
       name: 'username',
       placeholder: 'Введите часть имени пользователя',
-      value: 'string',
+      value: '',
     });
 
     const searchForUserButton = new RoundButton({
-      type: 'button',
+      type: 'submit',
       events: {
         click: (e: Event) => {
           e.preventDefault();
@@ -130,12 +135,14 @@ class ChatPage extends Block {
       ],
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Закрыть',
           events: {
             click: () => hidePopup(this.children.createChatPopUp.element),
           },
         }),
         new SubmitButton({
+          class: 'submit-button',
           text: 'Создать',
           events: {
             click: () => this.doCreateChat(),
@@ -150,12 +157,14 @@ class ChatPage extends Block {
       title: 'Удалить чат?',
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Закрыть',
           events: {
             click: () => hidePopup(this.children.deleteChatPopUp.element),
           },
         }),
         new SubmitButton({
+          class: 'submit-button',
           text: 'Удалить',
           events: {
             click: () => this.doDeleteChat(),
@@ -196,13 +205,13 @@ class ChatPage extends Block {
  * Действия со списком чатов
  */
   setChatsList() {
-    const chatsList: any[] = [];
+    const chatsList: Block[] = [];
     const { chats, selectedChat } = window.store.getState();
     const { sidebar } = this.children;
     const { filter } = getFormData('sidebar-search-user');
     chats?.forEach(
-      (item: ChatListItemProps) => {
-        if (filter?.length && !item.title.includes(filter)) return false;
+      (item: any) => {
+        if (filter?.length && item.title && !item.title.includes(filter)) return false;
         chatsList.push(
           new ChatListItem({
             title: item.title,
@@ -218,12 +227,14 @@ class ChatPage extends Block {
                   contact.setProps({ isSelectedChat: false });
                 });
                 this.setProps({
-                  avatarLetter: ucFirst(item.title)[0],
+                  avatarLetter: item.title ? ucFirst(item.title)[0] : '',
                   chatName: item.title,
                   chatId: item.id,
                 });
-                this.getChatMessages(item.id);
-                void this.doGetUserList(item.id);
+                if (item.id) {
+                  this.getChatMessages(item.id);
+                  void this.doGetUserList(item.id);
+                }
               },
             },
           }),
@@ -274,7 +285,7 @@ class ChatPage extends Block {
           const userId = user.id;
           if (chatID && chatToken && userId) {
             const socket = window.store.getState().socket;
-            socket.openConnect( userId, chatID, chatToken );
+            socket.openConnect( userId, chatID, chatToken as string );
           }
         });
     }
@@ -293,11 +304,10 @@ class ChatPage extends Block {
 
   getMessageListFromProps(props: AppState) {
     return (
-      props.messages?.map((messageItem: any) => (
+      props.messages?.map((messageItem: ChatMessageProps) => (
         new ChatMessage({
           ...messageItem,
-          user: props.user,
-          time: humanReadableTime(messageItem.time),
+          time: humanReadableTime(messageItem.time || ''),
           mymessage: messageItem.user_id === window.store.getState()?.user?.id,
         })
       )) || []
@@ -309,9 +319,9 @@ class ChatPage extends Block {
  */
 
   async doGetUserList(id:number) {
-    const userList: any = [];
+    const userList: Block[] = [];
     const users: { id: number, name: string }[] = [];
-    const res = await getChatUsers(id);
+    const res = await getChatUsers(id) as ChatListItemProps[];
     window.store.set({ usersInChat: [] });
     res?.forEach(
       (item: any) => {
@@ -342,8 +352,8 @@ class ChatPage extends Block {
   async doAddUserToChat() {
     const { username } = getFormData('users-search-form') || '';
     if (username === '') return [];
-    await userSearch({ login: username }).then((res)=>{
-      const listOfUsers: any = [];
+    await userSearch({ login: username }).then((res:ChatListItemProps[])=>{
+      const listOfUsers: Block[] = [];
       res?.forEach(
         (item: any) => {
           listOfUsers.push(

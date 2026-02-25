@@ -21,6 +21,7 @@ export interface BlockProps {
   onBlur?: (event: Event) => void;
   class?: string;
   [key:string]: unknown;
+  displayName? : string;
 }
 
 export interface User {
@@ -51,17 +52,57 @@ export interface UserLoginForm {
 }
 
 export interface ChatListItemProps {
-  id: number;
-  last_message: {
+  id?: number;
+  last_message?: {
     content: string;
     time: string;
   };
-  chatMessage: string;
-  unread_count: number;
-  avatar: any;
-  title: string;
+  chatMessage?: string;
+  unread_count?: number;
+  avatar?: string;
+  title?: string;
   events?: {
     click: () => void;
+  };
+  chatID?: number;
+  time?: string;
+  isSelectedChat?: boolean;
+}
+
+export interface UserDataRequest {
+  avatar?: string;
+  display_name?: string;
+  email?: string;
+  first_name?: string;
+  id?: number;
+  login?: string
+  phone?: string;
+  second_name?: string;
+  last_message?: {
+    content: string;
+    time: string;
+  };
+}
+
+export interface ChatMessageProps {
+  chat_id?: number;
+  content?: string;
+  file?: unknown;
+  id?: number;
+  is_read?: boolean;
+  time?: string
+  type?: string
+  user_id?: number;
+  mymessage?: boolean;
+}
+
+export interface UserListItemProps {
+  userLogin: string;
+  userName: string;
+  onclick: () => void;
+  userID: number;
+  events?: {
+    [key: string]: EventListenerOrEventListenerObject;
   };
 }
 

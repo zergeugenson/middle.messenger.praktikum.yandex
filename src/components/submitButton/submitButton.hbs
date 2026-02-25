@@ -5,8 +5,8 @@
 	{{#if id }}
 	id="{{ id }}"
 	{{/if}}
-	class="{{class}}"
-	type="{{type}}"
+	class="{{class}}{{# if disabled }} hidden{{/ if }}"
+	type="{{#if type}}{{type}}{{else}}submit{{/if}}"
 	{{#if disabled}} disabled{{/if}}
 >
 	{{text}}

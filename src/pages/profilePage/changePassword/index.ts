@@ -1,21 +1,20 @@
 import template from './changePassword.hbs';
 import Block from '@/framework/Block';
 import { InputField } from '@/components/inputField';
-import { Link } from '@/components/iLink';
 import { getFormData, hidePopup, showPopup } from '@/framework/utils';
 import { changeUserPassword } from '@/controllers/userController';
 import Popup from '@/components/popUp';
 import { SubmitButton } from '@/components/submitButton';
+import { BlockProps } from '@/types';
 
 export default class ChangePassword extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
 
     const passwordDataFields = [
       new InputField({
         label: 'Старый пароль',
         name: 'oldpassword',
         type: 'password',
-        isdisabled: true,
         placeholder: 'Старый пароль',
         class: '',
         value: '', //'AAArrrr66hdm',
@@ -25,7 +24,6 @@ export default class ChangePassword extends Block {
         label: 'Новый пароль',
         name: 'newpassword',
         type: 'password',
-        isdisabled: true,
         placeholder: 'Новый пароль',
         class: '',
         pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
@@ -34,43 +32,27 @@ export default class ChangePassword extends Block {
       }),
     ];
 
-    const changePasswordLink = new Link({
-      class: '',
+    const savePasswordLink = new SubmitButton({
+      class: 'submit-button',
       href: '#',
       text: 'Изменить пароль',
       disabled: false,
       events: {
-        click: () => {
-          passwordDataFields.forEach((item)=>{
-            item.setProps({ isdisabled: false });
-          });
-          this.children.changePasswordLink.setProps({ class: 'hidden' });
-          this.children.savePasswordLink.setProps({ class: '' });
-        },
-      },
-    });
-
-    const savePasswordLink = new Link({
-      class: 'hidden',
-      href: '#',
-      text: 'Сохранить пароль',
-      disabled: false,
-      events: {
-        click: async () => {
+        click:  () => {
           const { oldpassword, newpassword } = getFormData('change-password-form');
-          await changeUserPassword({
+          void changeUserPassword({
             oldPassword: oldpassword,
             newPassword: newpassword,
-          }).then((res: any) => {
+          }).then((res: unknown ) => {
             passwordDataFields.forEach((item)=>{
               item.setProps({ isdisabled: true });
             });
             this.children.changePasswordLink.setProps({ class: '' });
             this.children.savePasswordLink.setProps({ class: 'hidden' });
-            if (res !== 'OK') {
-              this.children.passwordErrorPopUp.setProps({ message: res.reason as string });
+            if (res !== 'OK' && res && typeof res === 'object' && 'reason' in res) {
+              this.children.passwordErrorPopUp.setProps({ message: res?.reason as string });
               showPopup({ popupId: 'password-error-popup-id' });
-              console.error('Password not changed', res.reason);
+              console.error('Password not changed', res?.reason );
             }
           });
         },
@@ -84,6 +66,7 @@ export default class ChangePassword extends Block {
       message:'',
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Закрыть',
           events: {
             click: () => hidePopup(this.children.passwordErrorPopUp.element),
@@ -96,7 +79,6 @@ export default class ChangePassword extends Block {
       ...props,
       passwordDataFields,
       savePasswordLink,
-      changePasswordLink,
       passwordErrorPopUp,
     });
   }

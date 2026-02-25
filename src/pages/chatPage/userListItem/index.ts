@@ -6,13 +6,7 @@ import { kickUserFromChat } from '@/controllers/chatsController';
 import Popup from '@/components/popUp';
 import { SubmitButton } from '@/components/submitButton';
 import { hidePopup, showPopup } from '@/framework/utils';
-
-interface UserListItemProps {
-  userLogin: string;
-  userName: string;
-  onclick: () => void;
-  userID: number;
-}
+import { UserListItemProps } from '@/types';
 
 export default class UserListItem extends Block {
   constructor(props: UserListItemProps) {
@@ -33,6 +27,7 @@ export default class UserListItem extends Block {
       title: 'Выгнать пользователя?',
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Отменить',
           events: {
             click: () =>
@@ -40,6 +35,7 @@ export default class UserListItem extends Block {
           },
         }),
         new SubmitButton({
+          class: 'submit-button',
           text: 'Выгнать',
           events: {
             click: () => this.doKickUser(props),
