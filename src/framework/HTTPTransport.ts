@@ -18,7 +18,7 @@ type OptionsWithoutMethod = Omit<Options, 'method'>;
 type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
 
 const queryString = (data: Data) => {
-  return data ? ('?' + Object.keys(data).map((key) => { return `${key}=${data[key]}`; }).join('&')) : '';
+  return data ? ('?' + Object.keys(data).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&')) : '';
 };
 
 export class HTTPTransport {
