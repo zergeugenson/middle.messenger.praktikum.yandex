@@ -14,10 +14,14 @@ import { changeUserProfile, changeUserAvatar } from '@/controllers/userControlle
 import Input from '@/components/inputField/inputelement';
 import { SubmitButton } from '@/components/submitButton';
 import { RESOURSES } from '@/lib/constants';
+import { BlockProps, User } from '@/types';
 
+interface ProfilePageProps extends BlockProps {
+  user: User;
+}
 
 class ProfilePage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: ProfilePageProps) {
 
     const roundButton = new RoundButton({
       class: 'i-link rotate',

@@ -43,16 +43,16 @@ export default class ChangePassword extends Block {
           void changeUserPassword({
             oldPassword: oldpassword,
             newPassword: newpassword,
-          }).then((res: any) => {
+          }).then((res: unknown ) => {
             passwordDataFields.forEach((item)=>{
               item.setProps({ isdisabled: true });
             });
             this.children.changePasswordLink.setProps({ class: '' });
             this.children.savePasswordLink.setProps({ class: 'hidden' });
-            if (res !== 'OK') {
-              this.children.passwordErrorPopUp.setProps({ message: res.reason as string });
+            if (res !== 'OK' && res && typeof res === 'object' && 'reason' in res) {
+              this.children.passwordErrorPopUp.setProps({ message: res?.reason as string });
               showPopup({ popupId: 'password-error-popup-id' });
-              console.error('Password not changed', res.reason);
+              console.error('Password not changed', res?.reason );
             }
           });
         },

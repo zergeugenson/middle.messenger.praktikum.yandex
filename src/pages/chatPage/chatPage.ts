@@ -32,18 +32,18 @@ import FoundUsersList from '@/pages/chatPage/foundUsersList';
 import { BlockProps, User } from '@/types';
 
 interface ChatPageProps extends BlockProps {
-  user?: User;
+  user: User;
 }
 
 class ChatPage extends Block {
-  constructor(props: ChatPageProps = {}) {
+  constructor(props: ChatPageProps) {
 
     const socket = new ChatWebSocket();
     window.store.set({ socket: socket });
 
     const sidebar = new Sidebar();
 
-    const userName = (props.user as User).firstName;
+    const userName = props.user.firstName;
 
     const searchField = new InputField({
       name: 'filter',

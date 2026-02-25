@@ -2,9 +2,10 @@ import Block from '@/framework/Block';
 import template from './page404.hbs';
 import { Link } from '@/components/iLink';
 import { appRouter, appRoutes } from '@/main';
+import { BlockProps } from '@/types';
 
 class Page404 extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
     const errorTitle = '404';
     const errorText = 'Не туда попали';
     const backButton = new Link({

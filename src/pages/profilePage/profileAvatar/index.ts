@@ -1,9 +1,10 @@
 import './style.scss';
 import template from './profileAvatar.hbs';
 import Block from '@/framework/Block';
+import { BlockProps } from '@/types';
 
 export default class ProfileAvatar extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
     super({
       ...props,
     });

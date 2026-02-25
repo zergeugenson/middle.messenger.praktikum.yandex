@@ -7,9 +7,10 @@ import template from './registerPage.hbs';
 import { connect } from '@/framework/connect';
 import { appRouter, appRoutes } from '@/main';
 import { doRegister, getUser } from '@/controllers/authController';
+import { BlockProps } from '@/types';
 
 class RegisterPage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
     const emailField = new InputField({
       name: 'email',
       placeholder: 'Электронная почта',

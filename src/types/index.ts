@@ -1,4 +1,5 @@
 import Block from '@/framework/Block';
+import type * as Pages from '@/pages';
 
 export interface Children {
   [key: string]: Block;
@@ -59,7 +60,7 @@ export interface ChatListItemProps {
   };
   chatMessage?: string;
   unread_count?: number;
-  avatar?: any;
+  avatar?: string;
   title?: string;
   events?: {
     click: () => void;
@@ -106,4 +107,4 @@ export interface UserListItemProps {
   };
 }
 
-export type PageTypes = any;
+export type PageTypes = (typeof Pages)[keyof typeof Pages];
