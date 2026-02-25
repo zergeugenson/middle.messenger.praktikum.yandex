@@ -4,7 +4,7 @@ import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 
 interface ListOfUsersProps {
-  userID: string,
+  userID: number,
   userLogin: string,
   userName: string,
   callback? : () => void;

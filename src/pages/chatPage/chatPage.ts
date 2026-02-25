@@ -18,7 +18,7 @@ import ChatMessage from './chatMessage';
 import { StoreEvents } from '@/store';
 import ChatListItem from './chatListItem';
 import UserListItem from './userListItem';
-import type { ChatListItemProps } from '@/types';
+import type { ChatListItemProps, ChatMessageProps } from '@/types';
 import type { AppState } from '@/types';
 import { humanReadableTime, showPopup, getFormData, hidePopup, ucFirst } from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
@@ -205,12 +205,12 @@ class ChatPage extends Block {
  * Действия со списком чатов
  */
   setChatsList() {
-    const chatsList: any[] = [];
+    const chatsList: Block[] = [];
     const { chats, selectedChat } = window.store.getState();
     const { sidebar } = this.children;
     const { filter } = getFormData('sidebar-search-user');
     chats?.forEach(
-      (item: ChatListItemProps) => {
+      (item: any) => {
         if (filter?.length && item.title && !item.title.includes(filter)) return false;
         chatsList.push(
           new ChatListItem({
@@ -304,11 +304,10 @@ class ChatPage extends Block {
 
   getMessageListFromProps(props: AppState) {
     return (
-      props.messages?.map((messageItem: any) => (
+      props.messages?.map((messageItem: ChatMessageProps) => (
         new ChatMessage({
           ...messageItem,
-          user: props.user,
-          time: humanReadableTime(messageItem.time),
+          time: humanReadableTime(messageItem.time || ''),
           mymessage: messageItem.user_id === window.store.getState()?.user?.id,
         })
       )) || []
@@ -320,7 +319,7 @@ class ChatPage extends Block {
  */
 
   async doGetUserList(id:number) {
-    const userList: any = [];
+    const userList: Block[] = [];
     const users: { id: number, name: string }[] = [];
     const res = await getChatUsers(id) as ChatListItemProps[];
     window.store.set({ usersInChat: [] });
@@ -354,7 +353,7 @@ class ChatPage extends Block {
     const { username } = getFormData('users-search-form') || '';
     if (username === '') return [];
     await userSearch({ login: username }).then((res:ChatListItemProps[])=>{
-      const listOfUsers: any = [];
+      const listOfUsers: Block[] = [];
       res?.forEach(
         (item: any) => {
           listOfUsers.push(

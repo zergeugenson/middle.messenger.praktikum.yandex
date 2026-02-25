@@ -37,7 +37,7 @@ export interface User {
 
 export interface AppState {
   messages: any[];
-  chats: any[];
+  chats: Block[];
   userList: any[];
   user: User;
   isAuthorized: boolean;
@@ -81,6 +81,28 @@ export interface UserDataRequest {
   last_message?: {
     content: string;
     time: string;
+  };
+}
+
+export interface ChatMessageProps {
+  chat_id?: number;
+  content?: string;
+  file?: unknown;
+  id?: number;
+  is_read?: boolean;
+  time?: string
+  type?: string
+  user_id?: number;
+  mymessage?: boolean;
+}
+
+export interface UserListItemProps {
+  userLogin: string;
+  userName: string;
+  onclick: () => void;
+  userID: number;
+  events?: {
+    [key: string]: EventListenerOrEventListenerObject;
   };
 }
 

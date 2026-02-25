@@ -7,7 +7,6 @@ enum METHOD {
 
 type Options = {
   method: METHOD;
-  // data?: Record<string, string> | undefined;
   data?: any;
   timeout?: number;
   headers?: Record<string, string>

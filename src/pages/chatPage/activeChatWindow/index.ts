@@ -4,10 +4,10 @@ import Block from '@/framework/Block';
 import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
 import { getFormData } from '@/framework/utils';
-
+import type { BlockProps } from '@/types';
 
 class ActiveChatWindow extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
 
     const messageField = new InputField({
       id: 'message-field',

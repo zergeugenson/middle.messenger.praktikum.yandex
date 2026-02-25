@@ -6,16 +6,7 @@ import { kickUserFromChat } from '@/controllers/chatsController';
 import Popup from '@/components/popUp';
 import { SubmitButton } from '@/components/submitButton';
 import { hidePopup, showPopup } from '@/framework/utils';
-
-interface UserListItemProps {
-  userLogin: string;
-  userName: string;
-  onclick: () => void;
-  userID: number;
-  events?: {
-    [key: string]: EventListenerOrEventListenerObject;
-  };
-}
+import { UserListItemProps } from '@/types';
 
 export default class UserListItem extends Block {
   constructor(props: UserListItemProps) {
