@@ -37,9 +37,9 @@ export default class ChangePassword extends Block {
       text: 'Изменить пароль',
       disabled: false,
       events: {
-        click: async () => {
+        click:  () => {
           const { oldpassword, newpassword } = getFormData('change-password-form');
-          await changeUserPassword({
+          void changeUserPassword({
             oldPassword: oldpassword,
             newPassword: newpassword,
           }).then((res: any) => {

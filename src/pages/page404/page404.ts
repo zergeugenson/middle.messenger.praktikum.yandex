@@ -1,7 +1,7 @@
 import Block from '@/framework/Block';
 import template from './page404.hbs';
 import { Link } from '@/components/iLink';
-import {appRouter, appRoutes} from '@/main';
+import { appRouter, appRoutes } from '@/main';
 
 class Page404 extends Block {
   constructor(props: Record<string, any> = {}) {

@@ -23,7 +23,7 @@ import type { AppState } from '@/types';
 import { humanReadableTime, showPopup, getFormData, hidePopup, ucFirst } from '@/framework/utils';
 import { SubmitButton } from '@/components/submitButton';
 import { Link } from '@/components/iLink';
-import {appRouter, appRoutes} from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import Popup from '@/components/popUp';
 import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';

@@ -6,7 +6,7 @@ import { InputField } from '@/components/inputField';
 import ProfileAvatar from './profileAvatar';
 import ChangePassword from './changePassword';
 import template from './profilePage.hbs';
-import {appRouter, appRoutes} from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import { connect } from '@/framework/connect';
 import { doLogout } from '@/controllers/authController';
 import { getFormData } from '@/framework/utils';
@@ -127,16 +127,16 @@ class ProfilePage extends Block {
       text: 'Сохранить профиль',
       disabled: false,
       events: {
-        click: async () => {
+        click: () => {
           const data = getFormData('change-profile-form');
-          await changeUserProfile({
+          void changeUserProfile({
             display_name: data.display_name,
             email: data.email,
             first_name: data.first_name,
             login: data.login,
             phone: data.phone,
             second_name: data.second_name,
-          }).then(() => this.saveData);
+          }).then(() => { this.saveData(); });
         },
       },
     });

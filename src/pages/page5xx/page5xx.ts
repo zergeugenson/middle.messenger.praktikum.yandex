@@ -2,7 +2,7 @@ import './style.scss';
 import Block from '@/framework/Block';
 import { Link } from '@/components/iLink';
 import type { BlockProps } from '@/types';
-import {appRouter, appRoutes} from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import template from './page5xx.hbs';
 
 export default class Page5xx extends Block {

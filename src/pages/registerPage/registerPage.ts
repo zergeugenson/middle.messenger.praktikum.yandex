@@ -5,7 +5,7 @@ import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
 import template from './registerPage.hbs';
 import { connect } from '@/framework/connect';
-import {appRouter, appRoutes} from '@/main';
+import { appRouter, appRoutes } from '@/main';
 import { doRegister, getUser } from '@/controllers/authController';
 
 class RegisterPage extends Block {
@@ -62,7 +62,7 @@ class RegisterPage extends Block {
       id: 'signup-button',
       text: 'Зарегистрироваться',
       type: 'submit',
-      class: 'submit-button'
+      class: 'submit-button',
     });
     const linkBack = new Link({
       href: '#',

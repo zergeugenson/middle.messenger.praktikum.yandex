@@ -12,14 +12,14 @@ declare global {
 }
 window.store = new Store<AppState>(initState);
 
-export const appRoutes:{[key:string]:string} = {
+export const appRoutes:{ [key:string]:string } = {
   SignIn:'/',
   SignUp:'/sign-up',
   Messenger:'/messenger',
   Settings:'/settings',
   Error404:'/404',
   Error500:'/500',
-}
+};
 
 export const appRouter = new Router('#app');
 
