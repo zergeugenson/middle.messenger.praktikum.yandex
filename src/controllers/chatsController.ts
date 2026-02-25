@@ -1,13 +1,13 @@
 import ChatsApi from '@/api/Chats';
 import type { ChatListItemProps } from '@/types';
 import { humanReadableTime } from '@/framework/utils';
-import type { User } from '@/types';
+import type { User, UserDataRequest } from '@/types';
 
 const chatsApi = new ChatsApi();
 
 const getChats = async (): Promise<ChatListItemProps[]> => {
   const chatsRaw = await chatsApi.chats() as User[];
-  const chats = chatsRaw.map((i: any) => ({
+  const chats = chatsRaw.map((i: UserDataRequest) => ({
     ...i,
     last_message: i?.last_message ? {
       ...i?.last_message,
@@ -20,8 +20,8 @@ const getChats = async (): Promise<ChatListItemProps[]> => {
   return chats;
 };
 
-const createChat = async (form: any): Promise<unknown> => {
-  await chatsApi.create(form);
+const createChat = async (data: { title: string }): Promise<unknown> => {
+  await chatsApi.create(data);
   return getChats();
 };
 
@@ -30,12 +30,12 @@ const getChatUsers = async (id: number): Promise<unknown> => {
   return users;
 };
 
-const deleteChat = async (data: any): Promise<unknown> => {
+const deleteChat = async (data: { chatId: number }): Promise<unknown> => {
   await chatsApi.delete(data);
   return getChats();
 };
 
-const kickUserFromChat = async (data: any): Promise<void> => {
+const kickUserFromChat = async (data: { userId:number, chatId:number }): Promise<void> => {
   const { userId, chatId } = data;
   await chatsApi.remove({
     users: [userId],
@@ -43,12 +43,12 @@ const kickUserFromChat = async (data: any): Promise<void> => {
   });
 };
 
-const userSearch = async (data: any): Promise<unknown> => {
+const userSearch = async (data: { login: string }): Promise<unknown> => {
   const search = await chatsApi.search(data);
   return search;
 };
 
-const addUserToChat = async (data: any): Promise<void> => {
+const addUserToChat = async (data: { userId:number, chatId:number }): Promise<void> => {
   const { userId, chatId } = data;
   await chatsApi.add({
     users: [userId],

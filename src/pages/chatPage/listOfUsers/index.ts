@@ -9,7 +9,7 @@ interface ListOfUsersProps {
   userName: string,
   callback? : () => void;
   events?: {
-    click?: () => void;
+    [key: string]: EventListenerOrEventListenerObject;
   };
 }
 

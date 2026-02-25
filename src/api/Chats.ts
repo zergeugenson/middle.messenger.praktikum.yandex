@@ -11,7 +11,7 @@ export default class ChatsApi {
     return chatsApi.post('/chats', { data });
   }
 
-  async delete(data: { chatId: string }): Promise<unknown> {
+  async delete(data: { chatId: number }): Promise<unknown> {
     return chatsApi.delete('/chats', { data });
   }
 
@@ -19,11 +19,11 @@ export default class ChatsApi {
     return chatsApi.get(`/chats/${id}/users`);
   }
 
-  async add(data: { users: string[]; chatId: string }): Promise<unknown> {
+  async add(data: { users: number[]; chatId: number }): Promise<unknown> {
     return chatsApi.put('/chats/users', { data });
   }
 
-  async remove(data: { users: string[]; chatId: string }): Promise<unknown> {
+  async remove(data: { users: number[]; chatId: number }): Promise<unknown> {
     return chatsApi.delete('/chats/users', { data });
   }
 

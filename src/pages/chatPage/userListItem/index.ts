@@ -12,6 +12,9 @@ interface UserListItemProps {
   userName: string;
   onclick: () => void;
   userID: number;
+  events?: {
+    [key: string]: EventListenerOrEventListenerObject;
+  };
 }
 
 export default class UserListItem extends Block {

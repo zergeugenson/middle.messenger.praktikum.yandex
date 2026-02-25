@@ -78,6 +78,10 @@ export interface UserDataRequest {
   login?: string
   phone?: string;
   second_name?: string;
+  last_message?: {
+    content: string;
+    time: string;
+  };
 }
 
 export type PageTypes = any;
