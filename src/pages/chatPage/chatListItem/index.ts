@@ -4,17 +4,12 @@ import template from './chatListItem.hbs';
 import { ucFirst } from '@/framework/utils';
 import { BlockProps } from '@/types';
 
-
-export interface ChatListItemProps extends BlockProps {
-  title: string;
-}
-
 export default class ChatListItem extends Block {
-  constructor(props: ChatListItemProps) {
+  constructor(props: BlockProps) {
 
     const init = () => {
       if (props.title) {
-        this.setProps({ title: ucFirst(props.title), avatarLetter: ucFirst(props.title)[0] });
+        this.setProps({ title: ucFirst(props.title.toString()), avatarLetter: ucFirst(props.title.toString())[0] });
       }
     };
     super({ ...props,
