@@ -6,7 +6,7 @@ import { InputField } from '@/components/inputField';
 import ProfileAvatar from './profileAvatar';
 import ChangePassword from './changePassword';
 import template from './profilePage.hbs';
-import { appRouter } from '@/main';
+import {appRouter, appRoutes} from '@/main';
 import { connect } from '@/framework/connect';
 import { doLogout } from '@/controllers/authController';
 import { getFormData } from '@/framework/utils';
@@ -23,7 +23,7 @@ class ProfilePage extends Block {
       class: 'i-link rotate',
       events: {
         click: () => {
-          appRouter.go('/chat');
+          appRouter.go(appRoutes.Messenger);
         },
       },
     });
@@ -149,7 +149,6 @@ class ProfilePage extends Block {
       events: {
         click: async () => {
           const data = getFormData('change-profile-form');
-          console.log('data', data);
           await changeUserProfile({
             display_name: data.display_name,
             email: data.email,
@@ -170,14 +169,13 @@ class ProfilePage extends Block {
       events: {
         click: () => {
           void doLogout().then(()=>{
-            appRouter.go('/');
+            appRouter.go(appRoutes.SignIn);
           });
         },
       },
     });
 
     const init = () => {
-      console.log('window.store.getState().user', window.store.getState().user);
       props = {
         ...props,
         user: window.store.getState().user,

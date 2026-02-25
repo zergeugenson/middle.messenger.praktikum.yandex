@@ -1,6 +1,6 @@
 import { type PageTypes } from '@/types';
 import Route from './Route';
-import { ROUTES_PATHS } from '@/router/routes';
+import { appRoutes } from '@/main';
 
 type RouteType = any;
 
@@ -55,19 +55,19 @@ export default class Router {
 
     const { isAuthorized } = window.store.getState();
     const isAuthorizedPage =
-        pathname === ROUTES_PATHS.login || pathname === ROUTES_PATHS.register;
+        pathname === appRoutes.SignIn || pathname === appRoutes.SignUp;
     const isProtectedPage =
-        pathname !== ROUTES_PATHS.login && pathname !== ROUTES_PATHS.register;
+        pathname !== appRoutes.SignIn && pathname !== appRoutes.SignUp;
 
-    if (!route || !Object.values(ROUTES_PATHS).includes(pathname)) {
+    if (!route || !Object.values(appRoutes).includes(pathname)) {
       // 404
-      this.go(ROUTES_PATHS.error404);
+      this.go(appRoutes.Error404);
     } else if (!isAuthorized && isProtectedPage) {
       // не авторизован
-      this.go(ROUTES_PATHS.login);
+      this.go(appRoutes.SignIn);
     } else if (isAuthorized && isAuthorizedPage) {
       // авторизован, но идет на логин
-      this.go(ROUTES_PATHS.profile);
+      this.go(appRoutes.Settings);
 
     } else {
       this._currentRoute = route;

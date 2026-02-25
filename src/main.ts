@@ -12,15 +12,25 @@ declare global {
 }
 window.store = new Store<AppState>(initState);
 
+export const appRoutes:{[key:string]:string} = {
+  SignIn:'/',
+  SignUp:'/sign-up',
+  Messenger:'/messenger',
+  Settings:'/settings',
+  Error404:'/404',
+  Error500:'/500',
+}
+
 export const appRouter = new Router('#app');
+
 document.addEventListener('DOMContentLoaded', () => {
   appRouter
-    .use('/', Pages.LoginPage)
-    .use('/register', Pages.RegisterPage)
-    .use('/error5xx', Pages.Page5xx)
-    .use('/error404', Pages.Page404)
-    .use('/profile', Pages.ProfilePage)
-    .use('/chat', Pages.ChatPage)
+    .use( appRoutes.SignIn, Pages.LoginPage)
+    .use( appRoutes.SignUp, Pages.RegisterPage)
+    .use( appRoutes.Error500, Pages.Page5xx)
+    .use( appRoutes.Error404, Pages.Page404)
+    .use( appRoutes.Settings, Pages.ProfilePage)
+    .use( appRoutes.Messenger, Pages.ChatPage)
     .start();
 });
 

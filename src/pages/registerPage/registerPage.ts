@@ -5,7 +5,7 @@ import { SubmitButton } from '@/components/submitButton';
 import { InputField } from '@/components/inputField';
 import template from './registerPage.hbs';
 import { connect } from '@/framework/connect';
-import { appRouter } from '@/main';
+import {appRouter, appRoutes} from '@/main';
 import { doRegister, getUser } from '@/controllers/authController';
 
 class RegisterPage extends Block {
@@ -68,7 +68,7 @@ class RegisterPage extends Block {
       text: 'Войти',
       events: {
         click: () => {
-          appRouter.go('/');
+          appRouter.go(appRoutes.SignIn);
         },
       },
     });
@@ -89,7 +89,7 @@ class RegisterPage extends Block {
         void getUser().then( () => {
           if (window.store.getState().user?.id) {
             window.store.set({ isAuthorized: true });
-            appRouter.go('/chat');
+            appRouter.go(appRoutes.Messenger);
           }
         });
       });

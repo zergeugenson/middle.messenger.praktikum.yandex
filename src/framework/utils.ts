@@ -9,7 +9,6 @@ export const ucFirst = (str: string) :string => {
 export const showPopup = ({ popupId }: { popupId: string }) => {
 
   const avatar = document.getElementById(popupId) as HTMLElement;
-  console.log(popupId, avatar);
   avatar.classList.add('popup_opened');
 };
 
