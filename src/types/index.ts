@@ -106,4 +106,4 @@ export interface UserListItemProps {
   };
 }
 
-export type PageTypes = any
+export type PageTypes = any;
