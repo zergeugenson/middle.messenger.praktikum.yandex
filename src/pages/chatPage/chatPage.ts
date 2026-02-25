@@ -29,7 +29,7 @@ import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
 import ListOfUsers from '@/pages/chatPage/listOfUsers';
 import FoundUsersList from '@/pages/chatPage/foundUsersList';
-import {BlockProps, Chats, User, UserDataRequest} from '@/types';
+import { BlockProps, Chats, User, UserDataRequest } from '@/types';
 
 interface ChatPageProps extends BlockProps {
   user: User;
