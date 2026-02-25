@@ -206,7 +206,7 @@ class ChatPage extends Block {
     const { filter } = getFormData('sidebar-search-user');
     chats?.forEach(
       (item: ChatListItemProps) => {
-        if (filter?.length && !item.title.includes(filter)) return false;
+        if (filter?.length && item.title && !item.title.includes(filter)) return false;
         chatsList.push(
           new ChatListItem({
             title: item.title,
@@ -222,12 +222,14 @@ class ChatPage extends Block {
                   contact.setProps({ isSelectedChat: false });
                 });
                 this.setProps({
-                  avatarLetter: ucFirst(item.title)[0],
+                  avatarLetter: item.title ? ucFirst(item.title)[0] : '',
                   chatName: item.title,
                   chatId: item.id,
                 });
-                this.getChatMessages(item.id);
-                void this.doGetUserList(item.id);
+                if (item.id) {
+                  this.getChatMessages(item.id);
+                  void this.doGetUserList(item.id);
+                }
               },
             },
           }),
@@ -278,7 +280,7 @@ class ChatPage extends Block {
           const userId = user.id;
           if (chatID && chatToken && userId) {
             const socket = window.store.getState().socket;
-            socket.openConnect( userId, chatID, chatToken );
+            socket.openConnect( userId, chatID, chatToken as string );
           }
         });
     }
@@ -315,7 +317,7 @@ class ChatPage extends Block {
   async doGetUserList(id:number) {
     const userList: any = [];
     const users: { id: number, name: string }[] = [];
-    const res = await getChatUsers(id);
+    const res = await getChatUsers(id) as ChatListItemProps[];
     window.store.set({ usersInChat: [] });
     res?.forEach(
       (item: any) => {
@@ -346,7 +348,7 @@ class ChatPage extends Block {
   async doAddUserToChat() {
     const { username } = getFormData('users-search-form') || '';
     if (username === '') return [];
-    await userSearch({ login: username }).then((res)=>{
+    await userSearch({ login: username }).then((res:ChatListItemProps[])=>{
       const listOfUsers: any = [];
       res?.forEach(
         (item: any) => {

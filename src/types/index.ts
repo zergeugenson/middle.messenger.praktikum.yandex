@@ -51,19 +51,21 @@ export interface UserLoginForm {
 }
 
 export interface ChatListItemProps {
-  id: number;
-  last_message: {
+  id?: number;
+  last_message?: {
     content: string;
     time: string;
   };
-  chatMessage: string;
-  unread_count: number;
-  avatar: any;
-  title: string;
+  chatMessage?: string;
+  unread_count?: number;
+  avatar?: any;
+  title?: string;
   events?: {
     click: () => void;
   };
-  chatID: number;
+  chatID?: number;
+  time?: string;
+  isSelectedChat?: boolean;
 }
 
 export interface UserDataRequest {
