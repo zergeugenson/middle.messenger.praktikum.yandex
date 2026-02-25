@@ -6,7 +6,9 @@ interface LinkProps {
   href?: string;
   class?: string;
   disabled?: boolean;
-  events?: any;
+  events?: {
+    click: () => void;
+  };
   datapage?: string;
   text?: string;
   image?: string;
@@ -22,7 +24,7 @@ export class Link extends Block {
           if (typeof props?.events?.click === 'function') {
             e.preventDefault();
             e.stopPropagation();
-            props.events.click(e);
+            props.events.click();
           }
         },
       },

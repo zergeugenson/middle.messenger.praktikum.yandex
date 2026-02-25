@@ -21,6 +21,7 @@ export interface BlockProps {
   onBlur?: (event: Event) => void;
   class?: string;
   [key:string]: unknown;
+  displayName? : string;
 }
 
 export interface User {

@@ -29,16 +29,21 @@ import { InputField } from '@/components/inputField';
 import { RoundButton } from '@/components/roundButton';
 import ListOfUsers from '@/pages/chatPage/listOfUsers';
 import FoundUsersList from '@/pages/chatPage/foundUsersList';
+import { BlockProps, User } from '@/types';
+
+interface ChatPageProps extends BlockProps {
+  user?: User;
+}
 
 class ChatPage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: ChatPageProps = {}) {
 
     const socket = new ChatWebSocket();
     window.store.set({ socket: socket });
 
     const sidebar = new Sidebar();
 
-    const userName = props.user.displayName;
+    const userName = (props.user as User).firstName;
 
     const searchField = new InputField({
       name: 'filter',
