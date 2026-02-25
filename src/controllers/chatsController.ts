@@ -1,12 +1,12 @@
 import ChatsApi from '@/api/Chats';
 import type { ChatListItemProps } from '@/types';
 import { humanReadableTime } from '@/framework/utils';
-
+import type { User } from '@/types';
 
 const chatsApi = new ChatsApi();
 
 const getChats = async (): Promise<ChatListItemProps[]> => {
-  const chatsRaw = await chatsApi.chats();
+  const chatsRaw = await chatsApi.chats() as User[];
   const chats = chatsRaw.map((i: any) => ({
     ...i,
     last_message: i?.last_message ? {

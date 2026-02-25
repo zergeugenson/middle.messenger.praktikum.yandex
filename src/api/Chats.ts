@@ -3,7 +3,7 @@ import { HTTPTransport } from '@/framework/HTTPTransport';
 const chatsApi = new HTTPTransport();
 
 export default class ChatsApi {
-  async chats(): Promise<any> {
+  async chats(): Promise<unknown> {
     return chatsApi.get('/chats');
   }
 

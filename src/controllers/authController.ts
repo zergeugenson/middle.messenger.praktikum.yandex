@@ -1,5 +1,5 @@
 import AuthApi from '@/api/Auth';
-import type { UserLoginForm, UserDataRequest } from '@/types';
+import type { UserLoginForm, UserDataRequest, User } from '@/types';
 
 const authApi = new AuthApi();
 
@@ -19,7 +19,7 @@ const doRegister = async (data: UserLoginForm): Promise<unknown> => {
 
 const getUser = async (): Promise<unknown> => {
   const userdata = await authApi.user() as UserDataRequest;
-  const user: any = {
+  const user: User = {
     avatar: userdata.avatar,
     id: userdata.id,
     displayName: userdata.display_name,
