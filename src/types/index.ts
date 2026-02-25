@@ -37,7 +37,7 @@ export interface User {
 
 export interface AppState {
   messages: any[];
-  chats: Block[];
+  chats: any[];
   userList: any[];
   user: User;
   isAuthorized: boolean;
