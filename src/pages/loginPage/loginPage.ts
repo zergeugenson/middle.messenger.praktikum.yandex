@@ -29,6 +29,7 @@ class LoginPage extends Block {
     });
 
     const submitButton = new SubmitButton({
+      class: 'submit-button',
       id: 'signin-button',
       text: 'Войти',
       type: 'submit',
@@ -39,7 +40,7 @@ class LoginPage extends Block {
       href: '#',
       events: {
         click: () => {
-          appRouter.go(appRoutes.Settings);
+          appRouter.go(appRoutes.SignUp);
         },
       },
     });

@@ -40,7 +40,7 @@ class ProfilePage extends Block {
       name: 'avatar',
       type: 'submit',
       isdisabled: false,
-      class: 'profile-avatar-button hidden',
+      class: 'submit-button profile-avatar-button hidden',
     });
     const profileAvatar = new ProfileAvatar({
       profileAvatarUrl: props.user.avatar ? `${RESOURSES}${props.user.avatar}` : '/images/default-avatar.png',
@@ -75,7 +75,6 @@ class ProfilePage extends Block {
         id: 'profile-login',
         name: 'login',
         type: 'text',
-        isdisabled: true,
         pattern: /^[a-zA-Z0-9_-]{3,20}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
         value: props.user.login,
@@ -85,7 +84,6 @@ class ProfilePage extends Block {
         id: 'profile-mail',
         name: 'email',
         type: 'text',
-        isdisabled: true,
         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
         value: props.user.email,
@@ -95,7 +93,6 @@ class ProfilePage extends Block {
         id: 'profile-first_name',
         name: 'first_name',
         type: 'text',
-        isdisabled: true,
         value: props.user.firstName,
       }),
       new InputField({
@@ -103,7 +100,6 @@ class ProfilePage extends Block {
         id: 'profile-second_name',
         name: 'second_name',
         type: 'text',
-        isdisabled: true,
         value: props.user.secondName,
       }),
       new InputField({
@@ -112,37 +108,21 @@ class ProfilePage extends Block {
         value: props.user.displayName,
         name: 'display_name',
         type: 'text',
-        isdisabled: true,
       }),
       new InputField({
         label: 'Телефон',
         id: 'profile-phone',
         name: 'phone',
         type: 'phone',
-        isdisabled: true,
         pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
         errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
         value: props.user.phone,
       }),
 
     ];
-    const changeDataLink = new Link({
-      class: '',
-      href: '#',
-      text: 'Изменить профиль',
-      disabled: false,
-      events: {
-        click: () => {
-          userDataFields.forEach((item)=>{
-            item.setProps({ isdisabled: false });
-          });
-          this.children.changeDataLink.setProps({ class: 'hidden' });
-          this.children.saveDataLink.setProps({ class: '' });
-        },
-      },
-    });
-    const saveDataLink = new Link({
-      class: 'hidden',
+
+    const saveDataLink = new SubmitButton({
+      class: 'iLink submit-button',
       href: '#',
       text: 'Сохранить профиль',
       disabled: false,
@@ -156,7 +136,7 @@ class ProfilePage extends Block {
             login: data.login,
             phone: data.phone,
             second_name: data.second_name,
-          }).then(() => this.saveData(userDataFields));
+          }).then(() => this.saveData);
         },
       },
     });
@@ -188,7 +168,6 @@ class ProfilePage extends Block {
       roundButton,
       userDataFields,
       logoutLink,
-      changeDataLink,
       saveDataLink,
       profileAvatar,
       avatarField,
@@ -198,18 +177,9 @@ class ProfilePage extends Block {
     init();
   }
 
-  saveData(targetObj: any) {
+  saveData() {
     const user = window.store.getState().user;
     this.setProps({ user: user });
-    targetObj.forEach((item: any)=>{
-      this.children.changeDataLink.setProps({ class: '' });
-      this.children.saveDataLink.setProps({ class: 'hidden' });
-      const el = item.element.children[0].querySelector('input');
-      if (el) {
-        el.disabled = true;
-        el.classList.add('disabled');
-      }
-    });
   }
 
   render() {

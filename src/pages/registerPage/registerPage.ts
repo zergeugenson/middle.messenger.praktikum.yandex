@@ -62,6 +62,7 @@ class RegisterPage extends Block {
       id: 'signup-button',
       text: 'Зарегистрироваться',
       type: 'submit',
+      class: 'submit-button'
     });
     const linkBack = new Link({
       href: '#',

@@ -105,11 +105,11 @@ class ChatPage extends Block {
     const searchForUserField = new InputField({
       name: 'username',
       placeholder: 'Введите часть имени пользователя',
-      value: 'string',
+      value: '',
     });
 
     const searchForUserButton = new RoundButton({
-      type: 'button',
+      type: 'submit',
       events: {
         click: (e: Event) => {
           e.preventDefault();
@@ -130,12 +130,14 @@ class ChatPage extends Block {
       ],
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Закрыть',
           events: {
             click: () => hidePopup(this.children.createChatPopUp.element),
           },
         }),
         new SubmitButton({
+          class: 'submit-button',
           text: 'Создать',
           events: {
             click: () => this.doCreateChat(),
@@ -150,12 +152,14 @@ class ChatPage extends Block {
       title: 'Удалить чат?',
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Закрыть',
           events: {
             click: () => hidePopup(this.children.deleteChatPopUp.element),
           },
         }),
         new SubmitButton({
+          class: 'submit-button',
           text: 'Удалить',
           events: {
             click: () => this.doDeleteChat(),

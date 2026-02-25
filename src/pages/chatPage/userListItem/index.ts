@@ -33,6 +33,7 @@ export default class UserListItem extends Block {
       title: 'Выгнать пользователя?',
       buttons: [
         new SubmitButton({
+          class: 'submit-button',
           text: 'Отменить',
           events: {
             click: () =>
@@ -40,6 +41,7 @@ export default class UserListItem extends Block {
           },
         }),
         new SubmitButton({
+          class: 'submit-button',
           text: 'Выгнать',
           events: {
             click: () => this.doKickUser(props),

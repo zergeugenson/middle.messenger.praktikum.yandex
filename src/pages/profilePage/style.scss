@@ -26,6 +26,9 @@
     overflow: auto;
     padding: 60px 0 64px;
 
+    button[type="submit"] {
+      width: auto;
+    }
     .change-profile-form {
       width: 510px;
 
