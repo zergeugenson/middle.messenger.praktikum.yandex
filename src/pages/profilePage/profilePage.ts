@@ -129,14 +129,7 @@ class ProfilePage extends Block {
       events: {
         click: () => {
           const data = getFormData('change-profile-form');
-          void changeUserProfile({
-            display_name: data.display_name,
-            email: data.email,
-            first_name: data.first_name,
-            login: data.login,
-            phone: data.phone,
-            second_name: data.second_name,
-          }).then(() => { this.saveData(); });
+          void changeUserProfile({ ...data }).then(() => { this.saveData(); });
         },
       },
     });
