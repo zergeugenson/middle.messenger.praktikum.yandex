@@ -63,6 +63,7 @@ export interface ChatListItemProps {
   events?: {
     click: () => void;
   };
+  chatID: number;
 }
 
 export interface UserDataRequest {

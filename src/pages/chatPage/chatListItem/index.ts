@@ -2,10 +2,10 @@ import './style.scss';
 import Block from '@/framework/Block';
 import template from './chatListItem.hbs';
 import { ucFirst } from '@/framework/utils';
-import { BlockProps } from '@/types';
+import { ChatListItemProps } from '@/types';
 
 export default class ChatListItem extends Block {
-  constructor(props: BlockProps) {
+  constructor(props: ChatListItemProps) {
 
     const init = () => {
       if (props.title) {
@@ -14,12 +14,12 @@ export default class ChatListItem extends Block {
     };
     super({ ...props,
       events: {
-        click: (e: Event) => {
+        click: () => {
           if (typeof props?.events?.click === 'function') {
-            props.events.click(e);
+            props.events.click();
           }
           this.setProps({ isSelectedChat: true });
-          window.store.set({ selectedChat: props.chatID as number });
+          window.store.set({ selectedChat: props.chatID });
         },
       },
     });
