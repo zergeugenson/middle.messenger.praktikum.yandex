@@ -1,25 +1,25 @@
 import AuthApi from '@/api/Auth';
-import type { UserLoginForm, User } from '@/types';
+import type { UserLoginForm, UserDataRequest } from '@/types';
 
 const authApi = new AuthApi();
 
-const doLogin = async (data: { [key: string]: FormDataEntryValue }): Promise<boolean> => {
+const doLogin = async (data: { [key: string]: FormDataEntryValue }): Promise<unknown> => {
   return authApi.login(data);
 };
 
-const doLogout = async (): Promise<boolean> => {
+const doLogout = async (): Promise<unknown> => {
   window.store.set({ user: {} });
   window.store.set({ isAuthorized: false });
   return authApi.logout();
 };
 
-const doRegister = async (data: UserLoginForm): Promise<boolean> => {
+const doRegister = async (data: UserLoginForm): Promise<unknown> => {
   return authApi.register(data);
 };
 
-const getUser = async (): Promise<User> => {
-  const userdata = await authApi.user();
-  const user = {
+const getUser = async (): Promise<unknown> => {
+  const userdata = await authApi.user() as UserDataRequest;
+  const user: any = {
     avatar: userdata.avatar,
     id: userdata.id,
     displayName: userdata.display_name,
@@ -29,6 +29,7 @@ const getUser = async (): Promise<User> => {
     phone: userdata.phone,
     secondName: userdata.second_name,
   };
+
   if (user?.id) {
     window.store.set({ isAuthorized: true });
     window.store.set({ user });

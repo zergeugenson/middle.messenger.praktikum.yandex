@@ -65,4 +65,8 @@ export interface ChatListItemProps {
   };
 }
 
+export interface UserDataRequest {
+  [key: string]: string | number;
+}
+
 export type PageTypes = any;
