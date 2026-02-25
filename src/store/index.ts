@@ -5,7 +5,6 @@ export enum StoreEvents {
   Updated = 'Updated',
 }
 
-
 export const initState: AppState = {
   user: {},
   userList: [],
