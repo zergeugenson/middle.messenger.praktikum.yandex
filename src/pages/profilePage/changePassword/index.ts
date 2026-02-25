@@ -5,9 +5,10 @@ import { getFormData, hidePopup, showPopup } from '@/framework/utils';
 import { changeUserPassword } from '@/controllers/userController';
 import Popup from '@/components/popUp';
 import { SubmitButton } from '@/components/submitButton';
+import { BlockProps } from '@/types';
 
 export default class ChangePassword extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps = {}) {
 
     const passwordDataFields = [
       new InputField({

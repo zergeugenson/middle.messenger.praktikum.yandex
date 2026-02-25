@@ -2,9 +2,15 @@ import './style.scss';
 import Block from '@/framework/Block';
 import template from './chatListItem.hbs';
 import { ucFirst } from '@/framework/utils';
+import { BlockProps } from '@/types';
+
+
+export interface ChatListItemProps extends BlockProps {
+  title: string;
+}
 
 export default class ChatListItem extends Block {
-  constructor(props: any) {
+  constructor(props: ChatListItemProps) {
 
     const init = () => {
       if (props.title) {
@@ -18,7 +24,7 @@ export default class ChatListItem extends Block {
             props.events.click(e);
           }
           this.setProps({ isSelectedChat: true });
-          window.store.set({ selectedChat: props.chatID });
+          window.store.set({ selectedChat: props.chatID as number });
         },
       },
     });

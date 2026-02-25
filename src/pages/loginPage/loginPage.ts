@@ -7,13 +7,16 @@ import template from './loginPage.hbs';
 import { connect } from '@/framework/connect';
 import { appRouter, appRoutes } from '@/main';
 import { doLogin, getUser } from '@/controllers/authController';
+import { BlockProps } from '@/types';
 
 class LoginPage extends Block {
-  constructor(props: Record<string, any> = {}) {
+  constructor(props: BlockProps | object = {}) {
     const loginField = new InputField({
       name: 'login',
       type: 'text',
-      placeholder: 'Введите логин',
+      placeholder: 'Вв' +
+          '' +
+          'едите логин',
       pattern: /^[a-zA-Z0-9_-]{3,20}$/,
       errorMessage: '3-20 символов латиницей, без пробелов',
       value: '',
