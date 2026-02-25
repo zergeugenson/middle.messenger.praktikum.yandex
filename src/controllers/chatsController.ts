@@ -20,17 +20,17 @@ const getChats = async (): Promise<ChatListItemProps[]> => {
   return chats;
 };
 
-const createChat = async (form: any): Promise<any[]> => {
+const createChat = async (form: any): Promise<unknown> => {
   await chatsApi.create(form);
   return getChats();
 };
 
-const getChatUsers = async (id: number): Promise<any[]> => {
+const getChatUsers = async (id: number): Promise<unknown> => {
   const users = await chatsApi.users(id);
   return users;
 };
 
-const deleteChat = async (data: any): Promise<any[]> => {
+const deleteChat = async (data: any): Promise<unknown> => {
   await chatsApi.delete(data);
   return getChats();
 };
@@ -43,7 +43,7 @@ const kickUserFromChat = async (data: any): Promise<void> => {
   });
 };
 
-const userSearch = async (data: any): Promise<any> => {
+const userSearch = async (data: any): Promise<unknown> => {
   const search = await chatsApi.search(data);
   return search;
 };
@@ -56,8 +56,8 @@ const addUserToChat = async (data: any): Promise<void> => {
   });
 };
 
-const getToken = async (id: number): Promise<string> => {
-  const response = await chatsApi.token(id);
+const getToken = async (id: number): Promise<unknown> => {
+  const response = await chatsApi.token(id) as { [key:string]:string };
   const chatToken = response.token;
   window.store.set({ chatToken });
   return chatToken;
