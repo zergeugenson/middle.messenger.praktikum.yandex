@@ -1,0 +1,37 @@
+.sidebar {
+  box-sizing: content-box;
+  max-height: 100vh;
+  overflow: hidden auto;
+  position: relative;
+
+  &__header {
+    display: flex;
+    height: 48px;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    text-align: right;
+
+    span {
+      align-items: center;
+      display: flex;
+
+      &.my-name {
+        font-weight: 700;
+      }
+    }
+
+    .create-chat {
+      margin-right: 10px;
+    }
+
+    img {
+      width: 32px;
+    }
+
+    button {
+      display: inline-block;
+      width: auto;
+
+    }
+  }
+}

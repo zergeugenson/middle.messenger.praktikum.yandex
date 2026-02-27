@@ -1,6 +1,7 @@
 <div class="input-field{{# if skin }} {{ skin }}{{/ if }}{{# if class }} {{ class }}{{/ if }}">
 	<label class="input-field__body">
 		{{{ Input }}}
+		<div class="label">{{#if label}}{{{label}}}{{/if}}</div>
 	</label>
 	{{{ ErrorLine }}}
 </div>

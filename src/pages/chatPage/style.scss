@@ -8,7 +8,7 @@
 
   &__left-column {
     border-right: 1px solid var(--border-color);
-    min-width: 300px;
+    min-width: 360px;
     padding: 15px;
     width: 25%;
 
@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    max-height: 100vh;
     width: 75%;
 
     .header-field {
@@ -31,14 +32,7 @@
       flex-grow: 0;
       height: 90px;
       padding: 15px;
-
-      &__avatar {
-        background-color: var(--border-color);
-        border-radius: 20px;
-        flex-grow: 0;
-        height: 40px;
-        width: 40px;
-      }
+      position: relative;
 
       &__name {
         font-weight: 600;
@@ -48,7 +42,12 @@
       &__actions {
         display: flex;
         flex-grow: 1;
+        gap: 20px;
         justify-content: flex-end;
+
+        img {
+          width: 18px;
+        }
 
         .actions-button {
           align-items: center;
@@ -63,45 +62,47 @@
       }
     }
 
-    .messages-field {
-      flex-grow: 1;
-      overflow: auto;
-      padding: 15px 15px 0;
+    .users-field {
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 8px #0003;
+      display: none;
+      left: 0;
+      margin: 0;
+      padding: 10px;
+      position: absolute;
+      top:91px;
+      width: 100%;
+      z-index: 2;
 
-      .chat-messsage {
-        margin-bottom: 30px;
+      &__users-search{
+        margin-top: 15px;
 
-        &:last-child {
-          margin-bottom: 15px;
+        .users-search__controls {
+          align-items: center;
+          display: flex;
+
+          .input-field {
+            flex-grow: 1;
+          }
+
+          .round-button {
+            margin: 0 0 17px 5px;
+          }
         }
       }
-    }
 
-    .typing-field {
-      align-items: center;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      gap: 15px;
-      height: 75px;
-      justify-content: center;
-      padding: 15px;
-
-      #send-message-form {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
+      &__results {
+        display: inline-flex;
+        flex-wrap: wrap;
         gap: 10px;
-
-        .input-field {
-          flex-grow: 1;
-        }
-      }
-
-      .input-field__error {
-        display: none;
+        max-width: 100%;
+        row-gap: 2px;
       }
     }
+
   }
 }
+
+
 

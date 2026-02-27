@@ -9,6 +9,7 @@
   --danger-color: #c00;
   --light-blue-color: #E4EDFD;
   --light-gray-color: #F8F8F8;
+  --background-pop-up: rgb(0 0 0 / 50%);
 }
 
 body {
@@ -20,7 +21,7 @@ body {
   padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   text-align: center;
 }
 
@@ -36,6 +37,11 @@ h2 {
 
 h3 {
   font-size: 18px;
+  font-weight: 400;
+}
+
+h4 {
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -61,4 +67,17 @@ a {
 
 .hidden {
   display: none;
+}
+
+.avatar-letter {
+  align-items: center;
+  background: var(--danger-color);
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
 }

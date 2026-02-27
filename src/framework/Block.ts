@@ -1,7 +1,6 @@
 import EventBus, { EventCallback } from './EventBus';
-import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
-import type { BlockProps, Children } from '@/types';
+import type { BlockProps } from '@/types';
 
 export default class Block {
   static EVENTS = {
@@ -14,8 +13,6 @@ export default class Block {
 
   public isError: boolean = false;
 
-  private _isMounted: boolean = false;
-
   protected id: string;
 
   protected _element: HTMLElement | null = null;
@@ -24,47 +21,47 @@ export default class Block {
 
   protected children: Record<string, Block>;
 
-  protected lists: Record<string, BlockProps[]>;
-
   protected template: string | undefined;
 
   protected eventBus: () => EventBus;
 
-  constructor({ ...propsWithChildren }) {
+  protected tagName: string;
+
+  constructor({ ...propsWithChildren }, tagName = 'div') {
+    this.id = nanoid();
     const eventBus = new EventBus();
-    const { props, children, lists } = this._getChildrenAndProps(propsWithChildren);
-    this.props = this._makePropsProxy(props);
+    const { props, children } = this._getChildrenAndProps(propsWithChildren);
+    this.props = this._makePropsProxy({ ...props, id: this.id });
     this.children = children;
-    this.lists = lists;
     this.template = this.props.template;
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.ONINIT);
+    this.tagName = tagName;
   }
 
-  private _getChildrenAndProps(propsAndChildren: BlockProps): {
-    children: Record<string, Block>,
-    props: BlockProps,
-    lists: Record<string, BlockProps[]>
-  } {
-    const children: Children = {};
-    const props: { [key: string]: BlockProps } = {};
-    const lists: { [key: string]: Children[] } = {};
+  private _getChildrenAndProps(propsWithChildren: any) {
+    const children: any = {};
+    const props: any = {};
 
-    Object.entries(propsAndChildren).forEach(([key, value]) => {
+    Object.entries(propsWithChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
-      } else if (
-        Array.isArray(value) &&
-          value.some((item) => Object.values(item)[0] instanceof Block)
-      ) {
-        lists[key] = value;
       } else {
-        props[key] = value as BlockProps;
+        if (Array.isArray(value) && value[0] instanceof Block) {
+          value.forEach((item, index) => {
+            if (!children[key]) {
+              children[key] = [];
+            }
+            children[key][index] = item;
+          });
+        } else {
+          props[key] = value;
+        }
       }
     });
 
-    return { children, props, lists };
+    return { children, props };
   }
 
   private _makePropsProxy(props: BlockProps): BlockProps {
@@ -76,9 +73,8 @@ export default class Block {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: { [key: string]: object }, prop: string, value: object) {
-        const oldTarget = { ...target };
         target[prop] = value;
-        self.eventBus().emit(Block.EVENTS.ONUPDATE, oldTarget, target);
+        self.eventBus().emit(Block.EVENTS.ONUPDATE, target);
         return true;
       },
       deleteProperty() {
@@ -111,27 +107,26 @@ export default class Block {
   }
 
   protected init(): void {
-    // console.log('ONINIT:', this.props);
+    this._element = this._createDocumentElement(this.tagName);
     this.eventBus().emit(Block.EVENTS.ONRENDER);
   }
 
-  private _componentDidMount(): void {
-    // console.log('ONMOUNT:', this.props);
-    if (!this._isMounted) {
-      this._isMounted = true;
-
-      Object.values(this.children).forEach(child => {
+  private _componentDidMount(oldProps: BlockProps): void {
+    this.componentDidMount(oldProps);
+    //Теперь, когда для родительского компонента будет вызван componentDidMount, он последовательно будет вызван для всех потомков вниз по дереву компонентов.
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((item) => {
+          item.dispatchComponentDidMount();
+        });
+      } else {
         child.dispatchComponentDidMount();
-      });
+      }
+    });
+  }
 
-      Object.values(this.lists).forEach((childList) => {
-        Object.values(childList).forEach((children) =>
-          Object.values(children).forEach((child:Block) => {
-            child.dispatchComponentDidMount();
-          }),
-        );
-      });
-    }
+  componentDidMount(oldProps: BlockProps) {
+    return oldProps;
   }
 
   private _componentWillUnmount() {
@@ -139,15 +134,6 @@ export default class Block {
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidUnMount();
     });
-
-    Object.values(this.lists).forEach((childList) => {
-      Object.values(childList).forEach((children) =>
-        Object.values(children).forEach((child:Block) => {
-          child?.dispatchComponentDidUnMount();
-        }),
-      );
-    });
-
     this._removeEvents();
     this._element?.remove();
   }
@@ -160,19 +146,12 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.ONUNMOUNT);
   }
 
-  private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (!response) {
-      return;
-    }
-    this._render();
+  private _componentDidUpdate(): void {
+    this.componentDidUpdate();
+    this.eventBus().emit(Block.EVENTS.ONRENDER);
   }
 
-  protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    // 2do разобраться с этим.
-    // const isEqual = oldProps === newProps;
-    // console.log('isEqual', isEqual);
-    console.log('ONUPDATE: \n oldProps=', oldProps, '\n newProps=', newProps);
+  protected componentDidUpdate(): boolean {
     return true;
   }
 
@@ -180,77 +159,29 @@ export default class Block {
     return this._element!;
   }
 
-  private _render(): void {
-    // console.log('ONRENDER:', this.props);
-    const propsAndStubs = { ...this.props };
-    const tmpId =  nanoid(10);
-
-    Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
-    });
-
-    Object.entries(this.lists).forEach(([key]) => {
-      propsAndStubs[key] = `<div data-id="${tmpId}"></div>`;
-    });
-
-    const fragment = this._createDocumentElement('template');
-    fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
-
-    Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(
-        `[data-id="${child.id}"]`,
-      ) as HTMLElement;
-      if (stub) {
-        stub.replaceWith(child.getContent());
-      }
-    });
-
-
-    Object.values(this.lists).forEach((childList) => {
-      const stub = fragment.content.querySelector(
-        `[data-id="${tmpId}"]`,
-      ) as HTMLElement;
-      if (stub) {
-        const elements = childList
-          .map((children) =>
-            Object.values(children).map((child:Block) => child?.getContent()),
-          )
-          .flat();
-
-        stub.replaceWith(...elements);
-      }
-    });
-
-    this._removeEvents();
-    const newElement = fragment.content.firstElementChild as HTMLElement;
-
-    // Установка атрибутов для нового элемента
-    if (newElement && this.props.attr) {
+  private _render() {
+    const fragment = this.render();
+    const element = fragment.firstElementChild as HTMLElement;
+    if (element && this.props.attr) {
       Object.entries(this.props.attr).forEach(([key, value]) => {
-        newElement.setAttribute(key, value);
+        element.setAttribute(key, value);
       });
     }
+    this._removeEvents();
     if (this._element) {
-      this._element.replaceWith(newElement);
+      this._element.innerHTML = '';
+      this._element.replaceWith(element);
     }
-    this._element = newElement;
+    this._element = element;
+
     this._addEvents();
   }
 
-  render(): string {
-    return this.template ? this.template : '<div>Нет шаблона</div>';
+  render(): DocumentFragment {
+    return new DocumentFragment();
   }
 
   getContent() {
-    if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-      setTimeout(() => {
-        if (
-          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
-        ) {
-          this.dispatchComponentDidMount();
-        }
-      }, 100);
-    }
     return this.element;
   }
 
@@ -262,7 +193,53 @@ export default class Block {
     if (!nextProps) {
       return;
     }
+    const { children } = this._getChildrenAndProps(nextProps as BlockProps);
+    Object.assign(this.children, children);
     Object.assign(this.props, nextProps);
   };
+
+  compile(template: any, props: any) {
+    const propsAndStubs = { ...props };
+    Object.entries(this.children).forEach(([key, child]) => {
+      //добавляем заглушки в объект с пропсами
+      if (Array.isArray(child)) {
+        propsAndStubs[key] = [];
+        child.forEach((item) => {
+          propsAndStubs[key].push({
+            [key]: `<div data-id="${item.id}"></div>`,
+          });
+        });
+      } else {
+        propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
+      }
+    });
+
+    //Чтобы не рендерить заглушки на страницу, создадим временный контейнер.
+    const fragment = this._createDocumentElement(
+      'template',
+    );
+    //Теперь нужно заменить заглушки на компоненты.
+    fragment.innerHTML = template(propsAndStubs);
+    //Рендерим наш шаблон в созданный элемент, а затем заменяем в нём заглушки на компоненты.
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((item) => {
+          const stub = fragment.content.querySelector(`[data-id="${item.id}"]`);
+
+          if (stub) stub.replaceWith(item.getContent());
+        });
+      } else {
+        const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+        if (stub) stub.replaceWith(child.getContent());
+      }
+    });
+
+    return fragment.content;
+  }
+
+  hide(): void {
+    const content = this.getContent();
+    if (content && Boolean(false)) content.style.display = 'none';
+  }
 
 }

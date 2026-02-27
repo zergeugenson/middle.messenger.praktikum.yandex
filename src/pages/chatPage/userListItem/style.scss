@@ -1,0 +1,31 @@
+
+.user-list-item-container {
+  display: inline-block;
+  margin-bottom: 3px;
+  margin-right: 20px;
+
+  span {
+    display: inline-block;
+  }
+
+  .user-list-item {
+    align-items: center;
+    display: inline-flex;
+    text-decoration: none;
+
+    a{
+      display: inline-block;
+      font-size: 0;
+      text-decoration: none;
+    }
+
+    img {
+      width: 18px;
+    }
+
+    .user-name{
+      font-weight: 700;
+    }
+  }
+}
+

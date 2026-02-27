@@ -1,30 +1,41 @@
 <main class="chat-page">
 	<div class="chat-page__left-column">
-		<div class="profile-link">{{{ profileLink }}}</div>
-		{{{ searchField }}}
-		{{# each (chatPageUserList) }}
-			{{> chatContact this }}
-		{{/ each }}
+		<div class="sidebar__header">
+			<span class="my-name">{{{userName}}} </span>
+			<span>{{{createChatButton}}}{{{viewProfile}}} </span>
+		</div>
+		<form id="sidebar-search-user">
+			{{{searchField}}}
+		</form>
+		{{{sidebar}}}
 	</div>
 	<div class="chat-page__right-column">
-		<div class="header-field">
-			<div class="header-field__avatar"></div>
-			<div class="header-field__name">Андрей</div>
-			<div class="header-field__actions">
-				<div class="actions-button"><img src="/images/three-dots.png" alt="Открыть меню" /></div>
+			<div class="header-field">
+				{{#if chatName}}
+					<div class="header-field__avatar avatar-letter">{{{avatarLetter}}}</div>
+				{{/if}}
+				<div class="header-field__name">{{{chatName}}}</div>
+				<div class="header-field__actions">
+					{{#each activeChatButtons }}
+						{{{activeChatButtons}}}
+					{{/each}}
+				</div>
+				<div class="users-field" id="user-field" style="display:none;">
+					<span>Пользователи в чате: </span>
+					{{#each userList}}
+						{{{userList}}}
+					{{/each}}
+					<div class="users-field__users-search">
+						<form class="users-search__controls" id="users-search-form">
+								{{{searchForUserField}}} {{{searchForUserButton}}}
+						</form>
+						{{{foundUsersList}}}
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="messages-field">
-			{{# each (chatPageMessageList) }}
-				{{> chatMessage this }}
-			{{/ each }}
-		</div>
-		<div class="typing-field">
-			<p><img src="/images/skrepka.png" alt="Добавить вложение" /></p>
-			<form action="#" id="send-message-form">
-				{{{ messageField }}}
-				{{{ RoundButton }}}
-			</form>
-		</div>
+		{{{ activeChatWindow }}}
 	</div>
+	{{{createChatPopUp}}}
+	{{{addUserToChatPopUp}}}
+	{{{deleteChatPopUp}}}
 </main>

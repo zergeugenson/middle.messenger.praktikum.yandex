@@ -12,7 +12,6 @@ interface Attributes {
   [key: string]: string;
 }
 
-// 2DO разобраться с типами пропсов
 export interface BlockProps {
   events?: EventMap;
   attr?: Attributes | false;
@@ -22,4 +21,89 @@ export interface BlockProps {
   onBlur?: (event: Event) => void;
   class?: string;
   [key:string]: unknown;
+  displayName? : string;
 }
+
+export interface User {
+  avatar?: string;
+  displayName?: string;
+  email?: string;
+  firstName?: string;
+  id?: number;
+  login?: string
+  phone?: string;
+  secondName?: string;
+}
+
+export interface AppState {
+  messages: any[];
+  chats: any[];
+  userList: any[];
+  user: User;
+  isAuthorized: boolean;
+  chatToken: string | null;
+  socket?: any;
+  selectedChat: number;
+  usersInChat?: { id: number, name: string }[] | [];
+}
+
+export interface UserLoginForm {
+  [key: string]: FormDataEntryValue;
+}
+
+export interface ChatListItemProps {
+  id?: number;
+  last_message?: {
+    content: string;
+    time: string;
+  };
+  chatMessage?: string;
+  unread_count?: number;
+  avatar?: string;
+  title?: string;
+  events?: {
+    click: () => void;
+  };
+  chatID?: number;
+  time?: string;
+  isSelectedChat?: boolean;
+}
+
+export interface UserDataRequest {
+  avatar?: string;
+  display_name?: string;
+  email?: string;
+  first_name?: string;
+  id?: number;
+  login?: string
+  phone?: string;
+  second_name?: string;
+  last_message?: {
+    content: string;
+    time: string;
+  };
+}
+
+export interface ChatMessageProps {
+  chat_id?: number;
+  content?: string;
+  file?: unknown;
+  id?: number;
+  is_read?: boolean;
+  time?: string
+  type?: string
+  user_id?: number;
+  mymessage?: boolean;
+}
+
+export interface UserListItemProps {
+  userLogin: string;
+  userName: string;
+  onclick: () => void;
+  userID: number;
+  events?: {
+    [key: string]: EventListenerOrEventListenerObject;
+  };
+}
+
+export type PageTypes = any;

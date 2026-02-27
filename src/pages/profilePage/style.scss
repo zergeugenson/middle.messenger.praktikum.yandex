@@ -1,59 +1,40 @@
 .profile-page {
   background-color: white;
-  display: flex;
-  gap: 0;
-  height: 100vh;
-  overflow: hidden;
-  width: 100%;
+  position: relative;
 
   &__left-column {
     align-items: center;
     background-color: var(--light-gray-color);
     border-right: 1px solid var(--border-color);
     display: flex;
+    height: 100vh;
     justify-content: center;
-    padding: 15px;
-    width: 64px;
+    left: 0;
+    padding: 12px;
+    position: fixed;
+    top: 0;
+    width: 60px;
+    z-index: 100;
   }
 
   &__right-column {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex-grow: 1;
-    height: 100vh;
     justify-content: center;
+    max-height: 100vh;
     overflow: auto;
+    padding: 60px 0 64px;
 
-    .profile__avatar-container {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 15px;
-
-      .avatar{
-        align-items: center;
-        background-color: var(--background-color);
-        border-radius: 65px;
-        display: flex;
-        height: 130px;
-        justify-content: center;
-        margin-bottom: 15px;
-        width: 130px;
-      }
-
-      span {
-        font-weight: 500;
-      }
+    button[type="submit"] {
+      width: auto;
     }
 
-    #change-profile-form {
+    .change-profile-form {
       width: 510px;
 
       ul.profile__userdata-container {
-        margin-bottom: 30px;
-
         li.userdata__item {
-          // border-bottom: 1px solid var(--border-color);
           display: flex;
           font-size: 16px;
           padding: 6px 0;
@@ -72,7 +53,7 @@
             justify-content: flex-end;
 
             .input-field {
-              width: 300px;
+              width: 330px;
 
               .input-element {
                 text-align: right;
@@ -83,6 +64,10 @@
       }
 
       ul.profile__actions-container {
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 15px;
+        padding-bottom: 30px;
+
         li.actions__item {
           border-bottom: 1px solid var(--border-color);
           padding: 8px 0;
@@ -90,6 +75,10 @@
           &:last-child {
             border: none;
           }
+        }
+
+        &:last-child {
+          border: none;
         }
       }
     }

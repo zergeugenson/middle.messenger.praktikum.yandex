@@ -1,0 +1,188 @@
+import './style.scss';
+import Block from '@/framework/Block';
+import { Link } from '@/components/iLink';
+import { RoundButton } from '@/components/roundButton';
+import { InputField } from '@/components/inputField';
+import ProfileAvatar from './profileAvatar';
+import ChangePassword from './changePassword';
+import template from './profilePage.hbs';
+import { appRouter, appRoutes } from '@/main';
+import { connect } from '@/framework/connect';
+import { doLogout } from '@/controllers/authController';
+import { getFormData } from '@/framework/utils';
+import { changeUserProfile, changeUserAvatar } from '@/controllers/userController';
+import Input from '@/components/inputField/inputelement';
+import { SubmitButton } from '@/components/submitButton';
+import { RESOURSES } from '@/lib/constants';
+import { BlockProps, User } from '@/types';
+
+interface ProfilePageProps extends BlockProps {
+  user: User;
+}
+
+class ProfilePage extends Block {
+  constructor(props: ProfilePageProps) {
+
+    const roundButton = new RoundButton({
+      class: 'i-link rotate',
+      events: {
+        click: () => {
+          appRouter.go(appRoutes.Messenger);
+        },
+      },
+    });
+
+    const avatarField = new Input({
+      id: 'profile-avatar-input',
+      name: 'avatar',
+      type: 'file',
+      isdisabled: false,
+      class: 'profile-avatar-input hidden',
+    });
+    const avatarUploadButton = new SubmitButton({
+      id: 'profile-avatar-button',
+      name: 'avatar',
+      type: 'submit',
+      isdisabled: false,
+      class: 'submit-button profile-avatar-button hidden',
+    });
+    const profileAvatar = new ProfileAvatar({
+      profileAvatarUrl: props.user.avatar ? `${RESOURSES}${props.user.avatar}` : '/images/default-avatar.png',
+      events: {
+        click: (e:Event) => {
+          e.preventDefault();
+          const avatarImage = document.getElementById('avatar-container') as HTMLImageElement;
+          const fileInput = document.getElementsByClassName('profile-avatar-input')[0] as HTMLFormElement;
+          const fileButton = document.getElementsByClassName('profile-avatar-button')[0];
+          if (fileInput && fileButton) {
+            fileInput.addEventListener('change', () => {
+              if (fileInput.files.length > 0) {
+                void changeUserAvatar(fileInput.files[0]).then((res:any) => {
+                  if (res.avatar) {
+                    avatarImage.src = URL.createObjectURL(fileInput.files[0]);
+                    this.children.profileAvatar.setProps({ profileAvatarUrl: `${RESOURSES}${res.avatar}` });
+                  } else {
+                    console.error('Изображение не загрузилось');
+                  }
+                });
+              }
+            });
+            fileInput.click();
+          }
+        },
+      },
+    });
+
+    const userDataFields = [
+      new InputField({
+        label: 'Логин',
+        id: 'profile-login',
+        name: 'login',
+        type: 'text',
+        pattern: /^[a-zA-Z0-9_-]{3,20}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: props.user.login,
+      }),
+      new InputField({
+        label: 'E-mail',
+        id: 'profile-mail',
+        name: 'email',
+        type: 'text',
+        pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: props.user.email,
+      }),
+      new InputField({
+        label: 'Имя',
+        id: 'profile-first_name',
+        name: 'first_name',
+        type: 'text',
+        value: props.user.firstName,
+      }),
+      new InputField({
+        label: 'Фамилия',
+        id: 'profile-second_name',
+        name: 'second_name',
+        type: 'text',
+        value: props.user.secondName,
+      }),
+      new InputField({
+        label: 'Псевдоним',
+        id: 'profile-display_name',
+        value: props.user.displayName,
+        name: 'display_name',
+        type: 'text',
+      }),
+      new InputField({
+        label: 'Телефон',
+        id: 'profile-phone',
+        name: 'phone',
+        type: 'phone',
+        pattern: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$/,
+        errorMessage: 'от 3 до 20 символов, латиница, без пробелов',
+        value: props.user.phone,
+      }),
+
+    ];
+
+    const saveDataLink = new SubmitButton({
+      class: 'iLink submit-button',
+      href: '#',
+      text: 'Сохранить профиль',
+      disabled: false,
+      events: {
+        click: () => {
+          const data = getFormData('change-profile-form');
+          void changeUserProfile({ ...data }).then(() => { this.saveData(); });
+        },
+      },
+    });
+
+    const changePassword = new ChangePassword();
+
+    const logoutLink = new Link({
+      href: '#',
+      text: 'Выйти',
+      events: {
+        click: () => {
+          void doLogout().then(()=>{
+            appRouter.go(appRoutes.SignIn);
+          });
+        },
+      },
+    });
+
+    const init = () => {
+      props = {
+        ...props,
+        user: window.store.getState().user,
+      };
+      this.setProps(props);
+    };
+
+    super({
+      ...props,
+      roundButton,
+      userDataFields,
+      logoutLink,
+      saveDataLink,
+      profileAvatar,
+      avatarField,
+      avatarUploadButton,
+      changePassword,
+    });
+    init();
+  }
+
+  saveData() {
+    const user = window.store.getState().user;
+    this.setProps({ user: user });
+  }
+
+  render() {
+    return this.compile(template, this.props);
+  }
+
+}
+
+export default connect(({ user }) => ({ user }))(ProfilePage);
