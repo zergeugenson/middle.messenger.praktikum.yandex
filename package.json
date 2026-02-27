@@ -24,6 +24,8 @@
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
+    "@types/sinon": "^21.0.0",
+    "@types/sinon-chai": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.0.0",
     "@yoichiro/vite-plugin-handlebars": "^1.4.0",
@@ -43,7 +45,10 @@
   "dependencies": {
     "express": "^5.2.1",
     "handlebars": "^4.7.8",
-    "nanoid": "^5.1.6"
+    "jsdom": "^28.1.0",
+    "nanoid": "^5.1.6",
+    "sinon": "^21.0.1",
+    "sinon-chai": "^4.0.1"
   },
   "lint-staged": {
     "*.{ts,js}": [
