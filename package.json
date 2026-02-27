@@ -19,36 +19,39 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint \"**/*.scss\"",
-    "lint:style:fix": "stylelint \"**/*.scss\" --fix"
+    "lint:style:fix": "stylelint \"**/*.scss\" --fix",
+    "test:unit": "mocha --experimental-specifier-resolution=node  --require ts-node/register --require tsconfig-paths/register  --require dotenv/config --recursive 'test/*.test.ts'"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
     "@types/sinon": "^21.0.0",
     "@types/sinon-chai": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.0.0",
     "@yoichiro/vite-plugin-handlebars": "^1.4.0",
     "chai": "^6.2.2",
     "eslint": "^8.56.0",
-    "eslint-config-airbnb-typescript": "^18.0.0",
     "mocha": "latest",
     "sass": "^1.97.1",
     "stylelint": "^17.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-order": "^7.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^4.9.5",
+    "typescript": "^4.7.4",
     "vite": "^7.3.0",
     "vite-tsconfig-paths": "^6.0.4"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "dotenv": "^17.3.1",
+    "eslint-config-airbnb-typescript": "^18.0.0",
     "express": "^5.2.1",
     "handlebars": "^4.7.8",
     "jsdom": "^28.1.0",
     "nanoid": "^5.1.6",
     "sinon": "^21.0.1",
-    "sinon-chai": "^4.0.1"
+    "sinon-chai": "^4.0.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   },
   "lint-staged": {
     "*.{ts,js}": [

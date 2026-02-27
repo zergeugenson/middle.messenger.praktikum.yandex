@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 import Router from './Router'
-import Block from '@/framework/Block'
+import Block from '../framework/Block'
 import * as Handlebars from "handlebars";
 
 describe('HTTPTransport', () => {
