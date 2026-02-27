@@ -6,16 +6,24 @@
     "allowSyntheticDefaultImports": true,
     "composite": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "@utils/*": ["./src/utils/*"],
+      "@components/*": ["./src/components/*"],
+      "@config": ["./src/config.ts"],
+      "@/*": ["./src/*"]
+    }
   },
   "ts-node": {
+    "esm": true
+  },
+  "@hyperse/ts-node": {
     "esm": true
   },
   "include": [

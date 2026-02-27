@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { expect } from 'chai'
 import sinon from 'sinon'
-import Router from './Router'
-import Block from '../framework/Block'
+import Router from '@/router/Router'
+import Block from '@/framework/Block'
 import * as Handlebars from "handlebars";
 
 describe('HTTPTransport', () => {
