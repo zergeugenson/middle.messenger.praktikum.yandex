@@ -45,12 +45,13 @@ describe('Тесты модуля Block', () => {
   });
 
   it('Компоненту передается обработчик и он вызывается', () => {
-    const handler = sinon.stub();
+    const handler = sinon.spy();
     const component = new TestComponent({
       text: 'Текст',
       events: { click: handler },
     });
     component.element.click();
-    expect(handler.calledOnce).to.be.true;
+    console.log('handler.calledOnce', handler.calledOnce);
+    expect(handler.calledOnce).to.be.eq(true);
   });
 });
