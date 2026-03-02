@@ -20,7 +20,12 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint \"**/*.scss\"",
     "lint:style:fix": "stylelint \"**/*.scss\" --fix",
-    "test:unit": "mocha --experimental-specifier-resolution=node  --require ts-node/register --require tsconfig-paths/register  --require dotenv/config --recursive 'src/**/*.test.ts'"
+    "test": "mocha --experimental-specifier-resolution=node  --require ts-node/register --require tsconfig-paths/register  --require dotenv/config --recursive 'src/**/*.test.ts'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    }
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
