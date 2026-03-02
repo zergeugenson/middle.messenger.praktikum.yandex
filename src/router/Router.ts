@@ -1,12 +1,17 @@
-import Route from "./Route";
+import Route from './Route';
 
 //Router отвечает только за изменение URL и вызывает Route;
 class Router {
   static __instance: any;
+
   routes: any[];
+
   history: History;
+
   currentRoute: any;
+
   private _rootQuery: any;
+
   constructor(rootQuery: string) {
     if (Router.__instance) {
       return Router.__instance;
@@ -61,7 +66,7 @@ class Router {
 
   //Изменять историю можно через методы pushState (добавляет запись в историю)
   go(pathname: string) {
-    this.history.pushState({}, "", pathname);
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 

@@ -25,8 +25,8 @@
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/sinon": "^21.0.0",
-    "@types/sinon-chai": "^4.0.0",
+    "@types/sinon": "^17.0.3",
+    "@types/sinon-chai": "^3.2.12",
     "@yoichiro/vite-plugin-handlebars": "^1.4.0",
     "chai": "^6.2.2",
     "eslint": "^8.56.0",
@@ -37,6 +37,7 @@
     "stylelint-order": "^7.0.1",
     "typescript": "^4.7.4",
     "vite": "^7.3.0",
+    "sinon-chai": "^4.0.0",
     "vite-tsconfig-paths": "^6.0.4"
   },
   "dependencies": {
@@ -49,8 +50,7 @@
     "handlebars": "^4.7.8",
     "jsdom": "^28.1.0",
     "nanoid": "^5.1.6",
-    "sinon": "^21.0.1",
-    "sinon-chai": "^4.0.1",
+    "sinon": "^18.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
   },
