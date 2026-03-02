@@ -39,7 +39,15 @@ class Router {
     this._onRoute(window.location.pathname);
   }
 
-  private _onRoute(pathname: string) {
+
+  static getInstance(rootQuery: string): Router {
+    if (!Router.__instance) {
+      Router.__instance = new Router(rootQuery);
+    }
+    return Router.__instance;
+  }
+
+  public _onRoute(pathname: string) {
     const route = this._getRoute(pathname);
 
     if (this.currentRoute) {

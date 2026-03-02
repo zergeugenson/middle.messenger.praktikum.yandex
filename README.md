@@ -12,9 +12,14 @@
 - Handlebars
 - Express.js
 - SCSS
--  ESLint
--  Stylelint
+- ESLint
+- Stylelint
+- Husky
 
+
+## Странности
+
+Использован пакет @hyperse/ts-node вместо ts-node, так как для удобства разработки в проекте использовался tsc-алиас '@=/src' для путей, а ts-node алиаcов не понимает, в связи с чем падал пакет mocha. Подробности см. https://github.com/justkey007/tsc-alias/issues/207
 
 ## Установка
 Установить зависимости проекта: `npm install`
