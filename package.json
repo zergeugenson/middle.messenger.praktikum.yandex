@@ -21,7 +21,8 @@
     "lint:style": "stylelint \"**/*.scss\"",
     "lint:style:fix": "stylelint \"**/*.scss\" --fix",
     "cleanup": "npm cache clean --force; rm -rf node_modules; npm install",
-    "test": "mocha --experimental-specifier-resolution=node  --require ts-node/register --require tsconfig-paths/register  --require dotenv/config --recursive 'src/**/*.test.ts'"
+    "test": "mocha --experimental-specifier-resolution=node  --require ts-node/register --require tsconfig-paths/register  --require dotenv/config --recursive 'src/**/*.test.ts'",
+    "prepare": "husky"
   },
   "husky": {
     "hooks": {

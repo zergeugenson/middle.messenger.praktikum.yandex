@@ -6,5 +6,4 @@ const jsdom = new JSDOM('<html><body><div id="app"></div></body></html>', { url:
 
 global.window = jsdom.window
 global.document = jsdom.window.document
-global.MouseEvent = jsdom.window.MouseEvent
 global.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
