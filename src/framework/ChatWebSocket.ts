@@ -15,7 +15,7 @@ class ChatWebSocket {
     this.socket.addEventListener('open', () => {
       this.getMessage();
       this.getOldMessages();
-      this.ping = setInterval(() => {
+      this.ping = window.setInterval(() => {
         this.sendPing();
       }, 30000);
     });
