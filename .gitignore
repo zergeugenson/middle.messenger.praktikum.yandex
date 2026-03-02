@@ -8,6 +8,8 @@ package-lock.json
 
 # IDE
 .idea
+.backup
 
 # Static pages
 dist
+
