@@ -20,13 +20,15 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint \"**/*.scss\"",
     "lint:style:fix": "stylelint \"**/*.scss\" --fix",
-    "cleanup": "npm cache clean --force; rm -rf node_modules; npm install",
+    "lints": "npm run lint:fix && npm run lint:style:fix",
+    "cleanup": "npm cache clean --force && rm -rf node_modules && npm install",
     "test": "mocha --experimental-specifier-resolution=node  --require ts-node/register --require tsconfig-paths/register  --require dotenv/config --recursive 'src/**/*.test.ts'",
-    "prepare": "husky"
+    "prepare": "husky",
+    "pre-commit": "npm run test && npm run lints"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run test && npm run lint"
     }
   },
   "devDependencies": {
