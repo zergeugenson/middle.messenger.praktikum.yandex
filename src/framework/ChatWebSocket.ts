@@ -5,7 +5,7 @@ class ChatWebSocket {
 
   protected token: string;
 
-  protected ping: number | null;
+  protected ping: null | ReturnType<typeof setTimeout> = null
 
   protected store: AppState;
 
@@ -15,7 +15,7 @@ class ChatWebSocket {
     this.socket.addEventListener('open', () => {
       this.getMessage();
       this.getOldMessages();
-      this.ping = window.setInterval(() => {
+      this.ping = setInterval(() => {
         this.sendPing();
       }, 30000);
     });
