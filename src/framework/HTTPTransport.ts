@@ -16,11 +16,13 @@ type Data = Record<string, string | number>;
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
 
-const queryString = (data: Data) => {
-  return data ? ('?' + Object.keys(data).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&')) : '';
-};
+
 
 export class HTTPTransport {
+
+  public queryString = (data: Data) => {
+    return data ? ('?' + Object.keys(data).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&')) : '';
+  };
 
   public get: HTTPMethod = (url, options = {}) => (
     this.request(url, { ...options, method: METHOD.GET })
@@ -43,7 +45,7 @@ export class HTTPTransport {
 
     const { method, data, headers, timeout = 5000 } = options;
 
-    const stringified = (method === METHOD.GET) ? queryString(data as Data) : '';
+    const stringified = (method === METHOD.GET) ? this.queryString(data as Data) : '';
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();

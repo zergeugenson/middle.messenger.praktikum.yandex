@@ -1,94 +1,88 @@
-import { type PageTypes } from '@/types';
 import Route from './Route';
-import { appRoutes } from '@/main';
 
-type RouteType = any;
+//Router отвечает только за изменение URL и вызывает Route;
+class Router {
+  static __instance: any;
 
-export default class Router {
-  public routes: any[] | undefined;
+  routes: any[];
 
-  public history: History | undefined;
+  history: History;
 
-  public _currentRoute: any;
+  currentRoute: any;
 
-  public _rootQuery: string | undefined;
-
-  public _instance: Router;
+  private _rootQuery: any;
 
   constructor(rootQuery: string) {
-    if (this._instance) {
-      return this._instance;
+    if (Router.__instance) {
+      return Router.__instance;
     }
 
-    this._rootQuery = rootQuery;
     this.routes = [];
     this.history = window.history;
-    this._currentRoute = null;
-    this._instance = this;
+    this.currentRoute = null;
+    this._rootQuery = rootQuery;
+
+    Router.__instance = this;
   }
 
-  use(pathname: string, block: PageTypes): Router {
-    if (this._rootQuery) {
-      const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-      this.routes?.push(route);
-    }
-
+  // Конфигурируем роутер, указывая, на каких URL какую страницу отображать
+  use(pathname: string, block: any) {
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+    this.routes.push(route);
     return this;
   }
 
-  start(): void {
-    window.onpopstate = () => {
-      this._onRoute(document.location.pathname);
+  // запустить роутер
+  start() {
+    // Реагируем на изменения в адресной строке и вызываем перерисовку
+    window.onpopstate = (event: any) => {
+      if (event.currentTarget) {
+        this._onRoute(event.currentTarget.location.pathname);
+      }
     };
-    // this._onRoute(window.location.pathname)
+
+    this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string): void {
-    const route = this.getRoute(pathname);
 
-
-
-
-    if (this._currentRoute) {
-      this._currentRoute.leave();
+  static getInstance(rootQuery: string): Router {
+    if (!Router.__instance) {
+      Router.__instance = new Router(rootQuery);
     }
-
-    const { isAuthorized } = window.store.getState();
-    const isAuthorizedPage =
-        pathname === appRoutes.SignIn || pathname === appRoutes.SignUp;
-    const isProtectedPage =
-        pathname !== appRoutes.SignIn && pathname !== appRoutes.SignUp;
-
-    if (!route || !Object.values(appRoutes).includes(pathname)) {
-      // 404
-      this.go(appRoutes.Error404);
-    } else if (!isAuthorized && isProtectedPage) {
-      // не авторизован
-      this.go(appRoutes.SignIn);
-    } else if (isAuthorized && isAuthorizedPage) {
-      // авторизован, но идет на логин
-      this.go(appRoutes.Settings);
-
-    } else {
-      this._currentRoute = route;
-      route.render();
-    }
+    return Router.__instance;
   }
 
-  go(pathname: string): void {
-    this.history?.pushState({}, '', pathname);
+  public _onRoute(pathname: string) {
+    const route = this._getRoute(pathname);
+
+    if (this.currentRoute) {
+      this.currentRoute.leave();
+    }
+
+    this.currentRoute = route;
+
+    route.render();
+  }
+
+  //Изменять историю можно через методы pushState (добавляет запись в историю)
+  go(pathname: string) {
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
-  back(): void {
-    this.history?.back();
+  // переход назад по истории браузера
+  back() {
+    this.history.back();
   }
 
-  forward(): void {
-    this.history?.forward();
+  // переход вперёд по истории браузера
+  forward() {
+    this.history.forward();
   }
 
-  getRoute(pathname: string): RouteType {
-    return this.routes?.find((route) => route.match(pathname));
+  private _getRoute(pathname: string) {
+    return this.routes.find((route) => route.match(pathname));
   }
 }
+
+export default Router;
