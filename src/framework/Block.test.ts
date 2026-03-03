@@ -51,7 +51,6 @@ describe('Тесты модуля Block', () => {
       events: { click: handler },
     });
     component.element.click();
-    console.log('handler.calledOnce', handler.calledOnce);
     expect(handler.calledOnce).to.be.eq(true);
   });
 });
