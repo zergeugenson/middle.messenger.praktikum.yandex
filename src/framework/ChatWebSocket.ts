@@ -5,7 +5,7 @@ class ChatWebSocket {
 
   protected token: string;
 
-  protected ping: number | null;
+  protected ping: null | ReturnType<typeof setTimeout> = null;
 
   protected store: AppState;
 
